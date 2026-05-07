@@ -26,6 +26,10 @@ Guidelines for managing task lists in markdown files to track progress on comple
         git commit -m "feat: add payment validation logic" -m "- Validates card type and expiry" -m "- Adds unit tests for edge cases" -m "Related to T123 in PRD"
         ```
   3. Once all the subtasks are marked completed and changes have been committed, mark the **parent task** as completed.
+  4. **Branch & push rules:**
+    - **Never push directly to `master` or `main`.** If the current branch is `master` or `main`, create a feature branch first: `git checkout -b feat/<task-or-prd-name>`.
+    - Push only to the feature branch: `git push -u origin <branch-name>`.
+    - Open a pull request to merge into `master`/`main` — do not merge directly.
 - Stop after each sub‑task and wait for the user's go‑ahead.
 
 ## Task List Maintenance

@@ -34,11 +34,11 @@
 
 ## Tasks
 
-- [ ] 1.0 Bootstrap Angular Application
-  - [ ] 1.1 Enable strict TypeScript mode
+- [x] 1.0 Bootstrap Angular Application
+  - [x] 1.1 Enable strict TypeScript mode
     - Open `tsconfig.json` and confirm `"strict": true` is set under `compilerOptions`.
     - If missing, add it. This enables `strictNullChecks`, `noImplicitAny`, and other strict checks.
-  - [ ] 1.2 Configure `app.config.ts` with global providers
+  - [x] 1.2 Configure `app.config.ts` with global providers
     - Open `src/app/app.config.ts`.
     - Register the following providers:
       - `provideRouter(routes)` — import `routes` from `app.routes.ts`
@@ -46,15 +46,15 @@
       - `provideAnimations()`
     - Import the necessary Angular provider functions from `@angular/core`, `@angular/router`, `@angular/common/http`, and `@angular/platform-browser/animations`.
     - Note: Add the interceptor reference after task 5 is complete; use an empty array `[]` for `withInterceptors` for now.
-  - [ ] 1.3 Simplify `app.component.ts` to a minimal shell
+  - [x] 1.3 Simplify `app.component.ts` to a minimal shell
     - Open `src/app/app.component.ts`.
     - Make it a standalone component with `changeDetection: ChangeDetectionStrategy.OnPush`.
     - The template must contain only `<router-outlet></router-outlet>`.
     - Import `RouterOutlet` in the `imports` array of the component decorator.
     - Remove any default boilerplate (title property, inline styles, etc.).
 
-- [ ] 2.0 Define Routing Shell with Lazy-Loaded Feature Stubs & Auth Guard
-  - [ ] 2.1 Create minimal placeholder components for each feature
+- [x] 2.0 Define Routing Shell with Lazy-Loaded Feature Stubs & Auth Guard
+  - [x] 2.1 Create minimal placeholder components for each feature
     - For each of the following paths, create a standalone `OnPush` component with a simple template (e.g., `<p>Dashboard</p>`):
       - `src/app/features/dashboard/dashboard.component.ts`
       - `src/app/features/auth/auth.component.ts`
@@ -64,7 +64,7 @@
       - `src/app/features/profile/profile.component.ts`
       - `src/app/features/not-found/not-found.component.ts` (template: `<p>404 - Page Not Found</p>`)
     - Each component must use `ChangeDetectionStrategy.OnPush` and be marked `standalone: true`.
-  - [ ] 2.2 Create functional `authGuard`
+  - [x] 2.2 Create functional `authGuard`
     - Create the file `src/app/core/guards/auth.guard.ts`.
     - Define and export a `CanActivateFn` named `authGuard` using `inject` and the functional pattern.
     - For now, the guard must simply return `true` — the real logic comes in the Authentication PRD.
@@ -73,7 +73,7 @@
       import { CanActivateFn } from '@angular/router';
       export const authGuard: CanActivateFn = () => true;
       ```
-  - [ ] 2.3 Define `app.routes.ts` with all route entries
+  - [x] 2.3 Define `app.routes.ts` with all route entries
     - Open `src/app/app.routes.ts` and define the `Routes` array with the following entries:
       - `{ path: '', redirectTo: 'dashboard', pathMatch: 'full' }`
       - `{ path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent), canActivate: [authGuard] }`
@@ -82,8 +82,8 @@
       - `{ path: '**', loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent) }`
     - Apply `authGuard` to all routes except `/auth` and the wildcard `**`.
 
-- [ ] 3.0 Set Up Environment Configuration
-  - [ ] 3.1 Create the `Environment` interface
+- [x] 3.0 Set Up Environment Configuration
+  - [x] 3.1 Create the `Environment` interface
     - Create `src/environments/environment.interface.ts`.
     - Export a TypeScript interface named `Environment` with at minimum:
       ```ts
@@ -94,7 +94,7 @@
       }
       ```
     - Both environment files must import and use this interface.
-  - [ ] 3.2 Create the development environment file
+  - [x] 3.2 Create the development environment file
     - Create `src/environments/environment.ts`.
     - Export a constant `environment` typed as `Environment`:
       ```ts
@@ -105,7 +105,7 @@
         appName: 'Strenik Dashboard',
       };
       ```
-  - [ ] 3.3 Create the production environment file
+  - [x] 3.3 Create the production environment file
     - Create `src/environments/environment.prod.ts`.
     - Export a constant `environment` typed as `Environment`:
       ```ts
@@ -116,7 +116,7 @@
         appName: 'Strenik Dashboard',
       };
       ```
-  - [ ] 3.4 Configure `angular.json` for environment file replacement at build time
+  - [x] 3.4 Configure `angular.json` for environment file replacement at build time
     - Open `angular.json`.
     - Under `projects > <app-name> > architect > build > configurations > production`, add a `fileReplacements` entry:
       ```json
@@ -129,12 +129,12 @@
       ```
     - This ensures the production build automatically swaps the dev environment for the prod one.
 
-- [ ] 4.0 Implement Typed API Base Service
-  - [ ] 4.1 Create the `core/api/` directory and base service file
+- [x] 4.0 Implement Typed API Base Service
+  - [x] 4.1 Create the `core/api/` directory and base service file
     - Create `src/app/core/api/base-api.service.ts`.
     - Declare it as an `abstract` class — it must NOT be decorated with `@Injectable` directly (concrete subclasses will be `providedIn: 'root'`).
     - Inject Angular's `HttpClient` using `inject(HttpClient)` inside the class body (preferred over constructor injection in newer Angular).
-  - [ ] 4.2 Implement all typed HTTP methods on `BaseApiService`
+  - [x] 4.2 Implement all typed HTTP methods on `BaseApiService`
     - Import `environment` from the environment file to get `apiUrl`.
     - Implement the following `protected` methods, each constructing the full URL via `environment.apiUrl + path`:
       ```ts
@@ -147,8 +147,8 @@
     - Each method delegates to the injected `HttpClient` method (e.g., `this.http.get<T>(url, { params })`).
     - The class must contain NO business logic — infrastructure only.
 
-- [ ] 5.0 Implement Global HTTP Error Interceptor
-  - [ ] 5.1 Create the functional error interceptor
+- [x] 5.0 Implement Global HTTP Error Interceptor
+  - [x] 5.1 Create the functional error interceptor
     - Create `src/app/core/interceptors/error.interceptor.ts`.
     - Define and export an `HttpInterceptorFn` named `errorInterceptor`:
       ```ts
@@ -164,13 +164,13 @@
         );
       ```
     - The interceptor must NOT show any UI notifications at this stage — console logging only.
-  - [ ] 5.2 Register the interceptor in `app.config.ts`
+  - [x] 5.2 Register the interceptor in `app.config.ts`
     - Open `src/app/app.config.ts`.
     - Import `errorInterceptor` from `core/interceptors/error.interceptor.ts`.
     - Pass it to `withInterceptors([errorInterceptor])` inside `provideHttpClient(...)`.
 
-- [ ] 6.0 Establish CSS Variables & Tailwind Semantic Color Token System
-  - [ ] 6.1 Create `src/styles/themes.css` with light theme CSS variables
+- [x] 6.0 Establish CSS Variables & Tailwind Semantic Color Token System
+  - [x] 6.1 Create `src/styles/themes.css` with light theme CSS variables
     - Create the file `src/styles/themes.css`.
     - Define all required CSS custom properties on `:root`:
       ```css
@@ -197,7 +197,7 @@
       }
       ```
     - Make sure `themes.css` is imported in `src/styles.css` (or included in the `styles` array in `angular.json`).
-  - [ ] 6.2 Add `.dark` class overrides for dark theme
+  - [x] 6.2 Add `.dark` class overrides for dark theme
     - In the same `src/styles/themes.css` file, add a `.dark` selector block that overrides the variables with dark-mode values:
       ```css
       .dark {
@@ -223,7 +223,7 @@
       }
       ```
     - The `.dark` class is applied to the `<html>` element to activate dark mode.
-  - [ ] 6.3 Configure `tailwind.config.js` to map CSS variables to semantic utility classes
+  - [x] 6.3 Configure `tailwind.config.js` to map CSS variables to semantic utility classes
     - Open `tailwind.config.js`.
     - Extend the `colors` section in `theme.extend` to map each CSS variable:
       ```js
