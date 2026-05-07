@@ -12,7 +12,9 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () =>
-      import('./features/auth/auth.component').then(m => m.AuthComponent),
+      import('./features/auth/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
+    loadChildren: () =>
+      import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES),
   },
   {
     path: 'users',
