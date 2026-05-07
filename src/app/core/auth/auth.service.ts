@@ -1,41 +1,64 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { delay, map, Observable, of } from 'rxjs';
 import { AuthUser } from './auth.models';
 
 const TOKEN_KEY = 'auth_token';
 
+/** Encodes a user as a fake JWT so decodeToken() keeps working unchanged. */
+function createMockToken(user: AuthUser): string {
+  return `mock.${btoa(JSON.stringify(user))}.sig`;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private http = inject(HttpClient);
   private router = inject(Router);
 
-  login(email: string, password: string): Observable<void> {
-    return this.http
-      .post<{ token: string }>(`${environment.apiUrl}/auth/login`, { email, password })
-      .pipe(map(({ token }) => { localStorage.setItem(TOKEN_KEY, token); }));
+  /** Reactive current user — consumed by ProfileDropdownComponent etc. */
+  currentUser = signal<AuthUser | null>(this.decodeToken());
+
+  login(email: string, _password: string): Observable<void> {
+    const role = email.toLowerCase().includes('admin') ? 'admin' : 'user';
+    const mockUser: AuthUser = {
+      id: '1',
+      name: role === 'admin' ? 'Demo Admin' : 'Demo User',
+      email,
+      role,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 8,
+    };
+    return of({ token: createMockToken(mockUser) }).pipe(
+      delay(500),
+      map(({ token }) => {
+        localStorage.setItem(TOKEN_KEY, token);
+        this.currentUser.set(mockUser);
+      }),
+    );
   }
 
-  register(name: string, email: string, password: string): Observable<void> {
-    return this.http
-      .post<void>(`${environment.apiUrl}/auth/register`, { name, email, password });
+  register(_name: string, _email: string, _password: string): Observable<void> {
+    return of(undefined).pipe(delay(500));
   }
 
-  forgotPassword(email: string): Observable<void> {
-    return this.http
-      .post<void>(`${environment.apiUrl}/auth/forgot-password`, { email });
+  forgotPassword(_email: string): Observable<void> {
+    return of(undefined).pipe(delay(500));
   }
 
-  resetPassword(token: string, password: string): Observable<void> {
-    return this.http
-      .post<void>(`${environment.apiUrl}/auth/reset-password`, { token, password });
+  resetPassword(_token: string, _password: string): Observable<void> {
+    return of(undefined).pipe(delay(500));
   }
 
   logout(): void {
     localStorage.removeItem(TOKEN_KEY);
+    this.currentUser.set(null);
     this.router.navigate(['/auth/login']);
+  }
+
+  switchDemoRole(): void {
+    const user = this.currentUser();
+    if (!user) return;
+    const updated: AuthUser = { ...user, role: user.role === 'admin' ? 'user' : 'admin' };
+    localStorage.setItem(TOKEN_KEY, createMockToken(updated));
+    this.currentUser.set(updated);
   }
 
   getToken(): string | null {
@@ -60,7 +83,7 @@ export class AuthService {
   }
 
   getCurrentUser(): AuthUser | null {
-    return this.decodeToken();
+    return this.currentUser();
   }
 
   hasRole(roles: string[]): boolean {
