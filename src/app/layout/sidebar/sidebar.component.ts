@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { NAV_ITEMS } from '../../models/nav-items.config';
-import { LayoutService } from '../../core/services/layout.service';
+import { NAV_ITEMS } from '../../shared/models/nav-items.config';
+import { LayoutService } from '../../shared/services/layout.service';
 import { NavGroupComponent } from './nav-group/nav-group.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
 

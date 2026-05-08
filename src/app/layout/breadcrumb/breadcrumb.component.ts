@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
-import { BreadcrumbService } from '../../core/services/breadcrumb.service';
+import { BreadcrumbService } from '../../shared/services/breadcrumb.service';
 
 @Component({
   selector: 'app-breadcrumb',

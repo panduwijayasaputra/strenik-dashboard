@@ -1,0 +1,46 @@
+<div class="flex h-screen overflow-hidden bg-background text-foreground">
+
+  <!-- Desktop Sidebar (hidden on mobile) -->
+  <div class="hidden lg:flex lg:flex-shrink-0">
+    <app-sidebar />
+  </div>
+
+  <!-- Mobile Drawer Overlay -->
+  <div
+    class="fixed inset-0 z-40 lg:hidden transition-opacity duration-200"
+    [class.opacity-0]="!layoutService.mobileDrawerOpen()"
+    [class.opacity-100]="layoutService.mobileDrawerOpen()"
+    [class.pointer-events-none]="!layoutService.mobileDrawerOpen()"
+    (click)="layoutService.closeMobileDrawer()"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-foreground/50"></div>
+
+    <!-- Drawer panel -->
+    <div
+      class="relative flex h-full w-60 flex-col bg-surface shadow-xl transition-transform duration-250 ease-out"
+      [class.-translate-x-full]="!layoutService.mobileDrawerOpen()"
+      [class.translate-x-0]="layoutService.mobileDrawerOpen()"
+      (click)="$event.stopPropagation()"
+    >
+      <app-sidebar [mobileMode]="true" />
+    </div>
+  </div>
+
+  <!-- Right column: navbar + content -->
+  <div class="flex flex-1 flex-col overflow-hidden">
+    <div class="relative z-50">
+      <app-header />
+    </div>
+
+    <main class="flex-1 overflow-y-auto">
+      <div class="px-6 py-3">
+        <app-breadcrumb />
+      </div>
+      <div class="px-6 pb-6">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+
+</div>

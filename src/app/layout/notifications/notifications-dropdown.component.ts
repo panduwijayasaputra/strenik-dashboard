@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { NotificationsService } from '../../core/services/notifications.service';
+import { NotificationService } from '../../features/notifications/notification.service';
 
 @Component({
   selector: 'app-notifications-dropdown',
@@ -10,7 +10,7 @@ import { NotificationsService } from '../../core/services/notifications.service'
   templateUrl: './notifications-dropdown.component.html',
 })
 export class NotificationsDropdownComponent {
-  readonly notificationsService = inject(NotificationsService);
+  readonly notificationsService = inject(NotificationService);
 
   readonly isOpen = signal<boolean>(false);
 

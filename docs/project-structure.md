@@ -1,196 +1,242 @@
-# Strenik Dashboard — Project Structure
+# Angular Project Structure
 
-> Actual folder layout for this Angular 19 standalone-component dashboard.
+## Overview
+
+- **Framework:** Angular 20+ Standalone Components
+- **State:** Signals (`signal()`, `input()`, `output()`)
+- **Styling:** Tailwind CSS + Material + Lucide Icons
+- **Architecture:** Feature-based folder structure
 
 ---
 
-## Folder Map
+## Folder Structure
 
 ```
-src/
-├── app/
+frontend/src/app/
+├── app.ts                          # Root component
+├── app.config.ts                   # App-level providers (HTTP, router, interceptors)
+├── app.routes.ts                   # Root route definitions
+│
+├── features/                       # Domain feature modules
+│   ├── auth/
+│   │   ├── auth.routes.ts
+│   │   ├── login/
+│   │   │   └── login.component.ts
+│   │   └── change-password/
+│   │       └── change-password.component.ts
 │   │
-│   ├── core/                          # App-wide singletons (loaded once)
-│   │   ├── api/
-│   │   │   └── base-api.service.ts    # Base HTTP service with typed responses
-│   │   ├── auth/
-│   │   │   └── auth.service.ts        # JWT auth, login, logout, role switching
-│   │   ├── guards/
-│   │   │   └── auth.guard.ts          # Route guard (redirects to /auth/login)
-│   │   ├── interceptors/
-│   │   │   ├── auth.interceptor.ts    # Attaches Bearer token to requests
-│   │   │   └── error.interceptor.ts   # Global HTTP error handling
+│   ├── dashboard/
+│   │   ├── dashboard.component.ts
+│   │   ├── dashboard.service.ts
+│   │   ├── dashboard.model.ts
+│   │   ├── auditor-dashboard/
+│   │   │   └── auditor-dashboard.component.ts
+│   │   └── auditee-dashboard/
+│   │       └── auditee-dashboard.component.ts
+│   │
+│   ├── audits/
+│   │   ├── audits.routes.ts
+│   │   ├── audit.model.ts
+│   │   ├── audit.service.ts
+│   │   ├── audit-list/
+│   │   │   └── audit-list.component.ts
+│   │   ├── audit-form/
+│   │   │   └── audit-form.component.ts
+│   │   ├── audit-detail/
+│   │   │   └── audit-detail.component.ts
+│   │   ├── assignment/
+│   │   │   └── audit-assignment.component.ts
+│   │   ├── checklist-execution/
+│   │   │   └── checklist-execution.component.ts
+│   │   └── findings/
+│   │       ├── finding.model.ts
+│   │       ├── finding.service.ts
+│   │       ├── finding-list.component.ts
+│   │       ├── finding-form-modal.component.ts
+│   │       ├── remediation-modal.component.ts
+│   │       └── verification-modal.component.ts
+│   │
+│   ├── activity-logs/
+│   │   ├── activity-logs.routes.ts
+│   │   ├── activity-log.model.ts
+│   │   ├── activity-log.service.ts
+│   │   └── activity-log-list.component.ts
+│   │
+│   ├── notifications/
+│   │   ├── notification.model.ts
+│   │   ├── notification.service.ts
+│   │   ├── notification-bell.component.ts
+│   │   └── notification-list.component.ts
+│   │
+│   ├── organization/
+│   │   ├── organization.routes.ts
+│   │   ├── validators/
+│   │   │   └── token-limit.validator.ts
+│   │   └── components/
+│   │       ├── organization-list/
+│   │       │   └── organization-list.component.ts
+│   │       ├── organization-form/
+│   │       │   └── organization-form.component.ts
+│   │       └── organization-settings/
+│   │           └── organization-settings.component.ts
+│   │
+│   ├── users/
+│   │   ├── users.routes.ts
 │   │   ├── services/
-│   │   │   ├── breadcrumb.service.ts  # Auto-generates breadcrumbs from routes
-│   │   │   ├── layout.service.ts      # Sidebar expand/collapse, mobile drawer
-│   │   │   ├── notifications.service.ts
-│   │   │   └── index.ts              # Barrel export
-│   │   └── theme/
-│   │       └── theme.service.ts       # Light/dark/system mode + palette switcher
+│   │   │   └── user.service.ts
+│   │   └── components/
+│   │       ├── user-list/
+│   │       │   └── user-list.component.ts
+│   │       └── user-form/
+│   │           └── user-form.component.ts
 │   │
-│   ├── shared/                        # Reusable UI primitives (no business logic)
-│   │   ├── directives/
-│   │   │   └── has-permission.directive.ts  # *hasPermission structural directive
-│   │   └── pipes/                     # Custom pipes (placeholder)
-│   │
-│   ├── layout/                        # Shell components — rendered once per session
-│   │   ├── admin-layout/              # Root shell: sidebar + navbar + router-outlet
-│   │   ├── sidebar/
-│   │   │   ├── nav-item/              # Single nav link (with mini-mode tooltip)
-│   │   │   └── nav-group/             # Collapsible group with children
-│   │   ├── top-navbar/                # Search bar, theme switcher, notifications, profile
-│   │   ├── breadcrumb/                # Auto-breadcrumb from route data.breadcrumb
-│   │   ├── notifications/             # Notifications dropdown
-│   │   ├── profile-dropdown/          # Avatar + user menu dropdown
-│   │   ├── theme-switcher/            # Mode + palette picker panel
-│   │   └── index.ts                   # Barrel export
-│   │
-│   ├── models/                        # Shared interfaces & type definitions
-│   │   ├── auth.model.ts              # AuthUser interface
-│   │   ├── nav-item.model.ts          # NavItem interface (label, icon, route, children)
-│   │   ├── nav-items.config.ts        # App navigation tree (NAV_ITEMS constant)
-│   │   └── index.ts                   # Barrel export
-│   │
-│   ├── features/                      # Domain features — lazy-loaded via router
-│   │   │
-│   │   ├── auth/                      # Authentication (public routes)
-│   │   │   ├── auth-layout/           # Centered card shell for auth pages
-│   │   │   ├── login/
-│   │   │   ├── register/
-│   │   │   ├── forgot-password/
-│   │   │   ├── reset-password/
-│   │   │   ├── auth.component.ts      # Auth root component
-│   │   │   └── auth.routes.ts         # AUTH_ROUTES constant
-│   │   │
-│   │   ├── dashboard/
-│   │   │   └── dashboard.component.ts # Overview page (stub)
-│   │   │
-│   │   ├── users/                     # Users feature
-│   │   │   ├── user-list/
-│   │   │   │   └── user-list.component.ts   # Routable list view
-│   │   │   ├── users.service.ts       # Users API calls
-│   │   │   └── users.model.ts         # User interface
-│   │   │
-│   │   ├── products/                  # Products feature
-│   │   │   ├── product-list/
-│   │   │   │   └── product-list.component.ts  # Routable list view
-│   │   │   ├── products.service.ts    # Products API calls
-│   │   │   └── products.model.ts      # Product interface
-│   │   │
-│   │   ├── settings/
-│   │   │   └── settings.component.ts  # Settings page (stub)
-│   │   │
-│   │   ├── profile/
-│   │   │   └── profile.component.ts   # Profile page (stub)
-│   │   │
-│   │   └── not-found/
-│   │       └── not-found.component.ts # 404 catch-all
-│   │
-│   ├── app.ts                         # Root component
-│   ├── app.routes.ts                  # Top-level route definitions
-│   └── app.config.ts                  # Bootstrap providers
+│   └── settings/
+│       ├── settings.routes.ts
+│       ├── severity-levels/
+│       │   ├── models/
+│       │   │   └── severity-level.model.ts
+│       │   ├── services/
+│       │   │   └── severity-level.service.ts
+│       │   └── components/
+│       │       ├── severity-level-list/
+│       │       │   └── severity-level-list.component.ts
+│       │       └── severity-level-form/
+│       │           └── severity-level-form.component.ts
+│       └── audit-templates/
+│           ├── audit-templates.routes.ts
+│           ├── models/
+│           │   └── audit-template.model.ts
+│           ├── services/
+│           │   └── audit-template.service.ts
+│           └── components/
+│               ├── audit-template-list/
+│               │   └── audit-template-list.component.ts
+│               └── audit-template-form/
+│                   └── audit-template-form.component.ts
 │
-├── assets/
-│   ├── images/                        # Static images
-│   ├── icons/                         # SVG icon assets
-│   └── i18n/                          # Translation JSON files (future)
+├── layout/                         # App shell components
+│   ├── header/
+│   │   └── header.component.ts
+│   ├── sidebar/
+│   │   └── sidebar.component.ts
+│   ├── footer/
+│   │   └── footer.component.ts
+│   ├── main-layout/
+│   │   └── main-layout.component.ts
+│   └── empty-layout/
+│       └── empty-layout.component.ts
 │
-├── environments/
-│   ├── environment.ts                 # Development config
-│   ├── environment.prod.ts            # Production config
-│   └── environment.interface.ts       # Environment shape interface
-│
-└── styles/
-    ├── themes.css                     # CSS variable palettes (light/dark/color themes)
-    └── styles.css                     # Global base styles
+└── shared/                         # Cross-feature shared code
+    ├── components/
+    │   ├── ui/                     # Reusable UI component library
+    │   │   ├── index.ts
+    │   │   ├── button.component.ts
+    │   │   ├── input.component.ts
+    │   │   ├── select.component.ts
+    │   │   ├── card.component.ts
+    │   │   ├── modal.component.ts
+    │   │   ├── alert.component.ts
+    │   │   ├── spinner.component.ts
+    │   │   ├── badge.component.ts
+    │   │   ├── avatar.component.ts
+    │   │   ├── checkbox.component.ts
+    │   │   ├── switch.component.ts
+    │   │   ├── tooltip.component.ts
+    │   │   └── toast-container.component.ts
+    │   └── unauthorized/
+    │       └── unauthorized.component.ts
+    ├── interceptors/
+    │   ├── auth.interceptor.ts
+    │   ├── error.interceptor.ts
+    │   ├── logging.interceptor.ts
+    │   └── api-response-unwrapper.interceptor.ts
+    ├── guards/
+    │   └── auth.guard.ts
+    ├── models/                     # Shared TypeScript interfaces/types
+    │   ├── base.model.ts
+    │   ├── auth.model.ts
+    │   ├── user.model.ts
+    │   └── organization.model.ts
+    ├── services/
+    │   ├── base.service.ts
+    │   ├── auth.service.ts
+    │   ├── toast.service.ts
+    │   ├── theme.service.ts
+    │   ├── organization.service.ts
+    │   ├── user-management.service.ts
+    │   ├── error-handler.service.ts
+    │   └── logging.service.ts
+    ├── pipes/
+    │   ├── format-date.pipe.ts
+    │   └── format-status.pipe.ts
+    ├── constants/
+    │   └── roles.ts
+    └── utils/
+        └── error.utils.ts
 ```
 
 ---
 
-## Architecture Layers
+## Feature Module Pattern
 
-### `core/` — App-wide Singletons
-Loaded once. Never imported directly by features — injected via DI.
-
-- Auth, guards, interceptors, layout state, notifications, theme, base API service.
-- Rule: features never import from `core/` directly — they consume services via injection.
-
-### `shared/` — Reusable UI Primitives
-Stateless, no business logic.
-
-- Directives (e.g. `*hasPermission`) and pipes that any feature can use.
-- Rule: no service calls inside shared components.
-
-### `layout/` — Shell Components
-Rendered once per authenticated session inside `AdminLayoutComponent`.
-
-- Sidebar, navbar, breadcrumb, dropdowns.
-- Consumes `core/services/` via injection.
-- Barrel-exported from `layout/index.ts`.
-
-### `models/` — Shared Type Contracts
-Interfaces and config used across `core/`, `layout/`, and `features/`.
-
-- Barrel-exported from `models/index.ts`.
-
-### `features/` — Domain Features (Lazy-Loaded)
-
-Each feature follows this internal pattern:
+A flat feature (simple, no sub-features):
 
 ```
-features/[feature]/
-├── [view]/                      # One sub-folder per routable view or complex component
-│   └── [view].component.ts
-├── [feature].service.ts         # Feature-scoped API calls (providedIn: 'root' or feature)
-└── [feature].model.ts           # Feature-specific interfaces
+features/{feature}/
+├── {feature}.routes.ts
+├── {feature}.model.ts
+├── {feature}.service.ts
+└── {feature}-list.component.ts    # or other page components
 ```
 
-Examples:
-- `users/user-list/user-list.component.ts` — the routable Users list page
-- `users/users.service.ts` — UsersService for API calls
-- `users/users.model.ts` — `User` interface
+A nested feature (with sub-components and services split out):
 
----
-
-## Path Aliases (`tsconfig.json`)
-
-```json
-"paths": {
-  "@core/*":     ["src/app/core/*"],
-  "@shared/*":   ["src/app/shared/*"],
-  "@features/*": ["src/app/features/*"],
-  "@layout/*":   ["src/app/layout/*"],
-  "@models/*":   ["src/app/models/*"],
-  "@env/*":      ["src/environments/*"]
-}
+```
+features/{feature}/
+├── {feature}.routes.ts
+├── {feature}.model.ts              # (optional — may live inside models/)
+├── {feature}.service.ts            # (optional — may live inside services/)
+├── models/
+│   └── {feature}.model.ts
+├── services/
+│   └── {feature}.service.ts
+├── validators/
+│   └── {name}.validator.ts
+└── components/
+    ├── {feature}-list/
+    │   └── {feature}-list.component.ts
+    └── {feature}-form/
+        └── {feature}-form.component.ts
 ```
 
 ---
 
 ## Naming Conventions
 
-| File type        | Convention                        | Example                        |
-|------------------|-----------------------------------|--------------------------------|
-| Component        | `[name].component.ts`             | `user-list.component.ts`       |
-| Service          | `[name].service.ts`               | `users.service.ts`             |
-| Guard            | `[name].guard.ts`                 | `auth.guard.ts`                |
-| Interceptor      | `[name].interceptor.ts`           | `auth.interceptor.ts`          |
-| Model/Interface  | `[name].model.ts`                 | `users.model.ts`               |
-| Pipe             | `[name].pipe.ts`                  | `date-format.pipe.ts`          |
-| Directive        | `[name].directive.ts`             | `has-permission.directive.ts`  |
-| Route config     | `[name].routes.ts`                | `auth.routes.ts`               |
-| Barrel           | `index.ts`                        | `layout/index.ts`              |
+| Artifact | Pattern | Example |
+|----------|---------|---------|
+| Component | `{name}.component.ts` | `audit-list.component.ts` |
+| Service | `{name}.service.ts` | `audit.service.ts` |
+| Model | `{name}.model.ts` | `audit.model.ts` |
+| Routes | `{feature}.routes.ts` | `audits.routes.ts` |
+| Guard | `{name}.guard.ts` | `auth.guard.ts` |
+| Interceptor | `{name}.interceptor.ts` | `auth.interceptor.ts` |
+| Pipe | `{name}.pipe.ts` | `format-date.pipe.ts` |
+| Validator | `{name}.validator.ts` | `token-limit.validator.ts` |
+| Selector | `app-{kebab-name}` | `app-audit-list` |
+| Class name | `{PascalName}Component` | `AuditListComponent` |
 
 ---
 
 ## Key Rules
 
-| Rule | Reason |
-|------|--------|
-| All components are **standalone** | No NgModules; tree-shakeable |
-| **OnPush** change detection everywhere | Performance |
-| Use **Signals** for local state | Avoid RxJS boilerplate where unnecessary |
-| Tailwind **semantic tokens** only (`bg-primary`, `text-danger`) | Theme-switchable at runtime |
-| Never hardcode colors (`bg-blue-500`) | Breaks theme system |
-| **No real API calls** — use mock/stub data | This project is a planning template |
-| Features are **lazy-loaded** via `loadComponent` | Faster initial bundle |
+- **No barrel imports** — import each file directly by path
+- **No `@Input/@Output`** — use `input()`/`output()` signals
+- **No `*ngIf/*ngFor`** — use `@if`/`@for`/`@switch` control flow
+- **No `constructor()`** — use `inject()` for dependency injection
+- **No raw Material markup** — always use shared UI components from `shared/components/ui/`
+- **No `computed()`** — use methods or separate signals
+- **Strict typing** — no `any`
+- Each feature owns its routes file (`{feature}.routes.ts`)
+- Shared code only goes in `shared/` — never import cross-feature
+- Layout components (header, sidebar, footer) live in `layout/`, not `features/`

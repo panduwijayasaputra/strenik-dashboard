@@ -2,7 +2,7 @@ import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LucideAngularModule, Monitor, Moon, Sun } from 'lucide-angular';
 import { ThemeSwitcherComponent } from './theme-switcher.component';
-import { ThemeService } from '../../core/theme/theme.service';
+import { ThemeService } from '../../shared/services/theme.service';
 
 describe('ThemeSwitcherComponent', () => {
   let fixture: ComponentFixture<ThemeSwitcherComponent>;

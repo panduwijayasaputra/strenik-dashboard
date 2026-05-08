@@ -3,7 +3,9 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
+  Activity,
   Bell,
+  Building,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -17,6 +19,7 @@ import {
   Package,
   PanelLeft,
   PlusCircle,
+  RefreshCw,
   Search,
   Settings,
   ShieldCheck,
@@ -28,8 +31,8 @@ import {
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
-import { errorInterceptor } from './core/interceptors/error.interceptor';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { errorInterceptor } from './shared/interceptors/error.interceptor';
+import { authInterceptor } from './shared/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,7 +43,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     importProvidersFrom(
       LucideAngularModule.pick({
+        Activity,
         Bell,
+        Building,
         ChevronDown,
         ChevronLeft,
         ChevronRight,
@@ -53,6 +58,7 @@ export const appConfig: ApplicationConfig = {
         Package,
         PanelLeft,
         PlusCircle,
+        RefreshCw,
         Search,
         Settings,
         ShieldCheck,

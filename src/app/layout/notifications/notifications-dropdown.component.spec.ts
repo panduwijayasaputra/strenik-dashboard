@@ -2,12 +2,12 @@ import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Bell, LucideAngularModule } from 'lucide-angular';
 import { NotificationsDropdownComponent } from './notifications-dropdown.component';
-import { NotificationsService } from '../../core/services/notifications.service';
+import { NotificationService } from '../../features/notifications/notification.service';
 
 describe('NotificationsDropdownComponent', () => {
   let fixture: ComponentFixture<NotificationsDropdownComponent>;
   let component: NotificationsDropdownComponent;
-  let notificationsService: NotificationsService;
+  let notificationsService: NotificationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,7 +19,7 @@ describe('NotificationsDropdownComponent', () => {
 
     fixture = TestBed.createComponent(NotificationsDropdownComponent);
     component = fixture.componentInstance;
-    notificationsService = TestBed.inject(NotificationsService);
+    notificationsService = TestBed.inject(NotificationService);
     fixture.detectChanges();
   });
 

@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { LucideAngularModule } from 'lucide-angular';
-import { NavItem } from '../../../models/nav-item.model';
+import { NavItem } from '../../../shared/models/nav-item.model';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 
 @Component({
