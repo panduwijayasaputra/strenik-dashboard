@@ -253,44 +253,44 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Footer slot: `<div class="px-6 py-4 border-t border-border"><ng-content select="[card-footer]"></ng-content></div>`.
     - Export `CardComponent` from `src/app/shared/ui/index.ts`.
 
-- [ ] 6.0 Unit Tests for All Components
-  - [ ] 6.1 Tests for AlertComponent
+- [x] 6.0 Unit Tests for All Components
+  - [x] 6.1 Tests for AlertComponent
     - Test that the correct icon and class are applied per `type` input.
     - Test that `title` and `message` are rendered in the template.
     - Test that the close button is not rendered when `dismissible` is false.
     - Test that clicking the close button emits `dismissed` and hides the component when `dismissible` is true.
-  - [ ] 6.2 Tests for ToastService
+  - [x] 6.2 Tests for ToastService
     - Mock `ToastrService`.
     - Test that calling `success()`, `error()`, `warning()`, `info()` delegates to the corresponding `ToastrService` methods with correct arguments.
-  - [ ] 6.3 Tests for ModalComponent and ModalService
+  - [x] 6.3 Tests for ModalComponent and ModalService
     - Test that `title` is rendered in the header.
     - Test that clicking the close button emits `closed`.
     - Test that `ModalService.open()` calls `MatDialog.open()` with the correct component.
     - Test that `ModalService.closeAll()` calls `MatDialog.closeAll()`.
-  - [ ] 6.4 Tests for TooltipDirective
+  - [x] 6.4 Tests for TooltipDirective
     - Test that the directive applies `matTooltip` and `matTooltipPosition` with the correct values from inputs.
-  - [ ] 6.5 Tests for SpinnerComponent
+  - [x] 6.5 Tests for SpinnerComponent
     - Test that the correct size class is applied per `size` input.
     - Test that `role="status"` is present.
     - Test that the sr-only "Loading" text is present.
-  - [ ] 6.6 Tests for Skeleton components
+  - [x] 6.6 Tests for Skeleton components
     - Test that `SkeletonCardComponent` renders the correct number of items when `count` is set.
     - Test that `SkeletonTableRowComponent` renders the correct number of rows.
     - Test that `SkeletonAvatarComponent` renders the correct number of avatar placeholders.
-  - [ ] 6.7 Tests for ProgressBarComponent
+  - [x] 6.7 Tests for ProgressBarComponent
     - Test that the fill width matches the `value` input.
     - Test that `aria-valuenow` reflects the `value` input.
     - Test that the label is shown/hidden based on `showLabel`.
-  - [ ] 6.8 Tests for BadgeComponent
+  - [x] 6.8 Tests for BadgeComponent
     - Test that `dot` mode renders a circle element instead of text content.
     - Test that variant classes are applied correctly.
-  - [ ] 6.9 Tests for AvatarComponent and avatar utility
+  - [x] 6.9 Tests for AvatarComponent and avatar utility
     - Test `getInitials('John Doe')` returns `'JD'`.
     - Test `getInitials('Alice')` returns `'A'`.
     - Test `getAvatarColor('test')` returns a valid semantic class string.
     - Test that AvatarComponent renders `<img>` when `src` is set and `imgFailed` is false.
     - Test that AvatarComponent renders initials when `src` is null and `name` is set.
     - Test that AvatarComponent renders the icon when both `src` and `name` are absent but `icon` is set.
-  - [ ] 6.10 Tests for CardComponent
+  - [x] 6.10 Tests for CardComponent
     - Test that `shadow-md` is applied when `elevated` is true.
     - Test that the body div has no padding class when `noPadding` is true.
