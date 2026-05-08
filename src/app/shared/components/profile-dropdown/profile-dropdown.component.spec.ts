@@ -2,7 +2,7 @@ import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { LogOut, LucideAngularModule, RefreshCw, Settings, User } from 'lucide-angular';
+import { LogOut, LucideAngularModule, Settings, ShieldCheck, User } from 'lucide-angular';
 import { ProfileDropdownComponent } from './profile-dropdown.component';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -17,7 +17,7 @@ describe('ProfileDropdownComponent', () => {
       providers: [
         provideRouter([]),
         provideAnimations(),
-        importProvidersFrom(LucideAngularModule.pick({ User, Settings, RefreshCw, LogOut })),
+        importProvidersFrom(LucideAngularModule.pick({ User, Settings, ShieldCheck, LogOut })),
       ],
     }).compileComponents();
 
@@ -48,14 +48,14 @@ describe('ProfileDropdownComponent', () => {
 
   it('should call authService.logout() on logout click', () => {
     spyOn(authService, 'logout');
-    // Open menu and click logout
     const trigger = fixture.nativeElement.querySelector('button[aria-label="Open profile menu"]');
     trigger.click();
     fixture.detectChanges();
 
-    const logoutBtn = Array.from(
-      document.querySelectorAll('button[mat-menu-item]')
-    ).find((el: Element) => el.textContent?.includes('Logout')) as HTMLElement | undefined;
+    const el = fixture.nativeElement as HTMLElement;
+    const logoutBtn = Array.from(el.querySelectorAll('button')).find(
+      (b) => b.textContent?.includes('Logout')
+    ) as HTMLElement | undefined;
 
     logoutBtn?.click();
     expect(authService.logout).toHaveBeenCalled();
@@ -67,9 +67,10 @@ describe('ProfileDropdownComponent', () => {
     trigger.click();
     fixture.detectChanges();
 
-    const switchBtn = Array.from(
-      document.querySelectorAll('button[mat-menu-item]')
-    ).find((el: Element) => el.textContent?.includes('Switch Role')) as HTMLElement | undefined;
+    const el = fixture.nativeElement as HTMLElement;
+    const switchBtn = Array.from(el.querySelectorAll('button')).find(
+      (b) => b.textContent?.includes('Switch Role')
+    ) as HTMLElement | undefined;
 
     switchBtn?.click();
     expect(authService.switchDemoRole).toHaveBeenCalled();
