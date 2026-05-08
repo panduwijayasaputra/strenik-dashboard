@@ -15,3 +15,8 @@ export { PopoverTriggerDirective } from './popover/popover-trigger.directive';
 export { SkeletonCardComponent } from './skeleton/skeleton-card.component';
 export { SkeletonTableRowComponent } from './skeleton/skeleton-table-row.component';
 export { SkeletonAvatarComponent } from './skeleton/skeleton-avatar.component';
+export { BadgeComponent } from './badge/badge.component';
+export type { BadgeVariant, BadgeSize } from './badge/badge.component';
+export { AvatarComponent } from './avatar/avatar.component';
+export type { AvatarSize } from './avatar/avatar.component';
+export { CardComponent } from './card/card.component';

@@ -212,8 +212,8 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Text block: two stacked bars — `h-3 bg-muted rounded w-24 mb-1` and `h-2 bg-muted rounded w-16`.
     - Export from `src/app/shared/ui/index.ts`.
 
-- [ ] 5.0 Display Components — Badge, Avatar, Card
-  - [ ] 5.1 Build BadgeComponent
+- [x] 5.0 Display Components — Badge, Avatar, Card
+  - [x] 5.1 Build BadgeComponent
     - Create `src/app/shared/ui/badge/badge.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `variant: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'muted'` (default: `'primary'`)
@@ -224,7 +224,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - When `dot` is true: render a small filled circle (`w-2 h-2 rounded-full`) with the semantic background color — no text content.
       - Map `size` to padding/text classes: `sm → text-xs px-1.5 py-0.5`, `md → text-xs px-2 py-0.5`.
     - Export `BadgeComponent` from `src/app/shared/ui/index.ts`.
-  - [ ] 5.2 Build AvatarComponent
+  - [x] 5.2 Build AvatarComponent
     - Create `src/app/shared/ui/avatar/avatar.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `src: string | null` (default: `null`)
@@ -240,7 +240,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
     - Map `size` to dimension classes: `xs → w-6 h-6 text-xs`, `sm → w-8 h-8 text-sm`, `md → w-10 h-10 text-sm`, `lg → w-12 h-12 text-base`, `xl → w-16 h-16 text-lg`.
     - All avatar variants share base classes: `rounded-full overflow-hidden flex items-center justify-center font-medium`.
     - Export `AvatarComponent` from `src/app/shared/ui/index.ts`.
-  - [ ] 5.3 Build CardComponent
+  - [x] 5.3 Build CardComponent
     - Create `src/app/shared/ui/card/card.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `noPadding: boolean` (default: `false`)
