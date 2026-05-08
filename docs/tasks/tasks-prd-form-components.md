@@ -49,7 +49,7 @@
 
 ## Tasks
 
-- [ ] 1.0 Setup, Shared Types, and ControlValueAccessor Foundation
+- [x] 1.0 Setup, Shared Types, and ControlValueAccessor Foundation
   - [x] 1.1 Install third-party dependencies
     - Run `pnpm add ngx-quill ngx-mat-timepicker` to install the WYSIWYG and time picker libraries.
     - Verify both packages install without peer dependency conflicts with the current Angular Material version.
@@ -70,7 +70,7 @@
     - Ensure the shared `index.ts` in `src/app/shared/components/` also re-exports from `./forms`.
 
 - [ ] 2.0 Text Input and Textarea Components
-  - [ ] 2.1 Build `InputComponent` (`<app-input>`)
+  - [x] 2.1 Build `InputComponent` (`<app-input>`)
     - Create `src/app/shared/components/forms/input/input.component.ts` as a standalone component with `OnPush`.
     - Implement `ControlValueAccessor` and provide it via `NG_VALUE_ACCESSOR`.
     - Add inputs: `type: 'text' | 'email' | 'password' | 'number'` (default `'text'`), `size: FormSize` (default `'md'`), `placeholder: string`, `disabled: boolean`.
@@ -78,19 +78,19 @@
     - For `type="password"`, add a show/hide toggle button using Lucide `Eye` / `EyeOff` icons that switches the internal input type between `password` and `text`.
     - Apply `border-danger` class when the injected `NgControl` is invalid and touched (inject `NgControl` with `{ self: true, optional: true }`).
     - Apply size-based Tailwind classes from the shared size utility.
-  - [ ] 2.2 Write unit tests for `InputComponent`
+  - [x] 2.2 Write unit tests for `InputComponent`
     - Test that value changes propagate via `writeValue` and `onChange`.
     - Test that `setDisabledState(true)` disables the input.
     - Test that `border-danger` class is applied when control is invalid + touched.
     - Test password show/hide toggle changes input type.
     - Test all three size variants apply the correct CSS classes.
-  - [ ] 2.3 Build `TextareaComponent` (`<app-textarea>`)
-    - Create `src/app/shared/components/forms/textarea/textarea.component.ts` as a standalone component with `OnPush`.
+  - [x] 2.3 Build `TextareaComponent` (`<app-textarea>`)
+- Create `src/app/shared/components/forms/textarea/textarea.component.ts` as a standalone component with `OnPush`.
     - Implement `ControlValueAccessor` and provide via `NG_VALUE_ACCESSOR`.
     - Add inputs: `rows: number` (default `3`), `placeholder: string`, `size: FormSize` (default `'md'`), `disabled: boolean`, `autoResize: boolean` (default `false`).
     - When `autoResize` is true, listen to the `input` event and set `element.style.height = 'auto'` then `element.style.height = element.scrollHeight + 'px'` to grow the textarea.
     - Apply error state and size classes same as InputComponent.
-  - [ ] 2.4 Write unit tests for `TextareaComponent`
+  - [x] 2.4 Write unit tests for `TextareaComponent`
     - Test value propagation, disabled state, error state, size variants.
     - Test that `autoResize=true` adjusts the element height on input.
 

@@ -6,8 +6,8 @@ export * from './types/form-size.type';
 export * from './utils/form-size.utils';
 
 // Form components (exported as they are implemented)
-// export * from './input/input.component';
-// export * from './textarea/textarea.component';
+export * from './input/input.component';
+export * from './textarea/textarea.component';
 // export * from './radio-group/radio-group.component';
 // export * from './checkbox/checkbox.component';
 // export * from './select/select.component';
