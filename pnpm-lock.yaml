@@ -38,6 +38,12 @@ importers:
       lucide-angular:
         specifier: ^1.0.0
         version: 1.0.0(@angular/common@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))
+      ngx-mat-timepicker:
+        specifier: ^20.0.1
+        version: 20.0.1(8fff3a1e2a8f8a1cc2a4c32d57578764)
+      ngx-quill:
+        specifier: ^28.0.2
+        version: 28.0.2(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(quill@2.0.3)(rxjs@7.8.2)
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -1834,6 +1840,9 @@ packages:
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
+  fast-diff@1.3.0:
+    resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
+
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
@@ -2212,6 +2221,16 @@ packages:
     resolution: {integrity: sha512-nwVGUfTBUwJKXd6lRV8pFNfnrCC1+l49ESJRM19t/tFb/97QfJEixe5DYRvug5JO7DSFKoKaVy7oGMt5rVqZvg==}
     hasBin: true
 
+  lodash-es@4.18.1:
+    resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
+
+  lodash.clonedeep@4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
+
+  lodash.isequal@4.5.0:
+    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
@@ -2383,6 +2402,26 @@ packages:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
+  ngx-mat-timepicker@20.0.1:
+    resolution: {integrity: sha512-b/UdL4lcOLzT9pDMu13n1tdnBQ4ozq6dH13d59Wkdq/w3spYYW+hpDfjmCoU6fkS0a7TM90PH80l63q8SHQvwA==}
+    peerDependencies:
+      '@angular/animations': ^20.0.0
+      '@angular/cdk': ^20.0.0
+      '@angular/common': ^20.0.0
+      '@angular/compiler': ^20.0.0
+      '@angular/core': ^20.0.0
+      '@angular/forms': ^20.0.0
+      '@angular/material': ^20.0.0
+      '@angular/platform-browser': ^20.0.0
+
+  ngx-quill@28.0.2:
+    resolution: {integrity: sha512-NL7YzZNoT8G5qWZKXHCIMQff2uVoi8cK3VwFM8RCpFXkc8nMp2moIDMJrF5k9e/xTkQkAQtGgfvbCxRc7su7EA==}
+    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0}
+    peerDependencies:
+      '@angular/core': ^20.0.0
+      quill: ^2.0.0
+      rxjs: ^7.0.0
+
   node-addon-api@6.1.0:
     resolution: {integrity: sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==}
 
@@ -2483,6 +2522,9 @@ packages:
     resolution: {integrity: sha512-RplP/pDW0NNNDh3pnaoIWYPvNenS7UqMbXyvMqJczosiFWTeGGwJC2NQBLqKf4rGLFfwCOnntw1aEp9Jiqm1MA==}
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
+
+  parchment@3.0.0:
+    resolution: {integrity: sha512-HUrJFQ/StvgmXRcQ1ftY6VEZUq3jA2t9ncFN4F84J/vN0/FPpQF+8FKXb3l6fLces6q0uOHj6NJn+2xvZnxO6A==}
 
   parse5-html-rewriting-stream@8.0.0:
     resolution: {integrity: sha512-wzh11mj8KKkno1pZEu+l2EVeWsuKDfR5KNWZOTsslfUX8lPDZx77m9T0kIoAVkFtD1nx6YF8oh4BnPHvxMtNMw==}
@@ -2621,6 +2663,14 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  quill-delta@5.1.0:
+    resolution: {integrity: sha512-X74oCeRI4/p0ucjb5Ma8adTXd9Scumz367kkMK5V/IatcX6A0vlgLgKbzXWy5nZmCGeNJm2oQX0d2Eqj+ZIlCA==}
+    engines: {node: '>= 12.0.0'}
+
+  quill@2.0.3:
+    resolution: {integrity: sha512-xEYQBqfYx/sfb33VJiKnSJp8ehloavImQ2A6564GAbqG55PGw1dAWUn1MUbQB62t0azawUS2CZZhWCjO8gRvTw==}
+    engines: {npm: '>=8.2.3'}
 
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
@@ -2910,6 +2960,10 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  ts-luxon@6.2.0:
+    resolution: {integrity: sha512-4I1tkW6gtydyLnUUIvfezBl5B3smurkgKmHdMOYI2g9Fn3Zg1lGJdhsCXu2VNl95CYbW2+SoNtStcf1CKOcQjw==}
+    engines: {node: '>=18'}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -4790,6 +4844,8 @@ snapshots:
 
   fast-deep-equal@3.1.3: {}
 
+  fast-diff@1.3.0: {}
+
   fast-glob@3.3.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -5205,6 +5261,12 @@ snapshots:
       '@lmdb/lmdb-win32-x64': 3.4.2
     optional: true
 
+  lodash-es@4.18.1: {}
+
+  lodash.clonedeep@4.5.0: {}
+
+  lodash.isequal@4.5.0: {}
+
   lodash@4.18.1: {}
 
   log-symbols@6.0.0:
@@ -5383,6 +5445,26 @@ snapshots:
 
   negotiator@1.0.0: {}
 
+  ngx-mat-timepicker@20.0.1(8fff3a1e2a8f8a1cc2a4c32d57578764):
+    dependencies:
+      '@angular/animations': 20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))
+      '@angular/cdk': 20.2.14(@angular/common@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      '@angular/common': 20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      '@angular/compiler': 20.3.20
+      '@angular/core': 20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1)
+      '@angular/forms': 20.3.20(@angular/common@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.3.20(@angular/animations@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
+      '@angular/material': 20.2.14(4297958f516b5429fb96dff34b323ef9)
+      '@angular/platform-browser': 20.3.20(@angular/animations@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@20.3.20(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))
+      ts-luxon: 6.2.0
+      tslib: 2.8.1
+
+  ngx-quill@28.0.2(@angular/core@20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1))(quill@2.0.3)(rxjs@7.8.2):
+    dependencies:
+      '@angular/core': 20.3.20(@angular/compiler@20.3.20)(rxjs@7.8.2)(zone.js@0.15.1)
+      quill: 2.0.3
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
   node-addon-api@6.1.0:
     optional: true
 
@@ -5522,6 +5604,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  parchment@3.0.0: {}
+
   parse5-html-rewriting-stream@8.0.0:
     dependencies:
       entities: 6.0.1
@@ -5629,6 +5713,19 @@ snapshots:
       side-channel: 1.1.0
 
   queue-microtask@1.2.3: {}
+
+  quill-delta@5.1.0:
+    dependencies:
+      fast-diff: 1.3.0
+      lodash.clonedeep: 4.5.0
+      lodash.isequal: 4.5.0
+
+  quill@2.0.3:
+    dependencies:
+      eventemitter3: 5.0.4
+      lodash-es: 4.18.1
+      parchment: 3.0.0
+      quill-delta: 5.1.0
 
   range-parser@1.2.1: {}
 
@@ -6022,6 +6119,8 @@ snapshots:
   toidentifier@1.0.1: {}
 
   ts-interface-checker@0.1.13: {}
+
+  ts-luxon@6.2.0: {}
 
   tslib@2.8.1: {}
 

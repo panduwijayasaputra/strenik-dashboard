@@ -1,0 +1,284 @@
+# Tasks: Form Components
+
+## Relevant Files
+
+- `src/app/shared/components/forms/index.ts` — Barrel export for all form components.
+- `src/app/shared/components/forms/types/form-option.type.ts` — Shared `Option` type `{ label: string; value: unknown }`.
+- `src/app/shared/components/forms/types/form-size.type.ts` — Shared `FormSize` type `'sm' | 'md' | 'lg'`.
+- `src/app/shared/components/forms/input/input.component.ts` — Text/email/password/number input component.
+- `src/app/shared/components/forms/input/input.component.spec.ts` — Unit tests for InputComponent.
+- `src/app/shared/components/forms/textarea/textarea.component.ts` — Textarea component with autoResize.
+- `src/app/shared/components/forms/textarea/textarea.component.spec.ts` — Unit tests for TextareaComponent.
+- `src/app/shared/components/forms/radio-group/radio-group.component.ts` — Radio group component.
+- `src/app/shared/components/forms/radio-group/radio-group.component.spec.ts` — Unit tests for RadioGroupComponent.
+- `src/app/shared/components/forms/checkbox/checkbox.component.ts` — Checkbox component with indeterminate support.
+- `src/app/shared/components/forms/checkbox/checkbox.component.spec.ts` — Unit tests for CheckboxComponent.
+- `src/app/shared/components/forms/select/select.component.ts` — Select component wrapping `mat-select`.
+- `src/app/shared/components/forms/select/select.component.spec.ts` — Unit tests for SelectComponent.
+- `src/app/shared/components/forms/multi-select/multi-select.component.ts` — Multi-select component with chips.
+- `src/app/shared/components/forms/multi-select/multi-select.component.spec.ts` — Unit tests for MultiSelectComponent.
+- `src/app/shared/components/forms/autocomplete/autocomplete.component.ts` — Autocomplete wrapping `mat-autocomplete`.
+- `src/app/shared/components/forms/autocomplete/autocomplete.component.spec.ts` — Unit tests for AutocompleteComponent.
+- `src/app/shared/components/forms/date-picker/date-picker.component.ts` — Date picker wrapping `mat-datepicker`.
+- `src/app/shared/components/forms/date-picker/date-picker.component.spec.ts` — Unit tests for DatePickerComponent.
+- `src/app/shared/components/forms/time-picker/time-picker.component.ts` — Time picker using `ngx-mat-timepicker`.
+- `src/app/shared/components/forms/time-picker/time-picker.component.spec.ts` — Unit tests for TimePickerComponent.
+- `src/app/shared/components/forms/color-picker/color-picker.component.ts` — Color picker with swatch preview.
+- `src/app/shared/components/forms/color-picker/color-picker.component.spec.ts` — Unit tests for ColorPickerComponent.
+- `src/app/shared/components/forms/file-upload/file-upload.component.ts` — File upload component emitting `File[]`.
+- `src/app/shared/components/forms/file-upload/file-upload.component.spec.ts` — Unit tests for FileUploadComponent.
+- `src/app/shared/components/forms/dropzone/dropzone.component.ts` — Drag-and-drop upload zone.
+- `src/app/shared/components/forms/dropzone/dropzone.component.spec.ts` — Unit tests for DropzoneComponent.
+- `src/app/shared/components/forms/tags-input/tags-input.component.ts` — Tags input with free-text and suggestions.
+- `src/app/shared/components/forms/tags-input/tags-input.component.spec.ts` — Unit tests for TagsInputComponent.
+- `src/app/shared/components/forms/wysiwyg/wysiwyg.component.ts` — WYSIWYG editor wrapping ngx-quill.
+- `src/app/shared/components/forms/wysiwyg/wysiwyg.component.spec.ts` — Unit tests for WysiwygComponent.
+- `src/app/features/dev/forms/dev-forms.component.ts` — Demo page rendering all form components.
+- `src/app/features/dev/forms/dev-forms.component.spec.ts` — Unit tests for DevFormsComponent.
+- `src/app/app.routes.ts` — Register the lazy-loaded `/dev/forms` route with environment guard.
+
+### Notes
+
+- Unit tests should be placed alongside the component files they test (e.g., `input.component.ts` and `input.component.spec.ts` in the same directory).
+- Use `pnpm vitest` to run unit tests; `pnpm cypress` for e2e tests.
+- All components go in `src/app/shared/components/forms/`.
+- Components must use `OnPush` change detection, standalone APIs, and semantic Tailwind color tokens only.
+- Install `ngx-quill` and `ngx-mat-timepicker` via pnpm before starting tasks 4 and 6.
+
+---
+
+## Tasks
+
+- [ ] 1.0 Setup, Shared Types, and ControlValueAccessor Foundation
+  - [x] 1.1 Install third-party dependencies
+    - Run `pnpm add ngx-quill ngx-mat-timepicker` to install the WYSIWYG and time picker libraries.
+    - Verify both packages install without peer dependency conflicts with the current Angular Material version.
+    - If `ngx-mat-timepicker` has conflicts, investigate an alternative (e.g., `@angular-material-components/datetime-picker`) and document the decision.
+  - [x] 1.2 Create shared form types
+    - Create `src/app/shared/components/forms/types/form-option.type.ts` exporting `export type Option = { label: string; value: unknown }`.
+    - Create `src/app/shared/components/forms/types/form-size.type.ts` exporting `export type FormSize = 'sm' | 'md' | 'lg'`.
+    - These types will be imported by every form component.
+  - [x] 1.3 Define shared size utility classes
+    - In a shared constants file or inside each component, define the Tailwind class mappings for each size:
+      - `sm`: smaller padding, smaller font size (e.g., `py-1 px-2 text-sm`)
+      - `md`: default padding and font (e.g., `py-2 px-3 text-sm`)
+      - `lg`: larger padding and font (e.g., `py-3 px-4 text-base`)
+    - Use a helper function or `Signal`-derived computed value so size classes are consistent across all components.
+  - [x] 1.4 Create the forms barrel export
+    - Create `src/app/shared/components/forms/index.ts`.
+    - This file will re-export all form components as they are created — update it with each new component task.
+    - Ensure the shared `index.ts` in `src/app/shared/components/` also re-exports from `./forms`.
+
+- [ ] 2.0 Text Input and Textarea Components
+  - [ ] 2.1 Build `InputComponent` (`<app-input>`)
+    - Create `src/app/shared/components/forms/input/input.component.ts` as a standalone component with `OnPush`.
+    - Implement `ControlValueAccessor` and provide it via `NG_VALUE_ACCESSOR`.
+    - Add inputs: `type: 'text' | 'email' | 'password' | 'number'` (default `'text'`), `size: FormSize` (default `'md'`), `placeholder: string`, `disabled: boolean`.
+    - Add `prefix` and `suffix` content projection slots using `<ng-content select="[prefix]">` and `<ng-content select="[suffix]">`.
+    - For `type="password"`, add a show/hide toggle button using Lucide `Eye` / `EyeOff` icons that switches the internal input type between `password` and `text`.
+    - Apply `border-danger` class when the injected `NgControl` is invalid and touched (inject `NgControl` with `{ self: true, optional: true }`).
+    - Apply size-based Tailwind classes from the shared size utility.
+  - [ ] 2.2 Write unit tests for `InputComponent`
+    - Test that value changes propagate via `writeValue` and `onChange`.
+    - Test that `setDisabledState(true)` disables the input.
+    - Test that `border-danger` class is applied when control is invalid + touched.
+    - Test password show/hide toggle changes input type.
+    - Test all three size variants apply the correct CSS classes.
+  - [ ] 2.3 Build `TextareaComponent` (`<app-textarea>`)
+    - Create `src/app/shared/components/forms/textarea/textarea.component.ts` as a standalone component with `OnPush`.
+    - Implement `ControlValueAccessor` and provide via `NG_VALUE_ACCESSOR`.
+    - Add inputs: `rows: number` (default `3`), `placeholder: string`, `size: FormSize` (default `'md'`), `disabled: boolean`, `autoResize: boolean` (default `false`).
+    - When `autoResize` is true, listen to the `input` event and set `element.style.height = 'auto'` then `element.style.height = element.scrollHeight + 'px'` to grow the textarea.
+    - Apply error state and size classes same as InputComponent.
+  - [ ] 2.4 Write unit tests for `TextareaComponent`
+    - Test value propagation, disabled state, error state, size variants.
+    - Test that `autoResize=true` adjusts the element height on input.
+
+- [ ] 3.0 Selection and Choice Components
+  - [ ] 3.1 Build `RadioGroupComponent` (`<app-radio-group>`)
+    - Create `src/app/shared/components/forms/radio-group/radio-group.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor`.
+    - Add inputs: `options: Option[]`, `orientation: 'horizontal' | 'vertical'` (default `'vertical'`), `size: FormSize`, `disabled: boolean`.
+    - Render a native `<input type="radio">` for each option, grouped by a shared `name` attribute (use a unique ID per component instance).
+    - Apply `flex-row` or `flex-col` based on `orientation`.
+    - Apply error state border on the group container when invalid + touched.
+  - [ ] 3.2 Write unit tests for `RadioGroupComponent`
+    - Test value selection propagates correctly.
+    - Test `orientation` renders correct flex direction class.
+    - Test disabled state disables all radio inputs.
+  - [ ] 3.3 Build `CheckboxComponent` (`<app-checkbox>`)
+    - Create `src/app/shared/components/forms/checkbox/checkbox.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to a `boolean` value.
+    - Add inputs: `label: string`, `indeterminate: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
+    - Use a native `<input type="checkbox">` and set `indeterminate` programmatically via `ElementRef` when the input changes.
+    - Apply error state styling when invalid + touched.
+  - [ ] 3.4 Write unit tests for `CheckboxComponent`
+    - Test boolean value binding, disabled state, indeterminate rendering.
+  - [ ] 3.5 Build `SelectComponent` (`<app-select>`)
+    - Create `src/app/shared/components/forms/select/select.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor`.
+    - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
+    - Internally resolve the `options` input: if it's an `Observable`, subscribe with `async` pipe and `takeUntilDestroyed`.
+    - Use Angular Material `MatSelect` + `MatOption` internally.
+    - Theme the mat-select panel to use CSS variable tokens (override default Angular Material palette).
+    - Apply error state when invalid + touched.
+  - [ ] 3.6 Write unit tests for `SelectComponent`
+    - Test static options render and selection propagates.
+    - Test Observable options resolve and update on emission.
+    - Test placeholder shown when no value selected.
+    - Test disabled state.
+  - [ ] 3.7 Build `MultiSelectComponent` (`<app-multi-select>`)
+    - Create `src/app/shared/components/forms/multi-select/multi-select.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to an array value.
+    - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `maxSelections: number | null` (default `null`), `size: FormSize`, `disabled: boolean`.
+    - Use `MatSelect` with `multiple="true"` internally.
+    - Display selected values as chips using Angular Material `MatChip` or a styled custom chip list.
+    - When `maxSelections` is set, disable unselected options once the limit is reached.
+    - Apply error state when invalid + touched.
+  - [ ] 3.8 Write unit tests for `MultiSelectComponent`
+    - Test multi-value binding, chip rendering, maxSelections enforcement.
+  - [ ] 3.9 Build `AutocompleteComponent` (`<app-autocomplete>`)
+    - Create `src/app/shared/components/forms/autocomplete/autocomplete.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor`.
+    - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
+    - Add output: `search: EventEmitter<string>` — emitted on every keyup when `options` is an Observable.
+    - Use Angular Material `MatAutocomplete` + `MatAutocompleteTrigger` internally.
+    - When `options` is a static array, filter client-side by the typed string (case-insensitive label match).
+    - When `options` is an Observable, display whatever the parent emits — emit `search` on each keystroke so the parent can fetch.
+    - On option selection, write the selected `Option.value` to the control (not the label string).
+    - Apply error state when invalid + touched.
+  - [ ] 3.10 Write unit tests for `AutocompleteComponent`
+    - Test static filtering, Observable passthrough, `search` output emission, value selection.
+
+- [ ] 4.0 Date, Time, and Color Picker Components
+  - [ ] 4.1 Build `DatePickerComponent` (`<app-date-picker>`)
+    - Create `src/app/shared/components/forms/date-picker/date-picker.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to `Date | null`.
+    - Add inputs: `min: Date | null`, `max: Date | null`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
+    - Use Angular Material `MatDatepicker`, `MatDatepickerInput`, `MatDatepickerToggle` internally.
+    - Use Lucide `Calendar` icon for the toggle button instead of Material's default icon.
+    - Apply error state when invalid + touched.
+  - [ ] 4.2 Write unit tests for `DatePickerComponent`
+    - Test `Date | null` value binding, min/max constraints, disabled state, error state.
+  - [ ] 4.3 Build `TimePickerComponent` (`<app-time-picker>`)
+    - Create `src/app/shared/components/forms/time-picker/time-picker.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to a `string` in `HH:mm` format.
+    - Add inputs: `format: 12 | 24` (default `24`), `placeholder: string`, `size: FormSize`, `disabled: boolean`.
+    - Use `ngx-mat-timepicker` alongside an Angular Material input field.
+    - On value change from the timepicker, format the output as `HH:mm` before calling `onChange`.
+    - Apply error state when invalid + touched.
+  - [ ] 4.4 Write unit tests for `TimePickerComponent`
+    - Test `HH:mm` string binding, format switching, disabled state.
+  - [ ] 4.5 Build `ColorPickerComponent` (`<app-color-picker>`)
+    - Create `src/app/shared/components/forms/color-picker/color-picker.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to a hex string (e.g., `'#3b82f6'`).
+    - Add inputs: `size: FormSize`, `disabled: boolean`.
+    - Render a color swatch `<div>` styled with `[style.backgroundColor]="value"` next to the `<input type="color">`.
+    - On change, propagate the hex string value via `onChange`.
+    - Apply error state when invalid + touched.
+  - [ ] 4.6 Write unit tests for `ColorPickerComponent`
+    - Test hex string binding, swatch background reflects value, disabled state.
+
+- [ ] 5.0 File Upload and Drag-and-Drop Components
+  - [ ] 5.1 Build `FileUploadComponent` (`<app-file-upload>`)
+    - Create `src/app/shared/components/forms/file-upload/file-upload.component.ts` as standalone with `OnPush`.
+    - Add inputs: `accept: string` (e.g., `'image/*'`), `multiple: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
+    - Add output: `filesSelected: EventEmitter<File[]>` — emitted when the user selects files via the browser dialog.
+    - Render a styled button that triggers a hidden `<input type="file">` on click.
+    - After selection, display the selected file name(s) below the button.
+    - Do NOT implement any HTTP upload logic.
+    - Note: This component does not implement `ControlValueAccessor` as it emits files, not form values.
+  - [ ] 5.2 Write unit tests for `FileUploadComponent`
+    - Test `filesSelected` emits the correct `File[]` on change event.
+    - Test file name display after selection.
+    - Test `accept` and `multiple` attributes are passed to the hidden input.
+  - [ ] 5.3 Build `DropzoneComponent` (`<app-dropzone>`)
+    - Create `src/app/shared/components/forms/dropzone/dropzone.component.ts` as standalone with `OnPush`.
+    - Add inputs: `accept: string`, `multiple: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
+    - Add output: `filesDropped: EventEmitter<File[]>` — emitted when files are dropped or selected via browse.
+    - Listen to `dragover`, `dragleave`, and `drop` host events.
+    - On `dragover`: add a highlight class (e.g., `border-primary bg-primary/10`) to indicate active drop target.
+    - On `dragleave`: remove the highlight class.
+    - On `drop`: extract `event.dataTransfer.files`, convert to `File[]`, emit via `filesDropped`.
+    - Include a click-to-browse fallback by triggering a hidden `<input type="file">`.
+    - Do NOT implement any HTTP upload logic.
+  - [ ] 5.4 Write unit tests for `DropzoneComponent`
+    - Test `filesDropped` emits on drop event.
+    - Test highlight class is applied on dragover and removed on dragleave.
+    - Test click-to-browse triggers the file input.
+
+- [ ] 6.0 Tags Input and WYSIWYG Editor Components
+  - [ ] 6.1 Build `TagsInputComponent` (`<app-tags-input>`)
+    - Create `src/app/shared/components/forms/tags-input/tags-input.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to `string[]`.
+    - Add inputs: `suggestions: string[] | Observable<string[]> | null` (default `null`), `allowDuplicates: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
+    - Add output: `search: EventEmitter<string>` — emitted on keyup when `suggestions` is an Observable.
+    - Free-text creation: on `Enter` or `,` key, take the current input text as a new tag and add it to the value array (if not duplicate when `allowDuplicates=false`).
+    - When `suggestions` is provided, show a dropdown of matching suggestions while typing (filter client-side for static array; delegate to parent for Observable).
+    - Render each selected tag as a removable chip; clicking the remove button splices the tag from the value array.
+    - Clear the text input after adding a tag.
+    - Apply error state when invalid + touched.
+  - [ ] 6.2 Write unit tests for `TagsInputComponent`
+    - Test free-text tag addition on Enter and comma key.
+    - Test duplicate prevention when `allowDuplicates=false`.
+    - Test tag removal via chip dismiss.
+    - Test `search` output emits on keyup with Observable suggestions.
+    - Test static suggestion filtering.
+  - [ ] 6.3 Build `WysiwygComponent` (`<app-wysiwyg>`)
+    - Create `src/app/shared/components/forms/wysiwyg/wysiwyg.component.ts` as standalone with `OnPush`.
+    - Implement `ControlValueAccessor` binding to an HTML string.
+    - Add inputs: `toolbar: QuillModules['toolbar']` (Quill toolbar config, default standard formatting toolbar), `placeholder: string`, `size: FormSize`, `disabled: boolean`.
+    - Import and use `QuillModule` from `ngx-quill`.
+    - On content change, emit the HTML string via `onChange`.
+    - When `writeValue` is called, set the Quill editor content without triggering `onChange`.
+    - When `setDisabledState(true)`, call `quillEditor.disable()`.
+    - Apply error state border around the editor container when invalid + touched.
+  - [ ] 6.4 Write unit tests for `WysiwygComponent`
+    - Test HTML string value binding via `writeValue`.
+    - Test `onChange` fires when editor content changes.
+    - Test disabled state disables the Quill editor.
+
+- [ ] 7.0 Demo Route (/dev/forms)
+  - [ ] 7.1 Create environment guard for dev-only routes
+    - Create a `canActivateDev` functional guard in `src/app/core/guards/dev.guard.ts`.
+    - The guard returns `true` if `!environment.production`, otherwise redirects to `/404`.
+    - This guard will be reused for any future dev-only routes.
+  - [ ] 7.2 Build `DevFormsComponent`
+    - Create `src/app/features/dev/forms/dev-forms.component.ts` as a standalone component.
+    - Build a reactive form (`FormGroup`) containing one `FormControl` per form component type.
+    - Render every form component in sections, each showing:
+      - All three size variants (`sm`, `md`, `lg`) side by side.
+      - An error state example (mark the control as invalid + touched).
+      - A disabled state example.
+    - Include working examples of:
+      - `app-input` (text, email, password, number)
+      - `app-textarea` (with and without autoResize)
+      - `app-radio-group` (horizontal and vertical)
+      - `app-checkbox` (normal, indeterminate)
+      - `app-select` (static and Observable options)
+      - `app-multi-select` (with maxSelections)
+      - `app-autocomplete` (static and Observable)
+      - `app-date-picker`
+      - `app-time-picker` (12h and 24h)
+      - `app-color-picker`
+      - `app-file-upload`
+      - `app-dropzone`
+      - `app-tags-input` (free-text and with suggestions)
+      - `app-wysiwyg`
+    - Display the current form value as JSON below the form for easy debugging.
+  - [ ] 7.3 Register the lazy-loaded /dev/forms route
+    - In `src/app/app.routes.ts` (or the relevant routing file), add a lazy route:
+      ```ts
+      {
+        path: 'dev/forms',
+        canActivate: [canActivateDev],
+        loadComponent: () => import('./features/dev/forms/dev-forms.component').then(m => m.DevFormsComponent)
+      }
+      ```
+    - Verify the route is accessible in dev mode and blocked in production builds.
+  - [ ] 7.4 Write unit tests for `DevFormsComponent`
+    - Test that the component renders without errors.
+    - Test that the form group initializes with all expected controls.
+  - [ ] 7.5 Update the barrel export
+    - Ensure `src/app/shared/components/forms/index.ts` exports all 15 form components.
+    - Verify the parent shared barrel also re-exports them correctly.
