@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay, map, Observable, of } from 'rxjs';
-import { AuthUser } from './auth.models';
+import { AuthUser } from '../../models/auth.model';
 
 const TOKEN_KEY = 'auth_token';
 
