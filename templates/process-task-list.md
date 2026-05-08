@@ -27,9 +27,11 @@ Guidelines for managing task lists in markdown files to track progress on comple
         ```
   3. Once all the subtasks are marked completed and changes have been committed, mark the **parent task** as completed.
   4. **Branch & push rules:**
-    - **Never push directly to `master` or `main`.** If the current branch is `master` or `main`, create a feature branch first: `git checkout -b feat/<task-or-prd-name>`.
+    - **Before creating a branch:** always run `git checkout master && git pull origin master` to start from the latest master.
+    - **Never push directly to `master` or `main`.** Create a feature branch: `git checkout -b feat/<task-or-prd-name>`.
+    - If the current branch name is unrelated to the task, create a new branch from the updated master before starting.
     - Push only to the feature branch: `git push -u origin <branch-name>`.
-    - Open a pull request to merge into `master`/`main` — do not merge directly.
+    - **PRs must always target `master`** — never target another feature branch.
 - Stop after each sub‑task and wait for the user's go‑ahead.
 
 ## Task List Maintenance

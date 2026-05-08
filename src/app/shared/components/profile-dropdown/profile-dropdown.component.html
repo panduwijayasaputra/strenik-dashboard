@@ -1,0 +1,72 @@
+@if (authService.currentUser(); as user) {
+  <div class="relative">
+    <!-- Avatar trigger button -->
+    <button
+      type="button"
+      class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+      aria-label="Open profile menu"
+      (click)="toggle()"
+    >
+      {{ user.name.charAt(0).toUpperCase() }}
+    </button>
+
+    @if (isOpen()) {
+      <!-- Backdrop -->
+      <div class="fixed inset-0 z-10" (click)="close()"></div>
+
+      <!-- Dropdown panel -->
+      <div class="absolute right-0 z-20 mt-2 w-max min-w-[180px] rounded-xl border border-border bg-surface shadow-lg">
+
+        <!-- User info header -->
+        <div class="border-b border-border px-4 py-3">
+          <div class="flex items-center gap-2">
+            <p class="text-sm font-semibold text-foreground">{{ user.name }}</p>
+            <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary capitalize">{{ user.role }}</span>
+          </div>
+          <p class="text-xs text-muted-foreground">{{ user.email }}</p>
+        </div>
+
+        <!-- Menu items -->
+        <div class="p-1.5">
+          <a
+            [routerLink]="['/profile']"
+            (click)="close()"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+          >
+            <lucide-icon name="user" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            View Profile
+          </a>
+
+          <a
+            [routerLink]="['/settings']"
+            (click)="close()"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+          >
+            <lucide-icon name="settings" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            Settings
+          </a>
+
+          <button
+            type="button"
+            (click)="authService.switchDemoRole(); close()"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+          >
+            <lucide-icon name="shield-check" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            Switch Role (Demo)
+          </button>
+
+          <div class="my-1 border-t border-border"></div>
+
+          <button
+            type="button"
+            (click)="authService.logout(); close()"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-danger transition-colors hover:bg-muted"
+          >
+            <lucide-icon name="log-out" [size]="16" class="flex-shrink-0" />
+            Logout
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+}

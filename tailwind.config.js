@@ -43,5 +43,10 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    'hover:bg-muted',
+    'hover:text-foreground',
+    'hover:bg-primary/90',
+  ],
   plugins: [],
 };
