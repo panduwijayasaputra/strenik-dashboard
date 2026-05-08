@@ -119,23 +119,23 @@ Based on: `docs/prd/prd-admin-layout.md`
     - `NavGroupComponent`: test that clicking the header toggles `isOpen`; test children visibility.
     - `NavItemComponent`: test `routerLinkActive` class is applied; test tooltip presence in mini mode.
 
-- [ ] 3.0 Mobile Drawer
-  - [ ] 3.1 Add mobile drawer wrapper in `AdminLayoutComponent`
+- [x] 3.0 Mobile Drawer
+  - [x] 3.1 Add mobile drawer wrapper in `AdminLayoutComponent`
     - In `admin-layout.component.html`, add a `<div>` that is only rendered when `layoutService.mobileDrawerOpen()` is `true` (using `@if`).
     - This div overlays the full screen with a semi-transparent backdrop.
     - Inside the backdrop div, render a `<div class="drawer">` containing `<app-sidebar [mobileMode]="true">`.
     - Add a close button (X icon) inside the drawer that calls `layoutService.closeMobileDrawer()`.
-  - [ ] 3.2 Add `mobileMode` input to `SidebarComponent`
+  - [x] 3.2 Add `mobileMode` input to `SidebarComponent`
     - Add `mobileMode = input<boolean>(false)` to `SidebarComponent`.
     - When `mobileMode` is true: always render in expanded state regardless of `sidebarExpanded` signal; remove the toggle button.
     - This allows the drawer to always show the full sidebar without affecting desktop state.
-  - [ ] 3.3 Animate the drawer
+  - [x] 3.3 Animate the drawer
     - Apply CSS transition (`translate-x`) so the drawer slides in from the left when opened and slides out when closed.
     - Use Angular `@angular/animations` or pure CSS with a conditional class.
-  - [ ] 3.4 Outside-click dismissal
+  - [x] 3.4 Outside-click dismissal
     - In the backdrop div, add `(click)="layoutService.closeMobileDrawer()"` on the backdrop element.
     - Add `(click)="$event.stopPropagation()"` on the inner drawer div so clicks inside the drawer do not close it.
-  - [ ] 3.5 Wire hamburger button in `TopNavbarComponent`
+  - [x] 3.5 Wire hamburger button in `TopNavbarComponent`
     - Add a hamburger icon button to the left of the navbar (visible only on mobile via `lg:hidden`).
     - On click, call `layoutService.openMobileDrawer()`.
 

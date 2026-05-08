@@ -6,23 +6,26 @@
   </div>
 
   <!-- Mobile Drawer Overlay -->
-  @if (layoutService.mobileDrawerOpen()) {
-    <div
-      class="fixed inset-0 z-40 lg:hidden"
-      (click)="layoutService.closeMobileDrawer()"
-    >
-      <!-- Backdrop -->
-      <div class="absolute inset-0 bg-foreground/50"></div>
+  <div
+    class="fixed inset-0 z-40 lg:hidden transition-opacity duration-200"
+    [class.opacity-0]="!layoutService.mobileDrawerOpen()"
+    [class.opacity-100]="layoutService.mobileDrawerOpen()"
+    [class.pointer-events-none]="!layoutService.mobileDrawerOpen()"
+    (click)="layoutService.closeMobileDrawer()"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-foreground/50"></div>
 
-      <!-- Drawer panel -->
-      <div
-        class="relative flex h-full w-72 flex-col bg-surface shadow-xl"
-        (click)="$event.stopPropagation()"
-      >
-        <app-sidebar [mobileMode]="true" />
-      </div>
+    <!-- Drawer panel -->
+    <div
+      class="relative flex h-full w-72 flex-col bg-surface shadow-xl transition-transform duration-250 ease-out"
+      [class.-translate-x-full]="!layoutService.mobileDrawerOpen()"
+      [class.translate-x-0]="layoutService.mobileDrawerOpen()"
+      (click)="$event.stopPropagation()"
+    >
+      <app-sidebar [mobileMode]="true" />
     </div>
-  }
+  </div>
 
   <!-- Right column: navbar + content -->
   <div class="flex flex-1 flex-col overflow-hidden">
