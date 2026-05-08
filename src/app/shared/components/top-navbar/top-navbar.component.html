@@ -19,12 +19,12 @@
     <lucide-icon
       name="search"
       [size]="16"
-      class="absolute left-3 text-muted-foreground pointer-events-none"
+      class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
     />
     <input
       type="text"
       placeholder="Search…"
-      class="w-full rounded-lg border border-border bg-muted py-1.5 pl-8 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+      class="w-full rounded-lg border border-border bg-muted py-1.5 pl-12 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
       aria-label="Search"
       (focus)="searchFocused.set(true)"
       (blur)="searchFocused.set(false)"

@@ -1,0 +1,19 @@
+@if (breadcrumbService.breadcrumbs().length >= 2) {
+  <nav aria-label="Breadcrumb">
+    <ol class="flex items-center gap-1 text-sm">
+      @for (crumb of breadcrumbService.breadcrumbs(); track crumb.url; let last = $last) {
+        <li class="flex items-center gap-1">
+          @if (!last) {
+            <a
+              [routerLink]="crumb.url"
+              class="text-muted-foreground transition-colors hover:text-foreground"
+            >{{ crumb.label }}</a>
+            <lucide-icon name="chevron-right" [size]="14" class="text-muted-foreground" />
+          } @else {
+            <span class="font-medium text-foreground">{{ crumb.label }}</span>
+          }
+        </li>
+      }
+    </ol>
+  </nav>
+}

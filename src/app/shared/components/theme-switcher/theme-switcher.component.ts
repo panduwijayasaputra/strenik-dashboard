@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { ThemeMode, ThemePalette, ThemeService } from '../../../core/theme/theme.service';
 
@@ -17,6 +17,8 @@ export class ThemeSwitcherComponent {
 
   readonly themeService = inject(ThemeService);
 
+  readonly isOpen = signal(false);
+
   readonly modes: ModeOption[] = [
     { value: 'light',  icon: 'sun',     label: 'Light'  },
     { value: 'dark',   icon: 'moon',    label: 'Dark'   },
@@ -30,4 +32,11 @@ export class ThemeSwitcherComponent {
     { value: 'amber',   color: '#d97706', label: 'Amber'   },
     { value: 'slate',   color: '#475569', label: 'Slate'   },
   ];
+
+  readonly activeModeIcon = computed(
+    () => this.modes.find(m => m.value === this.themeService.mode())?.icon ?? 'sun'
+  );
+
+  toggle(): void { this.isOpen.update(v => !v); }
+  close(): void { this.isOpen.set(false); }
 }

@@ -4,13 +4,12 @@ import { NAV_ITEMS } from '../../../core/navigation/nav-items.config';
 import { LayoutService } from '../../../core/services/layout.service';
 import { NavGroupComponent } from './nav-group/nav-group.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
-import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LucideAngularModule, NavGroupComponent, NavItemComponent, ThemeSwitcherComponent],
+  imports: [LucideAngularModule, NavGroupComponent, NavItemComponent],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {

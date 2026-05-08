@@ -191,15 +191,15 @@ Based on: `docs/prd/prd-admin-layout.md`
     - `ProfileDropdownComponent`: test user name/email rendered, logout calls `authService.logout()`.
     - `ThemeSwitcherComponent`: test mode and palette buttons call the correct `ThemeService` methods.
 
-- [ ] 5.0 Breadcrumbs
-  - [ ] 5.1 Create `BreadcrumbService`
+- [x] 5.0 Breadcrumbs
+  - [x] 5.1 Create `BreadcrumbService`
     - Create `src/app/core/services/breadcrumb.service.ts` (providedIn: 'root').
     - Inject Angular `Router` and `ActivatedRoute`.
     - Subscribe to `Router.events` filtered to `NavigationEnd`.
     - On each navigation end, walk the active route tree (`activatedRoute.firstChild` recursion) and collect all `data.breadcrumb` strings from each segment.
     - Expose `breadcrumbs = signal<{ label: string; url: string }[]>([])` updated after each navigation.
     - Write unit tests: test that navigating to `/users/edit/1` produces `['Dashboard', 'Users', 'Edit User']` (given correct route data).
-  - [ ] 5.2 Create `BreadcrumbComponent`
+  - [x] 5.2 Create `BreadcrumbComponent`
     - Create `src/app/shared/components/breadcrumb/breadcrumb.component.ts` as standalone OnPush.
     - Inject `BreadcrumbService`.
     - Template: render a horizontal list of breadcrumb items.
@@ -207,7 +207,7 @@ Based on: `docs/prd/prd-admin-layout.md`
     - The last item must be plain `<span>` text (current page).
     - Separate items with a chevron-right icon (Lucide).
     - Hide the entire breadcrumb when the array has fewer than 2 items (e.g., on the dashboard root).
-  - [ ] 5.3 Place `BreadcrumbComponent` in the layout
+  - [x] 5.3 Place `BreadcrumbComponent` in the layout
     - Import and add `<app-breadcrumb>` to `admin-layout.component.html`, placed in the `<main>` area directly above `<router-outlet>`.
     - Apply `px-6 py-3` (or equivalent semantic padding).
 
