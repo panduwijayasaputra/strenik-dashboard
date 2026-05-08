@@ -14,14 +14,17 @@ import {
   Monitor,
   Moon,
   Package,
+  PanelLeft,
   RefreshCw,
   Search,
   Settings,
+  ShieldCheck,
   Sun,
   User,
   UserPlus,
   Users,
   PlusCircle,
+  X,
 } from 'lucide-angular';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { LayoutService } from '../../core/services/layout.service';
@@ -40,8 +43,8 @@ describe('AdminLayoutComponent', () => {
         importProvidersFrom(
           LucideAngularModule.pick({
             Bell, ChevronLeft, ChevronRight, LayoutDashboard, List,
-            LogOut, Menu, Monitor, Moon, Package, RefreshCw, Search,
-            Settings, Sun, User, UserPlus, Users, PlusCircle,
+            LogOut, Menu, Monitor, Moon, Package, PanelLeft, RefreshCw,
+            Search, Settings, ShieldCheck, Sun, User, UserPlus, Users, PlusCircle, X,
           }),
         ),
       ],

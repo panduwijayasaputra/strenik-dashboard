@@ -2,7 +2,7 @@ import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { LogOut, LucideAngularModule, RefreshCw, Settings, User } from 'lucide-angular';
+import { LogOut, LucideAngularModule, RefreshCw, Settings, ShieldCheck, User } from 'lucide-angular';
 import { ProfileDropdownComponent } from './profile-dropdown.component';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -17,7 +17,7 @@ describe('ProfileDropdownComponent', () => {
       providers: [
         provideRouter([]),
         provideAnimations(),
-        importProvidersFrom(LucideAngularModule.pick({ User, Settings, RefreshCw, LogOut })),
+        importProvidersFrom(LucideAngularModule.pick({ User, Settings, RefreshCw, ShieldCheck, LogOut })),
       ],
     }).compileComponents();
 
@@ -53,9 +53,10 @@ describe('ProfileDropdownComponent', () => {
     trigger.click();
     fixture.detectChanges();
 
-    const logoutBtn = Array.from(
-      document.querySelectorAll('button[mat-menu-item]')
-    ).find((el: Element) => el.textContent?.includes('Logout')) as HTMLElement | undefined;
+    const buttons = Array.from<HTMLButtonElement>(
+      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button')
+    );
+    const logoutBtn = buttons.find(el => el.textContent?.includes('Logout'));
 
     logoutBtn?.click();
     expect(authService.logout).toHaveBeenCalled();
@@ -67,9 +68,10 @@ describe('ProfileDropdownComponent', () => {
     trigger.click();
     fixture.detectChanges();
 
-    const switchBtn = Array.from(
-      document.querySelectorAll('button[mat-menu-item]')
-    ).find((el: Element) => el.textContent?.includes('Switch Role')) as HTMLElement | undefined;
+    const buttons = Array.from<HTMLButtonElement>(
+      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button')
+    );
+    const switchBtn = buttons.find(el => el.textContent?.includes('Switch Role'));
 
     switchBtn?.click();
     expect(authService.switchDemoRole).toHaveBeenCalled();
