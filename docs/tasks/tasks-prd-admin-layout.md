@@ -139,8 +139,8 @@ Based on: `docs/prd/prd-admin-layout.md`
     - Add a hamburger icon button to the left of the navbar (visible only on mobile via `lg:hidden`).
     - On click, call `layoutService.openMobileDrawer()`.
 
-- [ ] 4.0 Top Navbar, Notifications, Profile Dropdown & Theme Switcher
-  - [ ] 4.1 Create `NotificationsService`
+- [x] 4.0 Top Navbar, Notifications, Profile Dropdown & Theme Switcher
+  - [x] 4.1 Create `NotificationsService`
     - Create `src/app/core/services/notifications.service.ts` (providedIn: 'root').
     - Define a `Notification` interface: `{ id: string; title: string; description: string; timestamp: Date; read: boolean; iconUrl?: string }`.
     - Expose `notifications = signal<Notification[]>(MOCK_NOTIFICATIONS)` with 5–6 hardcoded mock items.
@@ -148,7 +148,7 @@ Based on: `docs/prd/prd-admin-layout.md`
     - Implement `markRead(id: string)`: update the signal — set the matching notification's `read` to `true`.
     - Implement `markAllRead()`: set all notifications' `read` to `true`.
     - Write unit tests covering initial state, `markRead`, and `markAllRead`.
-  - [ ] 4.2 Create `NotificationsDropdownComponent`
+  - [x] 4.2 Create `NotificationsDropdownComponent`
     - Create `src/app/shared/components/notifications/notifications-dropdown.component.ts` as standalone OnPush.
     - Inject `NotificationsService`.
     - Template: a bell icon button with a badge showing `unreadCount()` (hidden when 0).
@@ -157,14 +157,14 @@ Based on: `docs/prd/prd-admin-layout.md`
     - Read notifications are visually dimmed.
     - A "Mark all as read" button at the top calls `notificationsService.markAllRead()`.
     - Clicking a notification item calls `notificationsService.markRead(n.id)`.
-  - [ ] 4.3 Create `ThemeSwitcherComponent`
+  - [x] 4.3 Create `ThemeSwitcherComponent`
     - Create `src/app/shared/components/theme-switcher/theme-switcher.component.ts` as standalone OnPush.
     - Input: `variant: 'navbar' | 'sidebar'` — controls layout direction and sizing.
     - Inject the existing `ThemeService`.
     - **Mode row:** three buttons — Light (sun icon), Dark (moon icon), System (monitor icon). Active mode is highlighted.
     - **Palette row:** five color swatches — Blue, Emerald, Violet, Amber, Slate. Active palette is highlighted with a ring.
     - On selection, call `themeService.setMode(mode)` / `themeService.setPalette(palette)` (use whatever API the existing ThemeService exposes).
-  - [ ] 4.4 Create `ProfileDropdownComponent`
+  - [x] 4.4 Create `ProfileDropdownComponent`
     - Create `src/app/shared/components/profile-dropdown/profile-dropdown.component.ts` as standalone OnPush.
     - Inject `AuthService` and read `currentUser` signal for name and email.
     - Template: avatar button (`mat-icon-button`) that opens a `matMenu`.
@@ -175,7 +175,7 @@ Based on: `docs/prd/prd-admin-layout.md`
       - **Switch Role (Demo)** — calls `authService.switchDemoRole()` which toggles `currentUser.role` between `admin` and `user`.
       - **Logout** — calls `authService.logout()` then navigates to `/auth/login`.
     - Import `MatMenuModule`, `RouterLink`.
-  - [ ] 4.5 Create `TopNavbarComponent`
+  - [x] 4.5 Create `TopNavbarComponent`
     - Create `src/app/shared/components/top-navbar/top-navbar.component.ts` as standalone OnPush.
     - Inject `LayoutService`.
     - Template (left to right):
@@ -186,7 +186,7 @@ Based on: `docs/prd/prd-admin-layout.md`
       5. `<app-notifications-dropdown>`.
       6. `<app-profile-dropdown>`.
     - Import all sub-components.
-  - [ ] 4.6 Write unit tests for navbar components
+  - [x] 4.6 Write unit tests for navbar components
     - `NotificationsDropdownComponent`: test badge count, mark-as-read, mark-all-read.
     - `ProfileDropdownComponent`: test user name/email rendered, logout calls `authService.logout()`.
     - `ThemeSwitcherComponent`: test mode and palette buttons call the correct `ThemeService` methods.

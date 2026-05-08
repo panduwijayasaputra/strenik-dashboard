@@ -1,0 +1,49 @@
+@if (authService.currentUser(); as user) {
+  <!-- Avatar trigger button -->
+  <button
+    type="button"
+    class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+    aria-label="Open profile menu"
+    [matMenuTriggerFor]="profileMenu"
+  >
+    {{ user.name.charAt(0).toUpperCase() }}
+  </button>
+
+  <!-- Profile menu -->
+  <mat-menu #profileMenu="matMenu" xPosition="before">
+    <!-- User info header (non-clickable) -->
+    <div class="border-b border-border px-4 py-3" (click)="$event.stopPropagation()">
+      <p class="text-sm font-semibold text-foreground">{{ user.name }}</p>
+      <p class="text-xs text-muted-foreground">{{ user.email }}</p>
+      <span class="mt-1 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary capitalize">
+        {{ user.role }}
+      </span>
+    </div>
+
+    <!-- View Profile -->
+    <button mat-menu-item [routerLink]="['/profile']">
+      <lucide-icon name="user" [size]="16" class="mr-2" />
+      <span>View Profile</span>
+    </button>
+
+    <!-- Settings -->
+    <button mat-menu-item [routerLink]="['/settings']">
+      <lucide-icon name="settings" [size]="16" class="mr-2" />
+      <span>Settings</span>
+    </button>
+
+    <!-- Switch Role (Demo) -->
+    <button mat-menu-item (click)="authService.switchDemoRole()">
+      <lucide-icon name="refresh-cw" [size]="16" class="mr-2" />
+      <span>Switch Role (Demo)</span>
+    </button>
+
+    <mat-divider />
+
+    <!-- Logout -->
+    <button mat-menu-item (click)="authService.logout()">
+      <lucide-icon name="log-out" [size]="16" class="mr-2 text-danger" />
+      <span class="text-danger">Logout</span>
+    </button>
+  </mat-menu>
+}

@@ -1,0 +1,40 @@
+<div
+  class="flex gap-1"
+  [class.flex-col]="variant() === 'sidebar'"
+  [class.flex-row]="variant() === 'navbar'"
+>
+  <!-- Mode row -->
+  <div class="flex items-center gap-1">
+    @for (m of modes; track m.value) {
+      <button
+        type="button"
+        class="flex items-center justify-center rounded-lg p-1.5 transition-colors hover:bg-muted"
+        [class.bg-muted]="themeService.mode() === m.value"
+        [class.text-foreground]="themeService.mode() === m.value"
+        [class.text-muted-foreground]="themeService.mode() !== m.value"
+        [attr.aria-label]="m.label + ' mode'"
+        [title]="m.label"
+        (click)="themeService.setMode(m.value)"
+      >
+        <lucide-icon [name]="m.icon" [size]="14" />
+      </button>
+    }
+  </div>
+
+  <!-- Palette row -->
+  <div class="flex items-center gap-1">
+    @for (p of palettes; track p.value) {
+      <button
+        type="button"
+        class="h-5 w-5 rounded-full transition-all hover:scale-110"
+        [class.ring-2]="themeService.palette() === p.value"
+        [class.ring-offset-1]="themeService.palette() === p.value"
+        [class.ring-primary]="themeService.palette() === p.value"
+        [style.background-color]="p.color"
+        [attr.aria-label]="p.label + ' palette'"
+        [title]="p.label"
+        (click)="themeService.setPalette(p.value)"
+      ></button>
+    }
+  </div>
+</div>

@@ -3,13 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import {
+  Bell,
   ChevronLeft,
   ChevronRight,
   LayoutDashboard,
   List,
+  LogOut,
   LucideAngularModule,
+  Menu,
+  Monitor,
+  Moon,
   Package,
+  RefreshCw,
+  Search,
   Settings,
+  Sun,
   User,
   UserPlus,
   Users,
@@ -31,8 +39,9 @@ describe('AdminLayoutComponent', () => {
         provideAnimations(),
         importProvidersFrom(
           LucideAngularModule.pick({
-            ChevronLeft, ChevronRight, LayoutDashboard, List,
-            Package, Settings, User, UserPlus, Users, PlusCircle,
+            Bell, ChevronLeft, ChevronRight, LayoutDashboard, List,
+            LogOut, Menu, Monitor, Moon, Package, RefreshCw, Search,
+            Settings, Sun, User, UserPlus, Users, PlusCircle,
           }),
         ),
       ],
@@ -63,21 +72,27 @@ describe('AdminLayoutComponent', () => {
     expect(el.querySelector('router-outlet')).toBeTruthy();
   });
 
-  it('should not show the mobile drawer overlay when closed', () => {
+  it('should render the mobile drawer overlay (always in DOM)', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    // Overlay is always in DOM; CSS opacity controls visibility
+    const overlay = el.querySelector('.fixed.inset-0.z-40');
+    expect(overlay).toBeTruthy();
+  });
+
+  it('should have opacity-0 on overlay when drawer is closed', () => {
     layoutService.closeMobileDrawer();
     fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
-    // Overlay is inside an @if block — it should not be present in the DOM
-    const backdrop = el.querySelector('.fixed.inset-0.z-40');
-    expect(backdrop).toBeNull();
+    const overlay = el.querySelector('.fixed.inset-0.z-40') as HTMLElement;
+    expect(overlay.classList).toContain('opacity-0');
   });
 
-  it('should show the mobile drawer overlay when open', () => {
+  it('should have opacity-100 on overlay when drawer is open', () => {
     layoutService.openMobileDrawer();
     fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
-    const backdrop = el.querySelector('.fixed.inset-0.z-40');
-    expect(backdrop).toBeTruthy();
+    const overlay = el.querySelector('.fixed.inset-0.z-40') as HTMLElement;
+    expect(overlay.classList).toContain('opacity-100');
   });
 
   it('should close the drawer when the backdrop is clicked', () => {
