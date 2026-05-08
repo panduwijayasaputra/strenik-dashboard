@@ -94,7 +94,7 @@
     - Test value propagation, disabled state, error state, size variants.
     - Test that `autoResize=true` adjusts the element height on input.
 
-- [ ] 3.0 Selection and Choice Components
+- [x] 3.0 Selection and Choice Components
   - [x] 3.1 Build `RadioGroupComponent` (`<app-radio-group>`)
     - Create `src/app/shared/components/forms/radio-group/radio-group.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor`.
@@ -137,7 +137,7 @@
     - Apply error state when invalid + touched.
   - [x] 3.8 Write unit tests for `MultiSelectComponent`
     - Test multi-value binding, chip rendering, maxSelections enforcement.
-  - [ ] 3.9 Build `AutocompleteComponent` (`<app-autocomplete>`)
+  - [x] 3.9 Build `AutocompleteComponent` (`<app-autocomplete>`)
     - Create `src/app/shared/components/forms/autocomplete/autocomplete.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor`.
     - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
@@ -147,7 +147,7 @@
     - When `options` is an Observable, display whatever the parent emits — emit `search` on each keystroke so the parent can fetch.
     - On option selection, write the selected `Option.value` to the control (not the label string).
     - Apply error state when invalid + touched.
-  - [ ] 3.10 Write unit tests for `AutocompleteComponent`
+  - [x] 3.10 Write unit tests for `AutocompleteComponent`
     - Test static filtering, Observable passthrough, `search` output emission, value selection.
 
 - [ ] 4.0 Date, Time, and Color Picker Components
