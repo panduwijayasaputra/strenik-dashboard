@@ -179,8 +179,8 @@
   - [x] 4.6 Write unit tests for `ColorPickerComponent`
     - Test hex string binding, swatch background reflects value, disabled state.
 
-- [ ] 5.0 File Upload and Drag-and-Drop Components
-  - [ ] 5.1 Build `FileUploadComponent` (`<app-file-upload>`)
+- [x] 5.0 File Upload and Drag-and-Drop Components
+  - [x] 5.1 Build `FileUploadComponent` (`<app-file-upload>`)
     - Create `src/app/shared/components/forms/file-upload/file-upload.component.ts` as standalone with `OnPush`.
     - Add inputs: `accept: string` (e.g., `'image/*'`), `multiple: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
     - Add output: `filesSelected: EventEmitter<File[]>` — emitted when the user selects files via the browser dialog.
@@ -188,11 +188,11 @@
     - After selection, display the selected file name(s) below the button.
     - Do NOT implement any HTTP upload logic.
     - Note: This component does not implement `ControlValueAccessor` as it emits files, not form values.
-  - [ ] 5.2 Write unit tests for `FileUploadComponent`
+  - [x] 5.2 Write unit tests for `FileUploadComponent`
     - Test `filesSelected` emits the correct `File[]` on change event.
     - Test file name display after selection.
     - Test `accept` and `multiple` attributes are passed to the hidden input.
-  - [ ] 5.3 Build `DropzoneComponent` (`<app-dropzone>`)
+  - [x] 5.3 Build `DropzoneComponent` (`<app-dropzone>`)
     - Create `src/app/shared/components/forms/dropzone/dropzone.component.ts` as standalone with `OnPush`.
     - Add inputs: `accept: string`, `multiple: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
     - Add output: `filesDropped: EventEmitter<File[]>` — emitted when files are dropped or selected via browse.
@@ -202,7 +202,7 @@
     - On `drop`: extract `event.dataTransfer.files`, convert to `File[]`, emit via `filesDropped`.
     - Include a click-to-browse fallback by triggering a hidden `<input type="file">`.
     - Do NOT implement any HTTP upload logic.
-  - [ ] 5.4 Write unit tests for `DropzoneComponent`
+  - [x] 5.4 Write unit tests for `DropzoneComponent`
     - Test `filesDropped` emits on drop event.
     - Test highlight class is applied on dragover and removed on dragleave.
     - Test click-to-browse triggers the file input.
