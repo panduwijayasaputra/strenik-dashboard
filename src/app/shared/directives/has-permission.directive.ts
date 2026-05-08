@@ -1,5 +1,5 @@
 import { Directive, inject, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Directive({
   selector: '[hasPermission]',

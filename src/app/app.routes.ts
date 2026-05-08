@@ -1,19 +1,19 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
-import { AdminLayoutComponent } from './core/layouts/admin-layout/admin-layout.component';
+import { authGuard } from './shared/guards/auth.guard';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'auth',
     loadComponent: () =>
-      import('./features/auth/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
+      import('./layout/empty-layout/empty-layout.component').then(m => m.EmptyLayoutComponent),
     loadChildren: () =>
       import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES),
   },
   {
     path: '',
-    component: AdminLayoutComponent,
+    component: MainLayoutComponent,
     canActivate: [authGuard],
     children: [
       {
@@ -25,32 +25,38 @@ export const routes: Routes = [
       {
         path: 'users',
         data: { breadcrumb: 'Users' },
-        loadComponent: () =>
-          import('./features/users/users.component').then(m => m.UsersComponent),
+        loadChildren: () =>
+          import('./features/users/users.routes').then(m => m.USERS_ROUTES),
       },
       {
-        path: 'products',
-        data: { breadcrumb: 'Products' },
-        loadComponent: () =>
-          import('./features/products/products.component').then(m => m.ProductsComponent),
+        path: 'audits',
+        data: { breadcrumb: 'Audits' },
+        loadChildren: () =>
+          import('./features/audits/audits.routes').then(m => m.AUDITS_ROUTES),
+      },
+      {
+        path: 'organization',
+        data: { breadcrumb: 'Organization' },
+        loadChildren: () =>
+          import('./features/organization/organization.routes').then(m => m.ORGANIZATION_ROUTES),
+      },
+      {
+        path: 'activity-logs',
+        data: { breadcrumb: 'Activity Logs' },
+        loadChildren: () =>
+          import('./features/activity-logs/activity-logs.routes').then(m => m.ACTIVITY_LOGS_ROUTES),
       },
       {
         path: 'settings',
         data: { breadcrumb: 'Settings' },
-        loadComponent: () =>
-          import('./features/settings/settings.component').then(m => m.SettingsComponent),
-      },
-      {
-        path: 'profile',
-        data: { breadcrumb: 'Profile' },
-        loadComponent: () =>
-          import('./features/profile/profile.component').then(m => m.ProfileComponent),
+        loadChildren: () =>
+          import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES),
       },
     ],
   },
   {
     path: '**',
     loadComponent: () =>
-      import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
+      import('./shared/components/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent),
   },
 ];
