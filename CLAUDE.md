@@ -60,3 +60,11 @@ Must support light/dark/system modes and multiple color themes (blue, emerald, v
 ## Git Conventions
 
 Conventional commits: `feat:`, `fix:`, `refactor:`, etc.
+
+### Branch Strategy
+
+- `master` — protected. Never commit or push directly. Only `development` can PR here.
+- `development` — integration branch. All PRD feature branches originate from and merge back here via PR.
+- `feat/[prd-name]` — one branch per PRD, always created from `development`, always PR back to `development`.
+
+Full branch map and rules: see `docs/git-strategy.md`.
