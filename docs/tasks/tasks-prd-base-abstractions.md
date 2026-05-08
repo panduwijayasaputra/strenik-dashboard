@@ -187,8 +187,8 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - `BaseModalComponent`: test ESC key emits `closed`; backdrop click emits `closed`; X button emits `closed`; `loading = true` disables footer interaction.
     - `BaseFormFieldComponent`: test `getErrorMessage()` returns correct message for `required`, `email`, `minlength` errors; test custom `errorMessages` override defaults; test `setDisabledState(true)` marks field as disabled.
 
-- [ ] 7.0 Create stub implementations and write unit tests
-  - [ ] 7.1 Create `StubUsersService`
+- [x] 7.0 Create stub implementations and write unit tests
+  - [x] 7.1 Create `StubUsersService`
     - In `_stubs/stub-users.service.ts`, define local types:
       ```ts
       interface User { id: number; name: string; email: string; }
@@ -200,16 +200,16 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Set `protected readonly endpoint = '/api/users'`.
     - Add a comment block at the top: `// STUB — for reference only. Not for production use.`
     - This class requires no method overrides — it inherits everything from `BaseApiService`.
-  - [ ] 7.2 Create `StubUsersTableComponent`
+  - [x] 7.2 Create `StubUsersTableComponent`
     - In `_stubs/stub-users-table.component.ts`, create a standalone `@Component` extending `BaseTableComponent<User>`.
     - Add `@Component` decorator with a minimal template that projects column definitions into the base component's `[table-columns]` slot: `id`, `name`, `email` columns.
     - Add comment: `// STUB — for reference only. Not for production use.`
-  - [ ] 7.3 Update barrel export
+  - [x] 7.3 Update barrel export
     - In `src/app/core/abstractions/index.ts`, export all public abstractions:
       - `BaseApiService`, `BaseCrudPage`, `BaseTableComponent`, `BaseModalComponent`, `BaseFormFieldComponent`, `ConfirmDialogService`.
       - Export types from `models/base.models.ts`.
       - Do NOT export stubs from the barrel.
-  - [ ] 7.4 Run all tests, fix failures, stage and commit
+  - [x] 7.4 Run all tests, fix failures, stage and commit
     - Run `pnpm test` and ensure all unit tests pass.
     - Fix any type errors or test failures.
     - Stage all changes: `git add src/app/core/abstractions/`.
