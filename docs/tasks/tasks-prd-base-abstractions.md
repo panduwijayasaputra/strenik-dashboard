@@ -89,8 +89,8 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Test `ConfirmDialogComponent`: confirm button emits `true`, cancel button emits `false`.
     - Test that `danger: true` applies the danger CSS class to the confirm button.
 
-- [ ] 4.0 Implement BaseCrudPage
-  - [ ] 4.1 Create the abstract `BaseCrudPage` class
+- [x] 4.0 Implement BaseCrudPage
+  - [x] 4.1 Create the abstract `BaseCrudPage` class
     - In `base-crud-page.ts`, create a plain abstract class (no `@Component` decorator).
     - Inject `ConfirmDialogService` using `inject()`.
     - Declare internal Signals:
@@ -106,7 +106,7 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Implement `confirmDelete(id: string | number): Observable<boolean>`: calls `ConfirmDialogService.open({ title: 'Delete', message: 'Are you sure?', danger: true })`.
     - Feature pages call `confirmDelete(id).subscribe(confirmed => { if (confirmed) this.deleteItem(id); })`.
     - Declare `protected abstract deleteItem(id: string | number): void` for feature pages to implement.
-  - [ ] 4.2 Write unit tests for BaseCrudPage
+  - [x] 4.2 Write unit tests for BaseCrudPage
     - Create a concrete test subclass implementing `loadItems()` and `deleteItem()`.
     - Test: `ngOnInit` calls `loadItems()` and sets `loading` to `true`.
     - Test: `onCreateSuccess(item)` appends item to `items` signal.
