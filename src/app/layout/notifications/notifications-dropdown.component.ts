@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { NotificationsService } from '../../../core/services/notifications.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 @Component({
   selector: 'app-notifications-dropdown',

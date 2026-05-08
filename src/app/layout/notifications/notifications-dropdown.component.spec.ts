@@ -2,7 +2,7 @@ import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Bell, LucideAngularModule } from 'lucide-angular';
 import { NotificationsDropdownComponent } from './notifications-dropdown.component';
-import { NotificationsService } from '../../../core/services/notifications.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 describe('NotificationsDropdownComponent', () => {
   let fixture: ComponentFixture<NotificationsDropdownComponent>;

@@ -24,7 +24,7 @@ import {
   PlusCircle,
 } from 'lucide-angular';
 import { AdminLayoutComponent } from './admin-layout.component';
-import { LayoutService } from '../../services/layout.service';
+import { LayoutService } from '../../core/services/layout.service';
 
 describe('AdminLayoutComponent', () => {
   let fixture: ComponentFixture<AdminLayoutComponent>;

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { ThemeMode, ThemePalette, ThemeService } from '../../../core/theme/theme.service';
+import { ThemeMode, ThemePalette, ThemeService } from '../../core/theme/theme.service';
 
 interface ModeOption { value: ThemeMode; icon: string; label: string; }
 interface PaletteOption { value: ThemePalette; color: string; label: string; }

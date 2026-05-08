@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { AdminLayoutComponent } from './core/layouts/admin-layout/admin-layout.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

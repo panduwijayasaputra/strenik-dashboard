@@ -4,7 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { LogOut, LucideAngularModule, RefreshCw, Settings, User } from 'lucide-angular';
 import { ProfileDropdownComponent } from './profile-dropdown.component';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('ProfileDropdownComponent', () => {
   let fixture: ComponentFixture<ProfileDropdownComponent>;
