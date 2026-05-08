@@ -1,0 +1,18 @@
+<a
+  [routerLink]="item().route"
+  routerLinkActive
+  #rla="routerLinkActive"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="flex w-full items-center rounded-lg px-3 py-2 text-sm transition-colors"
+  [class.text-primary]="rla.isActive"
+  [class.font-medium]="rla.isActive"
+  [class.text-muted-foreground]="!rla.isActive"
+>
+  <lucide-icon [name]="item().icon" [size]="18" class="flex-shrink-0" />
+  <span
+    class="truncate overflow-hidden whitespace-nowrap transition-all duration-300"
+    [style.max-width]="mini() ? '0px' : '160px'"
+    [style.opacity]="mini() ? '0' : '1'"
+    [style.margin-left]="mini() ? '0px' : '12px'"
+  >{{ item().label }}</span>
+</a>

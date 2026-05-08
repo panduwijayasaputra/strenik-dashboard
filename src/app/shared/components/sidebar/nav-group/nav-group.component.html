@@ -1,0 +1,49 @@
+<div>
+  <!-- Group header button -->
+  <button
+    type="button"
+    (click)="toggle()"
+    class="flex w-full items-center rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground"
+    [class.text-primary]="hasActiveChild()"
+    [class.font-medium]="hasActiveChild()"
+    [class.text-muted-foreground]="!hasActiveChild()"
+  >
+    <lucide-icon [name]="item().icon" [size]="18" class="flex-shrink-0" />
+    <!-- Label -->
+    <span
+      class="truncate overflow-hidden whitespace-nowrap transition-all duration-300"
+      [style.max-width]="mini() ? '0px' : '120px'"
+      [style.opacity]="mini() ? '0' : '1'"
+      [style.margin-left]="mini() ? '0px' : '12px'"
+    >{{ item().label }}</span>
+    <!-- Chevron -->
+    <span
+      class="flex-shrink-0 overflow-hidden transition-all duration-300"
+      [style.max-width]="mini() ? '0px' : '20px'"
+      [style.opacity]="mini() ? '0' : '1'"
+      [style.margin-left]="mini() ? '0px' : 'auto'"
+    >
+      <lucide-icon
+        name="chevron-right"
+        [size]="14"
+        class="transition-transform duration-200"
+        [class.rotate-90]="isOpen()"
+      />
+    </span>
+  </button>
+
+  <!-- Children list with CSS height transition -->
+  @if (!mini()) {
+    <div
+      class="overflow-hidden transition-all duration-200"
+      [style.max-height]="isOpen() ? '500px' : '0px'"
+      [style.opacity]="isOpen() ? '1' : '0'"
+    >
+      <div class="ml-4 mt-0.5 border-l border-border pl-2">
+        @for (child of item().children; track child.route) {
+          <app-nav-item [item]="child" [mini]="false" />
+        }
+      </div>
+    </div>
+  }
+</div>

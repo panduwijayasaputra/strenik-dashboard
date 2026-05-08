@@ -20,6 +20,18 @@
   --color-info-foreground: #ffffff;
 }
 
+/* ── Palette overrides (light) ─────────────────────────────────── */
+[data-palette="emerald"] { --color-primary: #059669; --color-primary-foreground: #ffffff; }
+[data-palette="violet"]  { --color-primary: #7c3aed; --color-primary-foreground: #ffffff; }
+[data-palette="amber"]   { --color-primary: #d97706; --color-primary-foreground: #ffffff; }
+[data-palette="slate"]   { --color-primary: #475569; --color-primary-foreground: #ffffff; }
+
+/* ── Palette overrides (dark) ──────────────────────────────────── */
+.dark[data-palette="emerald"] { --color-primary: #34d399; --color-primary-foreground: #022c22; }
+.dark[data-palette="violet"]  { --color-primary: #a78bfa; --color-primary-foreground: #2e1065; }
+.dark[data-palette="amber"]   { --color-primary: #fbbf24; --color-primary-foreground: #451a03; }
+.dark[data-palette="slate"]   { --color-primary: #94a3b8; --color-primary-foreground: #0f172a; }
+
 .dark {
   --color-primary: #3b82f6;
   --color-primary-foreground: #ffffff;
