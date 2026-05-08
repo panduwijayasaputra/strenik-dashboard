@@ -133,8 +133,8 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Add `role="progressbar"`, `[attr.aria-valuenow]="value"`, `aria-valuemin="0"`, `aria-valuemax="100"` to the host or root element.
     - Export `ProgressBarComponent` from `src/app/shared/ui/index.ts`.
 
-- [ ] 3.0 Notification & Overlay Components — Toast Service, Modal, Tooltip, Popover
-  - [ ] 3.1 Build ToastService
+- [x] 3.0 Notification & Overlay Components — Toast Service, Modal, Tooltip, Popover
+  - [x] 3.1 Build ToastService
     - Ensure `ngx-toastr` is installed (`pnpm add ngx-toastr` if not present).
     - Ensure `provideToastr({ positionClass: 'toast-top-right', ... })` is added to `app.config.ts`.
     - Create `src/app/shared/ui/toast/toast.service.ts`.
@@ -147,7 +147,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
     - Each method calls the corresponding `ToastrService` method internally.
     - Provide the service in `root` (`providedIn: 'root'`).
     - Export `ToastService` from `src/app/shared/ui/index.ts`.
-  - [ ] 3.2 Build ModalComponent and ModalService
+  - [x] 3.2 Build ModalComponent and ModalService
     - Create `src/app/shared/ui/modal/modal.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `title: string`
@@ -164,7 +164,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Method `open<T>(component: ComponentType<T>, config?: MatDialogConfig): MatDialogRef<T>` — delegates to `MatDialog.open()`.
       - Method `closeAll(): void` — delegates to `MatDialog.closeAll()`.
     - Export both `ModalComponent` and `ModalService` from `src/app/shared/ui/index.ts`.
-  - [ ] 3.3 Build TooltipDirective
+  - [x] 3.3 Build TooltipDirective
     - Create `src/app/shared/ui/tooltip/tooltip.directive.ts` as a standalone directive.
     - Inputs:
       - `tooltip: string` — the tooltip text.
@@ -174,7 +174,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Alternatively, use `@HostBinding` to forward the `matTooltip` and `matTooltipPosition` values.
       - The simplest approach: make `TooltipDirective` a wrapper that uses `MatTooltip` as a `hostDirectives` entry, mapping inputs.
     - Export `TooltipDirective` from `src/app/shared/ui/index.ts`.
-  - [ ] 3.4 Build PopoverComponent and PopoverTriggerDirective
+  - [x] 3.4 Build PopoverComponent and PopoverTriggerDirective
     - Create `src/app/shared/ui/popover/popover-trigger.directive.ts` as a standalone directive (`[popoverTrigger]`).
     - Input: `popoverTrigger: TemplateRef<unknown>` — the template to render inside the popover panel.
     - Implementation using Angular CDK `Overlay`:
