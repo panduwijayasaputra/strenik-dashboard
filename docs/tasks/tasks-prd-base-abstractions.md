@@ -43,7 +43,7 @@ Based on: `docs/prd/prd-base-abstractions.md`
       - `BaseQueryParams` type: `Record<string, string | number | boolean | undefined>`.
     - Create `src/app/core/abstractions/index.ts` as an empty barrel file for now.
 
-- [ ] 2.0 Implement BaseApiService
+- [x] 2.0 Implement BaseApiService
   - [x] 2.1 Create the abstract `BaseApiService` class with full generics
     - In `src/app/core/abstractions/base-api.service.ts`, create:
       ```ts
@@ -66,8 +66,8 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Test: `update(id, dto)` sends `PUT` to `/endpoint/id` with body.
     - Test: `delete(id)` sends `DELETE` to `/endpoint/id`.
 
-- [ ] 3.0 Implement ConfirmDialogService and ConfirmDialogComponent
-  - [ ] 3.1 Create ConfirmDialogComponent
+- [x] 3.0 Implement ConfirmDialogService and ConfirmDialogComponent
+  - [x] 3.1 Create ConfirmDialogComponent
     - In `confirm-dialog/confirm-dialog.component.ts`, create a standalone `@Component` with `OnPush`.
     - Inject `MAT_DIALOG_DATA` to receive `ConfirmDialogConfig`.
     - Inject `MatDialogRef<ConfirmDialogComponent>` to close the dialog.
@@ -76,13 +76,13 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - When `config.danger === true`, apply `text-danger` or `bg-danger` semantic token classes to the confirm button.
     - Default `confirmLabel` to `'Confirm'` and `cancelLabel` to `'Cancel'` if not provided.
     - Import `MatDialogModule`, `MatButtonModule`.
-  - [ ] 3.2 Create ConfirmDialogService
+  - [x] 3.2 Create ConfirmDialogService
     - In `confirm-dialog.service.ts`, create `@Injectable({ providedIn: 'root' })`.
     - Inject `MatDialog`.
     - Implement `open(config: ConfirmDialogConfig): Observable<boolean>`:
       - Calls `this.dialog.open(ConfirmDialogComponent, { data: config, width: '400px', disableClose: false })`.
       - Returns `dialogRef.afterClosed().pipe(map(result => result === true))` to always emit a boolean.
-  - [ ] 3.3 Write unit tests for ConfirmDialogService and ConfirmDialogComponent
+  - [x] 3.3 Write unit tests for ConfirmDialogService and ConfirmDialogComponent
     - Test `ConfirmDialogService.open()`: verify `MatDialog.open` is called with correct component and data.
     - Test that `afterClosed()` returning `true` maps to `Observable<true>`.
     - Test that `afterClosed()` returning `undefined` (dismissed) maps to `Observable<false>`.
