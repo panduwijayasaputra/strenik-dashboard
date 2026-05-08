@@ -12,3 +12,6 @@ export { ModalService } from './modal/modal.service';
 export { TooltipDirective } from './tooltip/tooltip.directive';
 export { PopoverComponent } from './popover/popover.component';
 export { PopoverTriggerDirective } from './popover/popover-trigger.directive';
+export { SkeletonCardComponent } from './skeleton/skeleton-card.component';
+export { SkeletonTableRowComponent } from './skeleton/skeleton-table-row.component';
+export { SkeletonAvatarComponent } from './skeleton/skeleton-avatar.component';

@@ -187,8 +187,8 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Used as the wrapper when consumers want a pre-styled panel; content is projected via `<ng-content>`.
     - Export both from `src/app/shared/ui/index.ts`.
 
-- [ ] 4.0 Skeleton Loader Variants
-  - [ ] 4.1 Build SkeletonCardComponent
+- [x] 4.0 Skeleton Loader Variants
+  - [x] 4.1 Build SkeletonCardComponent
     - Create `src/app/shared/ui/skeleton/skeleton-card.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Input: `count: number` (default: `1`)
     - Template (repeated `count` times via `@for`):
@@ -196,14 +196,14 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Title bar: `h-4 bg-muted rounded w-3/4 mb-3`
       - Body block: `h-20 bg-muted rounded`
     - Export from `src/app/shared/ui/index.ts`.
-  - [ ] 4.2 Build SkeletonTableRowComponent
+  - [x] 4.2 Build SkeletonTableRowComponent
     - Create `src/app/shared/ui/skeleton/skeleton-table-row.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Input: `count: number` (default: `1`)
     - Template (repeated `count` times via `@for`):
       - Row div with `animate-pulse flex gap-4 items-center py-3`.
       - Column bars of varying widths: e.g., `w-8 h-8 rounded-full bg-muted` (avatar col), `h-3 bg-muted rounded w-1/4`, `h-3 bg-muted rounded w-1/3`, `h-3 bg-muted rounded w-1/5`.
     - Export from `src/app/shared/ui/index.ts`.
-  - [ ] 4.3 Build SkeletonAvatarComponent
+  - [x] 4.3 Build SkeletonAvatarComponent
     - Create `src/app/shared/ui/skeleton/skeleton-avatar.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Input: `count: number` (default: `1`)
     - Template (repeated `count` times via `@for`):
