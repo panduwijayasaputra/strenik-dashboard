@@ -1,0 +1,48 @@
+<aside
+  class="flex h-full flex-col bg-surface border-r border-border transition-all duration-300"
+  [class.w-60]="!isMini()"
+  [class.w-16]="isMini()"
+>
+  <!-- Logo / Brand -->
+  <div class="flex h-16 flex-shrink-0 items-center gap-3 px-4 border-b border-border overflow-hidden">
+    <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
+      <span class="text-sm font-bold text-primary-foreground">S</span>
+    </div>
+    @if (!isMini()) {
+      <span class="text-base font-semibold text-foreground truncate">Strenik</span>
+    }
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto overflow-x-hidden px-2 py-3 space-y-0.5">
+    @for (item of navItems; track item.label) {
+      @if (item.children?.length) {
+        <app-nav-group [item]="item" [mini]="isMini()" />
+      } @else {
+        <app-nav-item [item]="item" [mini]="isMini()" />
+      }
+    }
+  </nav>
+
+  <!-- Footer: toggle button + theme switcher -->
+  <div class="flex flex-shrink-0 flex-col gap-2 border-t border-border p-2">
+    <app-theme-switcher variant="sidebar" />
+
+    @if (!mobileMode()) {
+      <button
+        type="button"
+        (click)="layoutService.toggleSidebar()"
+        class="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        [title]="isMini() ? 'Expand sidebar' : 'Collapse sidebar'"
+      >
+        <lucide-icon
+          [name]="isMini() ? 'chevron-right' : 'chevron-left'"
+          [size]="16"
+        />
+        @if (!isMini()) {
+          <span>Collapse</span>
+        }
+      </button>
+    }
+  </div>
+</aside>

@@ -84,27 +84,27 @@ Based on: `docs/prd/prd-admin-layout.md`
     - Test that the shell renders the sidebar, navbar, and router-outlet.
     - Test that the overlay backdrop is visible when `layoutService.mobileDrawerOpen()` is `true`.
 
-- [ ] 2.0 Sidebar (Desktop Collapsible + Mini Mode)
-  - [ ] 2.1 Create `LayoutService` with sidebar state signal
+- [x] 2.0 Sidebar (Desktop Collapsible + Mini Mode)
+  - [x] 2.1 Create `LayoutService` with sidebar state signal
     - Create `src/app/core/services/layout.service.ts` (providedIn: 'root').
     - Add `sidebarExpanded = signal<boolean>(true)`.
     - Add `mobileDrawerOpen = signal<boolean>(false)`.
     - Add methods: `toggleSidebar()`, `openMobileDrawer()`, `closeMobileDrawer()`.
     - Write unit tests in `layout.service.spec.ts` covering each method and the resulting signal values.
-  - [ ] 2.2 Create `NavItemComponent` (leaf nav item)
+  - [x] 2.2 Create `NavItemComponent` (leaf nav item)
     - Create `src/app/shared/components/sidebar/nav-item/nav-item.component.ts` as standalone OnPush.
     - Inputs: `item: NavItem`, `mini: boolean` (controls label visibility).
     - Render: Lucide icon + label (hidden in mini mode) + `routerLink` + `routerLinkActive="active"`.
     - In mini mode, wrap with `matTooltip` showing the label on the right.
     - Apply active styles using semantic tokens (e.g., `bg-primary/10 text-primary`).
-  - [ ] 2.3 Create `NavGroupComponent` (collapsible parent group)
+  - [x] 2.3 Create `NavGroupComponent` (collapsible parent group)
     - Create `src/app/shared/components/sidebar/nav-group/nav-group.component.ts` as standalone OnPush.
     - Inputs: `item: NavItem` (with children), `mini: boolean`.
     - Maintain a local `isOpen = signal<boolean>(false)`; toggled by clicking the group header.
     - Animate the children list open/closed using Angular's `@if` with a CSS max-height transition or `@angular/animations`.
     - In mini mode, hide the label; the group header click area still works.
     - Render children using `<app-nav-item>` for each child.
-  - [ ] 2.4 Create `SidebarComponent`
+  - [x] 2.4 Create `SidebarComponent`
     - Create `src/app/shared/components/sidebar/sidebar.component.ts` as standalone OnPush.
     - Inject `LayoutService`; read `sidebarExpanded` signal as a computed for the `mini` input passed to nav items.
     - Template structure:
@@ -114,7 +114,7 @@ Based on: `docs/prd/prd-admin-layout.md`
       4. **Footer area** — contains `<app-theme-switcher>` (compact variant).
     - Apply conditional width classes: `w-60` (expanded) / `w-16` (mini) with transition.
     - Hidden on mobile via `hidden lg:flex`.
-  - [ ] 2.5 Write unit tests for sidebar components
+  - [x] 2.5 Write unit tests for sidebar components _(skipped per user request)_
     - `SidebarComponent`: test that it renders nav items from `NAV_ITEMS`; test width class changes when `sidebarExpanded` toggles.
     - `NavGroupComponent`: test that clicking the header toggles `isOpen`; test children visibility.
     - `NavItemComponent`: test `routerLinkActive` class is applied; test tooltip presence in mini mode.

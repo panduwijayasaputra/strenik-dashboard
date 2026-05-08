@@ -1,5 +1,20 @@
+import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import {
+  ChevronLeft,
+  ChevronRight,
+  LayoutDashboard,
+  List,
+  LucideAngularModule,
+  Package,
+  Settings,
+  User,
+  UserPlus,
+  Users,
+  PlusCircle,
+} from 'lucide-angular';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { LayoutService } from '../../services/layout.service';
 
@@ -11,7 +26,16 @@ describe('AdminLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AdminLayoutComponent],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        provideAnimations(),
+        importProvidersFrom(
+          LucideAngularModule.pick({
+            ChevronLeft, ChevronRight, LayoutDashboard, List,
+            Package, Settings, User, UserPlus, Users, PlusCircle,
+          }),
+        ),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdminLayoutComponent);
