@@ -4,3 +4,4 @@ export * from './base-api.service';
 export * from './confirm-dialog.service';
 export * from './confirm-dialog/confirm-dialog.component';
 export * from './base-crud-page';
+export * from './base-table.component';

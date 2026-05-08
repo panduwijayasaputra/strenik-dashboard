@@ -114,8 +114,8 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Test: `onDeleteSuccess(id)` removes the correct item from `items`.
     - Test: `confirmDelete(id)` calls `ConfirmDialogService.open()` with `danger: true`.
 
-- [ ] 5.0 Implement BaseTableComponent
-  - [ ] 5.1 Create the `BaseTableComponent` standalone component
+- [x] 5.0 Implement BaseTableComponent
+  - [x] 5.1 Create the `BaseTableComponent` standalone component
     - In `base-table.component.ts`, create a standalone `@Component` with `OnPush`.
     - Declare inputs:
       - `@Input() data: T[] = []`
@@ -133,7 +133,7 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - When `loading === false` and `data.length === 0`: show an empty state message slot via `ng-content select="[empty-state]"` (with a default "No data available" fallback).
     - Include a checkbox column for row selection; toggling "select all" emits all rows via `rowSelect`.
     - Import: `MatTableModule`, `MatPaginatorModule`, `MatSortModule`, `MatCheckboxModule`.
-  - [ ] 5.2 Write unit tests for BaseTableComponent
+  - [x] 5.2 Write unit tests for BaseTableComponent
     - Test: renders rows equal to `data.length`.
     - Test: `loading = true` shows skeleton, hides table rows.
     - Test: `data = []` and `loading = false` shows empty state.
