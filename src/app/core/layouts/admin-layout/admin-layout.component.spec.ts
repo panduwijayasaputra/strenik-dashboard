@@ -4,6 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import {
   Bell,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   LayoutDashboard,
@@ -14,14 +15,16 @@ import {
   Monitor,
   Moon,
   Package,
-  RefreshCw,
+  PanelLeft,
+  PlusCircle,
   Search,
   Settings,
+  ShieldCheck,
   Sun,
   User,
   UserPlus,
   Users,
-  PlusCircle,
+  X,
 } from 'lucide-angular';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { LayoutService } from '../../services/layout.service';
@@ -39,9 +42,9 @@ describe('AdminLayoutComponent', () => {
         provideAnimations(),
         importProvidersFrom(
           LucideAngularModule.pick({
-            Bell, ChevronLeft, ChevronRight, LayoutDashboard, List,
-            LogOut, Menu, Monitor, Moon, Package, RefreshCw, Search,
-            Settings, Sun, User, UserPlus, Users, PlusCircle,
+            Bell, ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, List,
+            LogOut, Menu, Monitor, Moon, Package, PanelLeft, PlusCircle,
+            Search, Settings, ShieldCheck, Sun, User, UserPlus, Users, X,
           }),
         ),
       ],
