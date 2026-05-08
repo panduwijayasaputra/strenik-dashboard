@@ -141,8 +141,8 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Test: sort header change emits `sortChange`.
     - Test: selecting all rows emits all items via `rowSelect`.
 
-- [ ] 6.0 Implement BaseModalComponent and BaseFormFieldComponent
-  - [ ] 6.1 Create the `BaseModalComponent` standalone component
+- [x] 6.0 Implement BaseModalComponent and BaseFormFieldComponent
+  - [x] 6.1 Create the `BaseModalComponent` standalone component
     - In `base-modal.component.ts`, create a standalone `@Component` with `OnPush`.
     - Inputs:
       - `@Input() title = ''`
@@ -159,7 +159,7 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Backdrop click: add a backdrop `div` that emits `closed` on click.
     - When `loading === true`, add `pointer-events-none opacity-50` to the footer slot wrapper.
     - Import `LucideAngularModule` for the X icon.
-  - [ ] 6.2 Create the abstract `BaseFormFieldComponent`
+  - [x] 6.2 Create the abstract `BaseFormFieldComponent`
     - In `base-form-field.component.ts`, create an abstract standalone `@Component` implementing `ControlValueAccessor`.
     - Use `inject(NgControl, { optional: true, self: true })` and set `ngControl.valueAccessor = this` in the constructor.
     - Inputs:
@@ -183,7 +183,7 @@ Based on: `docs/prd/prd-base-abstractions.md`
     - Implement `ControlValueAccessor` methods: `writeValue`, `registerOnChange`, `registerOnTouched`, `setDisabledState`. Leave them as no-ops in the base; subclasses override as needed.
     - Template: wrap `<mat-form-field>` with `<mat-label>`, `<mat-hint>`, and `<mat-error>` auto-rendered. Use `ng-content` for the actual input element.
     - Import `MatFormFieldModule`, `ReactiveFormsModule`.
-  - [ ] 6.3 Write unit tests for BaseModalComponent and BaseFormFieldComponent
+  - [x] 6.3 Write unit tests for BaseModalComponent and BaseFormFieldComponent
     - `BaseModalComponent`: test ESC key emits `closed`; backdrop click emits `closed`; X button emits `closed`; `loading = true` disables footer interaction.
     - `BaseFormFieldComponent`: test `getErrorMessage()` returns correct message for `required`, `email`, `minlength` errors; test custom `errorMessages` override defaults; test `setDisabledState(true)` marks field as disabled.
 
