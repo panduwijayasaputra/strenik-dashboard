@@ -150,33 +150,33 @@
   - [x] 3.10 Write unit tests for `AutocompleteComponent`
     - Test static filtering, Observable passthrough, `search` output emission, value selection.
 
-- [ ] 4.0 Date, Time, and Color Picker Components
-  - [ ] 4.1 Build `DatePickerComponent` (`<app-date-picker>`)
+- [x] 4.0 Date, Time, and Color Picker Components
+  - [x] 4.1 Build `DatePickerComponent` (`<app-date-picker>`)
     - Create `src/app/shared/components/forms/date-picker/date-picker.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to `Date | null`.
     - Add inputs: `min: Date | null`, `max: Date | null`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
     - Use Angular Material `MatDatepicker`, `MatDatepickerInput`, `MatDatepickerToggle` internally.
     - Use Lucide `Calendar` icon for the toggle button instead of Material's default icon.
     - Apply error state when invalid + touched.
-  - [ ] 4.2 Write unit tests for `DatePickerComponent`
+  - [x] 4.2 Write unit tests for `DatePickerComponent`
     - Test `Date | null` value binding, min/max constraints, disabled state, error state.
-  - [ ] 4.3 Build `TimePickerComponent` (`<app-time-picker>`)
+  - [x] 4.3 Build `TimePickerComponent` (`<app-time-picker>`)
     - Create `src/app/shared/components/forms/time-picker/time-picker.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to a `string` in `HH:mm` format.
     - Add inputs: `format: 12 | 24` (default `24`), `placeholder: string`, `size: FormSize`, `disabled: boolean`.
     - Use `ngx-mat-timepicker` alongside an Angular Material input field.
     - On value change from the timepicker, format the output as `HH:mm` before calling `onChange`.
     - Apply error state when invalid + touched.
-  - [ ] 4.4 Write unit tests for `TimePickerComponent`
+  - [x] 4.4 Write unit tests for `TimePickerComponent`
     - Test `HH:mm` string binding, format switching, disabled state.
-  - [ ] 4.5 Build `ColorPickerComponent` (`<app-color-picker>`)
-    - Create `src/app/shared/components/forms/color-picker/color-picker.component.ts` as standalone with `OnPush`.
+  - [x] 4.5 Build `ColorPickerComponent` (`<app-color-picker>`)
+- Create `src/app/shared/components/forms/color-picker/color-picker.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to a hex string (e.g., `'#3b82f6'`).
     - Add inputs: `size: FormSize`, `disabled: boolean`.
     - Render a color swatch `<div>` styled with `[style.backgroundColor]="value"` next to the `<input type="color">`.
     - On change, propagate the hex string value via `onChange`.
     - Apply error state when invalid + touched.
-  - [ ] 4.6 Write unit tests for `ColorPickerComponent`
+  - [x] 4.6 Write unit tests for `ColorPickerComponent`
     - Test hex string binding, swatch background reflects value, disabled state.
 
 - [ ] 5.0 File Upload and Drag-and-Drop Components
