@@ -211,32 +211,32 @@ Based on: `docs/prd/prd-admin-layout.md`
     - Import and add `<app-breadcrumb>` to `admin-layout.component.html`, placed in the `<main>` area directly above `<router-outlet>`.
     - Apply `px-6 py-3` (or equivalent semantic padding).
 
-- [ ] 6.0 Integration, Polish & Verification
-  - [ ] 6.1 Verify full layout renders correctly end-to-end
+- [x] 6.0 Integration, Polish & Verification
+  - [x] 6.1 Verify full layout renders correctly end-to-end
     - Boot the app in the browser (`pnpm start`).
     - Navigate to a protected route and confirm: sidebar renders, nav items are correct, active link is highlighted, breadcrumbs display correctly, navbar shows all controls.
-  - [ ] 6.2 Verify sidebar collapse behavior
+  - [x] 6.2 Verify sidebar collapse behavior
     - Toggle the sidebar via the toggle button; confirm it transitions from expanded (w-60) to mini (w-16).
     - In mini mode, confirm labels are hidden and tooltips appear on hover.
-  - [ ] 6.3 Verify mobile drawer
+  - [x] 6.3 Verify mobile drawer
     - Resize browser to mobile viewport; confirm sidebar is hidden and hamburger button appears.
     - Open the drawer; confirm it slides in and overlay backdrop is visible.
     - Click outside; confirm drawer closes.
-  - [ ] 6.4 Verify notifications
+  - [x] 6.4 Verify notifications
     - Confirm unread badge shows correct count.
     - Click a notification; confirm it becomes dimmed (read).
     - Click "Mark all as read"; confirm badge disappears.
-  - [ ] 6.5 Verify theme switcher
+  - [x] 6.5 Verify theme switcher
     - Switch between Light / Dark / System modes; confirm CSS class on `<html>` changes.
     - Switch palette; confirm CSS variables update.
     - Reload the page; confirm selections persist (localStorage).
-  - [ ] 6.6 Verify profile dropdown
+  - [x] 6.6 Verify profile dropdown
     - Confirm current user name/email appears.
     - Click "Switch Role (Demo)"; confirm role changes in UI.
     - Click "Logout"; confirm redirect to `/auth/login`.
-  - [ ] 6.7 Run all tests and fix any failures
+  - [x] 6.7 Run all tests and fix any failures
     - Run `pnpm test` and resolve all failing tests.
     - Ensure zero TypeScript strict-mode errors (`pnpm build`).
-  - [ ] 6.8 Commit
+  - [x] 6.8 Commit
     - Stage all new and modified files.
     - Commit with message: `feat: add admin layout with sidebar, navbar, notifications, breadcrumbs, and theme switcher`.

@@ -3,3 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Sidebar nav hover */
+app-nav-item a:not(.bg-primary):hover {
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+}
+app-nav-group button:hover {
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+}

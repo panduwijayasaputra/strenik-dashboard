@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { NAV_ITEMS } from '../../../core/navigation/nav-items.config';
 import { LayoutService } from '../../../core/services/layout.service';
@@ -16,9 +16,22 @@ export class SidebarComponent {
   mobileMode = input<boolean>(false);
 
   readonly layoutService = inject(LayoutService);
-
   readonly navItems = NAV_ITEMS;
 
-  /** In mobile mode always show expanded; on desktop follow the signal. */
-  readonly isMini = computed(() => !this.mobileMode() && !this.layoutService.sidebarExpanded());
+  private readonly hoverExpanded = signal(false);
+
+  /** Collapsed only when: desktop + sidebar toggled off + not hover-peeking */
+  readonly isMini = computed(
+    () => !this.mobileMode() && !this.layoutService.sidebarExpanded() && !this.hoverExpanded()
+  );
+
+  onMouseEnter(): void {
+    if (!this.mobileMode() && !this.layoutService.sidebarExpanded()) {
+      this.hoverExpanded.set(true);
+    }
+  }
+
+  onMouseLeave(): void {
+    this.hoverExpanded.set(false);
+  }
 }

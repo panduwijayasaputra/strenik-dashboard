@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -9,9 +7,13 @@ import { AuthService } from '../../../core/auth/auth.service';
   selector: 'app-profile-dropdown',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatMenuModule, MatDividerModule, RouterLink, LucideAngularModule],
+  imports: [RouterLink, LucideAngularModule],
   templateUrl: './profile-dropdown.component.html',
 })
 export class ProfileDropdownComponent {
   readonly authService = inject(AuthService);
+  readonly isOpen = signal(false);
+
+  toggle(): void { this.isOpen.update(v => !v); }
+  close(): void { this.isOpen.set(false); }
 }

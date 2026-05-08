@@ -1,17 +1,27 @@
 <aside
-  class="flex h-full flex-col bg-surface border-r border-border transition-all duration-300"
-  [class.w-60]="!isMini()"
-  [class.w-16]="isMini()"
+  class="flex h-full flex-col overflow-hidden bg-surface border-r border-border transition-all duration-300"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  [class.w-60]="mobileMode()"
+  [class.w-60]="!mobileMode() && !isMini()"
+  [class.w-16]="!mobileMode() && isMini()"
 >
-  <!-- Logo / Brand -->
-  <div class="flex h-16 flex-shrink-0 items-center gap-3 px-4 border-b border-border overflow-hidden">
-    <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
-      <span class="text-sm font-bold text-primary-foreground">S</span>
+  <!-- Logo / Brand (desktop only) -->
+  @if (!mobileMode()) {
+    <div class="flex h-16 flex-shrink-0 items-center gap-3 px-4 border-b border-border overflow-hidden">
+      <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
+        <span class="text-sm font-bold text-primary-foreground">S</span>
+      </div>
+      <span
+        class="truncate overflow-hidden whitespace-nowrap text-base font-semibold text-foreground transition-all duration-300"
+        [style.max-width]="isMini() ? '0px' : '160px'"
+        [style.opacity]="isMini() ? '0' : '1'"
+      >Strenik</span>
     </div>
-    @if (!isMini()) {
-      <span class="text-base font-semibold text-foreground truncate">Strenik</span>
-    }
-  </div>
+  }
+  @if (mobileMode()) {
+    <div class="h-16 flex-shrink-0"></div>
+  }
 
   <!-- Navigation -->
   <nav class="flex-1 overflow-y-auto overflow-x-hidden px-2 py-3 space-y-0.5">
@@ -24,23 +34,4 @@
     }
   </nav>
 
-  <!-- Footer: toggle button -->
-  <div class="flex flex-shrink-0 flex-col gap-2 border-t border-border p-2">
-    @if (!mobileMode()) {
-      <button
-        type="button"
-        (click)="layoutService.toggleSidebar()"
-        class="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        [title]="isMini() ? 'Expand sidebar' : 'Collapse sidebar'"
-      >
-        <lucide-icon
-          [name]="isMini() ? 'chevron-right' : 'chevron-left'"
-          [size]="16"
-        />
-        @if (!isMini()) {
-          <span>Collapse</span>
-        }
-      </button>
-    }
-  </div>
 </aside>

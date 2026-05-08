@@ -18,7 +18,7 @@
 
     <!-- Drawer panel -->
     <div
-      class="relative flex h-full w-72 flex-col bg-surface shadow-xl transition-transform duration-250 ease-out"
+      class="relative flex h-full w-60 flex-col bg-surface shadow-xl transition-transform duration-250 ease-out"
       [class.-translate-x-full]="!layoutService.mobileDrawerOpen()"
       [class.translate-x-0]="layoutService.mobileDrawerOpen()"
       (click)="$event.stopPropagation()"
@@ -29,7 +29,9 @@
 
   <!-- Right column: navbar + content -->
   <div class="flex flex-1 flex-col overflow-hidden">
-    <app-top-navbar />
+    <div class="relative z-50">
+      <app-top-navbar />
+    </div>
 
     <main class="flex-1 overflow-y-auto">
       <div class="px-6 py-3">

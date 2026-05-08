@@ -1,18 +1,36 @@
 <header class="flex h-16 flex-shrink-0 items-center gap-3 border-b border-border bg-surface px-4">
 
-  <!-- Hamburger (mobile only) -->
+  <!-- Hamburger → Close (mobile only) -->
   <button
     type="button"
     class="lg:hidden flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-    aria-label="Open navigation menu"
-    (click)="layoutService.openMobileDrawer()"
+    [attr.aria-label]="layoutService.mobileDrawerOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+    (click)="layoutService.mobileDrawerOpen() ? layoutService.closeMobileDrawer() : layoutService.openMobileDrawer()"
   >
-    <lucide-icon name="menu" [size]="20" />
+    <lucide-icon [name]="layoutService.mobileDrawerOpen() ? 'x' : 'menu'" [size]="20" />
   </button>
 
-  <!-- Search bar -->
+  <!-- Brand (mobile only) -->
+  <div class="flex lg:hidden items-center gap-2">
+    <div class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
+      <span class="text-xs font-bold text-primary-foreground">S</span>
+    </div>
+    <span class="text-sm font-semibold text-foreground">Strenik</span>
+  </div>
+
+  <!-- Sidebar collapse toggle (desktop only) -->
+  <button
+    type="button"
+    class="hidden lg:flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    aria-label="Toggle sidebar"
+    (click)="layoutService.toggleSidebar()"
+  >
+    <lucide-icon name="panel-left" [size]="20" />
+  </button>
+
+  <!-- Search bar (desktop only) -->
   <div
-    class="relative flex items-center transition-all duration-200"
+    class="relative hidden lg:flex items-center transition-all duration-200"
     [class.w-64]="searchFocused()"
     [class.w-48]="!searchFocused()"
   >
