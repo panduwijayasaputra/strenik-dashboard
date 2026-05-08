@@ -48,7 +48,8 @@ Based on: `docs/prd/prd-shared-ui-components.md`
 
 ### Notes
 
-- Run tests with `pnpm vitest` or `pnpm vitest run` for a single pass.
+- Angular component tests use Jasmine + Karma: run `ng test --no-watch --browsers=ChromeHeadless`.
+- Plain TypeScript utility tests (no Angular) can run with `npx vitest run <file>`.
 - All components must use `ChangeDetectionStrategy.OnPush` and be standalone.
 - Use semantic Tailwind color tokens only — never hardcode `bg-blue-500` etc.
 - Icons must use `lucide-angular` only.
@@ -57,7 +58,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
 
 ## Tasks
 
-- [ ] 1.0 Project Setup & Barrel Export Infrastructure
+- [x] 1.0 Project Setup & Barrel Export Infrastructure
   - [x] 1.1 Create the shared UI directory structure
     - Create the following directories (or verify they exist):
       - `src/app/shared/ui/alert/`
@@ -92,8 +93,8 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       2. Takes the first character of the first and last word (uppercased).
       3. Returns a 1–2 character string.
 
-- [ ] 2.0 Feedback Components — Alert, Spinner, Progress Bar
-  - [ ] 2.1 Build AlertComponent
+- [x] 2.0 Feedback Components — Alert, Spinner, Progress Bar
+  - [x] 2.1 Build AlertComponent
     - Create `src/app/shared/ui/alert/alert.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `type: 'success' | 'warning' | 'error' | 'info'` (default: `'info'`)
@@ -107,7 +108,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - When `dismissible` is true, render a close button (Lucide `X` icon). On click, emit `dismissed` and set an internal `visible` signal to `false`.
     - Add `role="alert"` to the host element or root div.
     - Export `AlertComponent` from `src/app/shared/ui/index.ts`.
-  - [ ] 2.2 Build SpinnerComponent
+  - [x] 2.2 Build SpinnerComponent
     - Create `src/app/shared/ui/spinner/spinner.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `size: 'sm' | 'md' | 'lg'` (default: `'md'`)
@@ -119,7 +120,7 @@ Based on: `docs/prd/prd-shared-ui-components.md`
       - Include a visually hidden `<span class="sr-only">Loading</span>`.
       - Add `role="status"` to the root element.
     - Export `SpinnerComponent` from `src/app/shared/ui/index.ts`.
-  - [ ] 2.3 Build ProgressBarComponent
+  - [x] 2.3 Build ProgressBarComponent
     - Create `src/app/shared/ui/progress-bar/progress-bar.component.ts` as a standalone component with `ChangeDetectionStrategy.OnPush`.
     - Inputs:
       - `value: number` (0–100, default: `0`)

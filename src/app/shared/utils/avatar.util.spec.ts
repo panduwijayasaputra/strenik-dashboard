@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { getInitials, getAvatarColor } from './avatar.util';
 
 describe('getInitials', () => {
@@ -24,8 +23,9 @@ describe('getInitials', () => {
 });
 
 describe('getAvatarColor', () => {
+  const validClasses = ['bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'bg-info'];
+
   it('returns a valid semantic color class', () => {
-    const validClasses = ['bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'bg-info'];
     const result = getAvatarColor('test');
     expect(validClasses).toContain(result);
   });
