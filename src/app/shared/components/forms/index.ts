@@ -8,10 +8,10 @@ export * from './utils/form-size.utils';
 // Form components (exported as they are implemented)
 export * from './input/input.component';
 export * from './textarea/textarea.component';
-// export * from './radio-group/radio-group.component';
-// export * from './checkbox/checkbox.component';
-// export * from './select/select.component';
-// export * from './multi-select/multi-select.component';
+export * from './radio-group/radio-group.component';
+export * from './checkbox/checkbox.component';
+export * from './select/select.component';
+export * from './multi-select/multi-select.component';
 // export * from './autocomplete/autocomplete.component';
 // export * from './date-picker/date-picker.component';
 // export * from './time-picker/time-picker.component';

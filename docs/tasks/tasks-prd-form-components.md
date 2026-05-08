@@ -69,7 +69,7 @@
     - This file will re-export all form components as they are created — update it with each new component task.
     - Ensure the shared `index.ts` in `src/app/shared/components/` also re-exports from `./forms`.
 
-- [ ] 2.0 Text Input and Textarea Components
+- [x] 2.0 Text Input and Textarea Components
   - [x] 2.1 Build `InputComponent` (`<app-input>`)
     - Create `src/app/shared/components/forms/input/input.component.ts` as a standalone component with `OnPush`.
     - Implement `ControlValueAccessor` and provide it via `NG_VALUE_ACCESSOR`.
@@ -95,26 +95,26 @@
     - Test that `autoResize=true` adjusts the element height on input.
 
 - [ ] 3.0 Selection and Choice Components
-  - [ ] 3.1 Build `RadioGroupComponent` (`<app-radio-group>`)
+  - [x] 3.1 Build `RadioGroupComponent` (`<app-radio-group>`)
     - Create `src/app/shared/components/forms/radio-group/radio-group.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor`.
     - Add inputs: `options: Option[]`, `orientation: 'horizontal' | 'vertical'` (default `'vertical'`), `size: FormSize`, `disabled: boolean`.
     - Render a native `<input type="radio">` for each option, grouped by a shared `name` attribute (use a unique ID per component instance).
     - Apply `flex-row` or `flex-col` based on `orientation`.
     - Apply error state border on the group container when invalid + touched.
-  - [ ] 3.2 Write unit tests for `RadioGroupComponent`
+  - [x] 3.2 Write unit tests for `RadioGroupComponent`
     - Test value selection propagates correctly.
     - Test `orientation` renders correct flex direction class.
     - Test disabled state disables all radio inputs.
-  - [ ] 3.3 Build `CheckboxComponent` (`<app-checkbox>`)
+  - [x] 3.3 Build `CheckboxComponent` (`<app-checkbox>`)
     - Create `src/app/shared/components/forms/checkbox/checkbox.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to a `boolean` value.
     - Add inputs: `label: string`, `indeterminate: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
     - Use a native `<input type="checkbox">` and set `indeterminate` programmatically via `ElementRef` when the input changes.
     - Apply error state styling when invalid + touched.
-  - [ ] 3.4 Write unit tests for `CheckboxComponent`
+  - [x] 3.4 Write unit tests for `CheckboxComponent`
     - Test boolean value binding, disabled state, indeterminate rendering.
-  - [ ] 3.5 Build `SelectComponent` (`<app-select>`)
+  - [x] 3.5 Build `SelectComponent` (`<app-select>`)
     - Create `src/app/shared/components/forms/select/select.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor`.
     - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `size: FormSize`, `disabled: boolean`.
@@ -122,12 +122,12 @@
     - Use Angular Material `MatSelect` + `MatOption` internally.
     - Theme the mat-select panel to use CSS variable tokens (override default Angular Material palette).
     - Apply error state when invalid + touched.
-  - [ ] 3.6 Write unit tests for `SelectComponent`
+  - [x] 3.6 Write unit tests for `SelectComponent`
     - Test static options render and selection propagates.
     - Test Observable options resolve and update on emission.
     - Test placeholder shown when no value selected.
     - Test disabled state.
-  - [ ] 3.7 Build `MultiSelectComponent` (`<app-multi-select>`)
+  - [x] 3.7 Build `MultiSelectComponent` (`<app-multi-select>`)
     - Create `src/app/shared/components/forms/multi-select/multi-select.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to an array value.
     - Add inputs: `options: Option[] | Observable<Option[]>`, `placeholder: string`, `maxSelections: number | null` (default `null`), `size: FormSize`, `disabled: boolean`.
@@ -135,7 +135,7 @@
     - Display selected values as chips using Angular Material `MatChip` or a styled custom chip list.
     - When `maxSelections` is set, disable unselected options once the limit is reached.
     - Apply error state when invalid + touched.
-  - [ ] 3.8 Write unit tests for `MultiSelectComponent`
+  - [x] 3.8 Write unit tests for `MultiSelectComponent`
     - Test multi-value binding, chip rendering, maxSelections enforcement.
   - [ ] 3.9 Build `AutocompleteComponent` (`<app-autocomplete>`)
     - Create `src/app/shared/components/forms/autocomplete/autocomplete.component.ts` as standalone with `OnPush`.
