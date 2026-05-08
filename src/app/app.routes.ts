@@ -26,13 +26,13 @@ export const routes: Routes = [
         path: 'users',
         data: { breadcrumb: 'Users' },
         loadComponent: () =>
-          import('./features/users/users.component').then(m => m.UsersComponent),
+          import('./features/users/user-list/user-list.component').then(m => m.UserListComponent),
       },
       {
         path: 'products',
         data: { breadcrumb: 'Products' },
         loadComponent: () =>
-          import('./features/products/products.component').then(m => m.ProductsComponent),
+          import('./features/products/product-list/product-list.component').then(m => m.ProductListComponent),
       },
       {
         path: 'settings',

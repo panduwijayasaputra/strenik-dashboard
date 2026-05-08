@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-user-list',
   standalone: true,
-  template: '<p>Products</p>',
+  template: '<p>User List</p>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsComponent {}
+export class UserListComponent {}
