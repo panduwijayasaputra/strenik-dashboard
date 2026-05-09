@@ -4,10 +4,11 @@
     @for (t of themes; track t.value) {
       <button
         type="button"
-        class="flex flex-1 items-center justify-center rounded-lg p-1.5 transition-colors hover:bg-muted"
-        [class.bg-muted]="themeService.theme() === t.value"
-        [class.text-foreground]="themeService.theme() === t.value"
-        [class.text-muted-foreground]="themeService.theme() !== t.value"
+        class="flex flex-1 items-center justify-center rounded-lg p-1.5 transition-colors hover:bg-base-200"
+        [class.bg-base-200]="themeService.theme() === t.value"
+        [class.text-base-content]="themeService.theme() === t.value"
+        [class.text-base-content]="themeService.theme() !== t.value"
+        [class.opacity-60]="themeService.theme() !== t.value"
         [attr.aria-label]="t.label + ' theme'"
         [title]="t.label"
         (click)="themeService.setTheme(t.value)"
@@ -24,7 +25,7 @@
     <!-- Trigger button: shows current theme icon -->
     <button
       type="button"
-      class="flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      class="btn btn-ghost btn-square btn-sm"
       aria-label="Toggle theme"
       (click)="toggle()"
     >
@@ -36,15 +37,16 @@
       <div class="fixed inset-0 z-10" (click)="close()"></div>
 
       <!-- Dropdown panel -->
-      <div class="absolute right-0 z-20 mt-2 w-36 rounded-xl border border-border bg-surface p-2 shadow-lg">
+      <div class="absolute right-0 z-20 mt-2 w-36 rounded-xl border border-base-300 bg-base-100 p-2 shadow-lg">
         @for (t of themes; track t.value) {
           <button
             type="button"
-            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted"
-            [class.bg-muted]="themeService.theme() === t.value"
-            [class.text-foreground]="themeService.theme() === t.value"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-base-200"
+            [class.bg-base-200]="themeService.theme() === t.value"
+            [class.text-base-content]="themeService.theme() === t.value"
             [class.font-medium]="themeService.theme() === t.value"
-            [class.text-muted-foreground]="themeService.theme() !== t.value"
+            [class.text-base-content]="themeService.theme() !== t.value"
+            [class.opacity-60]="themeService.theme() !== t.value"
             [attr.aria-label]="t.label + ' theme'"
             (click)="themeService.setTheme(t.value); close()"
           >
