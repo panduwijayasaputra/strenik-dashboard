@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { NavItem } from './nav-item.model';
 
 export const NAV_ITEMS: NavItem[] = [
@@ -20,4 +21,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Organization', icon: 'building', route: '/organization' },
   { label: 'Activity Logs', icon: 'activity', route: '/activity-logs' },
   { label: 'Settings', icon: 'settings', route: '/settings' },
+  ...(!environment.production
+    ? [{ label: 'Form Components', icon: 'layout-list', route: '/dev/forms' }]
+    : []),
 ];

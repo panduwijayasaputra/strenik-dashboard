@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guards/auth.guard';
+import { canActivateDev } from './shared/guards/dev.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
@@ -51,6 +52,13 @@ export const routes: Routes = [
         data: { breadcrumb: 'Settings' },
         loadChildren: () =>
           import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES),
+      },
+      {
+        path: 'dev/forms',
+        canActivate: [canActivateDev],
+        data: { breadcrumb: 'Form Components' },
+        loadComponent: () =>
+          import('./features/dev/forms/dev-forms.component').then(m => m.DevFormsComponent),
       },
     ],
   },
