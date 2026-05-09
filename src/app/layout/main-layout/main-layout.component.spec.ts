@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   LayoutDashboard,
+  LayoutList,
   List,
   LogOut,
   LucideAngularModule,
@@ -44,7 +45,7 @@ describe('MainLayoutComponent', () => {
         provideAnimations(),
         importProvidersFrom(
           LucideAngularModule.pick({
-            Activity, Bell, Building, ChevronLeft, ChevronRight, LayoutDashboard, List,
+            Activity, Bell, Building, ChevronLeft, ChevronRight, LayoutDashboard, LayoutList, List,
             LogOut, Menu, Monitor, Moon, Package, PanelLeft, RefreshCw,
             Search, Settings, ShieldCheck, Sun, User, UserPlus, Users, PlusCircle, X,
           }),

@@ -86,8 +86,8 @@ export class FormCheckboxComponent implements ControlValueAccessor, OnInit, Afte
 
   protected checkboxClasses(): string {
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `h-4 w-4 rounded border ${border} accent-primary cursor-pointer`;
+    const errorClass = hasError ? 'checkbox-error' : '';
+    return `checkbox ${errorClass}`.trim();
   }
 
   protected onChange(event: Event): void {

@@ -120,55 +120,55 @@
     - Verify only `light` and `dark` options are rendered.
     - Run `pnpm test` — confirm tests pass.
 
-- [ ] 3.0 Migrate Simple Form Components to DaisyUI
-  - [ ] 3.1 Update `form-size.utils.ts`
+- [x] 3.0 Migrate Simple Form Components to DaisyUI
+  - [x] 3.1 Update `form-size.utils.ts`
     - Open `src/app/shared/components/forms/utils/form-size.utils.ts`.
     - Update the size-class map so `sm → input-sm`, `md → input-md`, `lg → input-lg` (and equivalents for `textarea-*`, `select-*` if separate maps exist).
-  - [ ] 3.2 Migrate `FormInputComponent`
+  - [x] 3.2 Migrate `FormInputComponent`
     - Open `input.component.ts` and its template.
     - Replace existing input classes with DaisyUI `input input-bordered` (plus size modifier from `form-size.utils`).
     - Apply `input-error` when the bound control is invalid and touched (replacing `border-danger`).
     - Retain password show/hide toggle and prefix/suffix slot logic unchanged.
     - Update `input.component.spec.ts`: replace class assertions (`border-danger` → `input-error`).
     - Run `pnpm test` on this spec — confirm green.
-  - [ ] 3.3 Migrate `FormTextareaComponent`
+  - [x] 3.3 Migrate `FormTextareaComponent`
     - Replace classes with DaisyUI `textarea textarea-bordered` + size modifier.
     - Apply `textarea-error` for invalid+touched state.
     - Retain `autoResize` logic unchanged.
     - Update spec assertions and run tests.
-  - [ ] 3.4 Migrate `FormRadioGroupComponent`
+  - [x] 3.4 Migrate `FormRadioGroupComponent`
     - Replace each radio input's classes with DaisyUI `radio`.
     - Retain orientation (horizontal/vertical) logic.
     - Update spec and run tests.
-  - [ ] 3.5 Migrate `FormCheckboxComponent`
+  - [x] 3.5 Migrate `FormCheckboxComponent`
     - Replace checkbox input classes with DaisyUI `checkbox`.
     - Retain `indeterminate` support via `@ViewChild`.
     - Update spec and run tests.
-  - [ ] 3.6 Migrate `FormDatePickerComponent`
+  - [x] 3.6 Migrate `FormDatePickerComponent`
     - Remove `mat-datepicker`, `MatDatepickerModule`, `MatNativeDateModule` imports.
     - Replace template with `<input type="date" class="input input-bordered">` + size modifier.
     - Apply `input-error` for invalid+touched state.
     - Retain `min` / `max` input bindings (pass directly to native input).
     - Update spec (no Material mocks needed) and run tests.
-  - [ ] 3.7 Migrate `FormTimePickerComponent`
+  - [x] 3.7 Migrate `FormTimePickerComponent`
     - Remove `NgxMatTimepickerModule` import.
     - Replace with `<input type="time" class="input input-bordered">` + size modifier.
     - Retain `format: 12 | 24` input: use `step` attribute and handle display accordingly.
     - Apply `input-error` for invalid+touched state.
     - Update spec and run tests.
-  - [ ] 3.8 Migrate `FormColorPickerComponent`
+  - [x] 3.8 Migrate `FormColorPickerComponent`
     - Retain `<input type="color">` behavior.
     - Restyle the swatch/trigger button with DaisyUI `btn`.
     - Update spec and run tests.
-  - [ ] 3.9 Migrate `FileUploadComponent`
+  - [x] 3.9 Migrate `FileUploadComponent`
     - Restyle the trigger button with DaisyUI `btn`.
     - No behavior changes.
     - Update spec and run tests.
-  - [ ] 3.10 Migrate `DropzoneComponent`
+  - [x] 3.10 Migrate `DropzoneComponent`
     - Replace drag-over highlight classes with DaisyUI `border-dashed` utilities and `bg-base-200` on drag-over.
     - No behavior changes.
     - Update spec and run tests.
-  - [ ] 3.11 Migrate `FormTagsInputComponent`
+  - [x] 3.11 Migrate `FormTagsInputComponent`
     - Restyle existing chips/tags as DaisyUI `badge badge-outline` with a remove `×` button.
     - Restyle suggestion dropdown as DaisyUI `dropdown` + `menu`.
     - No behavior changes (free-text and suggestion support unchanged).

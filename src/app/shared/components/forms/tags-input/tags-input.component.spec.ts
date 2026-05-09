@@ -194,14 +194,14 @@ describe('FormTagsInputComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply input-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).toContain('border-danger');
+      expect(getInput().classList).toContain('input-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getInput().classList).not.toContain('border-danger');
+    it('should not apply input-error when invalid but untouched', () => {
+      expect(getInput().classList).not.toContain('input-error');
     });
   });
 });

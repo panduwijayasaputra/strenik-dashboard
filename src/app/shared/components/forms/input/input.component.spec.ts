@@ -90,42 +90,39 @@ describe('FormInputComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply input-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).toContain('border-danger');
+      expect(getInput().classList).toContain('input-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getInput().classList).not.toContain('border-danger');
+    it('should not apply input-error when invalid but untouched', () => {
+      expect(getInput().classList).not.toContain('input-error');
     });
 
-    it('should not apply border-danger when valid and touched', () => {
+    it('should not apply input-error when valid and touched', () => {
       host.ctrl.setValue('value');
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).not.toContain('border-danger');
+      expect(getInput().classList).not.toContain('input-error');
     });
   });
 
   describe('size variants', () => {
-    it('should apply sm size classes', () => {
+    it('should apply input-sm for sm size', () => {
       host.size = 'sm';
       hostFixture.detectChanges();
-      expect(getInput().className).toContain('py-1');
-      expect(getInput().className).toContain('px-2');
+      expect(getInput().className).toContain('input-sm');
     });
 
-    it('should apply md size classes by default', () => {
-      expect(getInput().className).toContain('py-2');
-      expect(getInput().className).toContain('px-3');
+    it('should apply input-md by default', () => {
+      expect(getInput().className).toContain('input-md');
     });
 
-    it('should apply lg size classes', () => {
+    it('should apply input-lg for lg size', () => {
       host.size = 'lg';
       hostFixture.detectChanges();
-      expect(getInput().className).toContain('py-3');
-      expect(getInput().className).toContain('px-4');
+      expect(getInput().className).toContain('input-lg');
     });
   });
 

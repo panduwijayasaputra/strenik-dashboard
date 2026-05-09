@@ -69,8 +69,8 @@ export class FormColorPickerComponent implements ControlValueAccessor, OnInit {
 
   protected inputClasses(): string {
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `h-8 w-16 cursor-pointer rounded border ${border} bg-background p-0.5`;
+    const errorClass = hasError ? 'input-error' : '';
+    return `btn btn-sm h-8 w-16 cursor-pointer p-0.5 ${errorClass}`.trim();
   }
 
   protected onInput(event: Event): void {

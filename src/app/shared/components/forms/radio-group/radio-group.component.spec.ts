@@ -125,14 +125,14 @@ describe('FormRadioGroupComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger on the container when invalid and touched', () => {
+    it('should apply border-error on the container when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getContainer().classList).toContain('border-danger');
+      expect(getContainer().classList).toContain('border-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getContainer().classList).not.toContain('border-danger');
+    it('should not apply border-error when invalid but untouched', () => {
+      expect(getContainer().classList).not.toContain('border-error');
     });
   });
 });

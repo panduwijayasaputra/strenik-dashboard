@@ -54,7 +54,7 @@ export class DropzoneComponent {
   protected zoneClasses(): string {
     const base =
       'flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-8 cursor-pointer transition-colors';
-    const drag = this.isDragOver() ? 'border-primary bg-primary/5' : 'border-input hover:border-primary/50';
+    const drag = this.isDragOver() ? 'border-primary bg-base-200' : 'border-base-300 hover:border-primary/50';
     const dis = this.disabled() ? 'opacity-50 pointer-events-none' : '';
     return `${base} ${drag} ${dis}`.trim();
   }

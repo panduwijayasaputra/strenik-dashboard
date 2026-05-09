@@ -106,42 +106,39 @@ describe('FormTextareaComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply textarea-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getTextarea().classList).toContain('border-danger');
+      expect(getTextarea().classList).toContain('textarea-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getTextarea().classList).not.toContain('border-danger');
+    it('should not apply textarea-error when invalid but untouched', () => {
+      expect(getTextarea().classList).not.toContain('textarea-error');
     });
 
-    it('should not apply border-danger when valid and touched', () => {
+    it('should not apply textarea-error when valid and touched', () => {
       host.ctrl.setValue('some value');
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getTextarea().classList).not.toContain('border-danger');
+      expect(getTextarea().classList).not.toContain('textarea-error');
     });
   });
 
   describe('size variants', () => {
-    it('should apply sm size classes', () => {
+    it('should apply textarea-sm for sm size', () => {
       host.size = 'sm';
       hostFixture.detectChanges();
-      expect(getTextarea().className).toContain('py-1');
-      expect(getTextarea().className).toContain('px-2');
+      expect(getTextarea().className).toContain('textarea-sm');
     });
 
-    it('should apply md size classes by default', () => {
-      expect(getTextarea().className).toContain('py-2');
-      expect(getTextarea().className).toContain('px-3');
+    it('should apply textarea-md by default', () => {
+      expect(getTextarea().className).toContain('textarea-md');
     });
 
-    it('should apply lg size classes', () => {
+    it('should apply textarea-lg for lg size', () => {
       host.size = 'lg';
       hostFixture.detectChanges();
-      expect(getTextarea().className).toContain('py-3');
-      expect(getTextarea().className).toContain('px-4');
+      expect(getTextarea().className).toContain('textarea-lg');
     });
   });
 

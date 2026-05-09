@@ -14,7 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl, TouchedChangeEvent } from '@angular/forms';
 import { filter } from 'rxjs';
 import { FormSize } from '../types/form-size.type';
-import { getSizeClasses } from '../utils/form-size.utils';
+import { getTextareaSizeClasses } from '../utils/form-size.utils';
 
 @Component({
   selector: 'app-form-textarea',
@@ -71,10 +71,10 @@ export class FormTextareaComponent implements ControlValueAccessor, OnInit {
   }
 
   protected textareaClasses(): string {
-    const size = getSizeClasses(this.size());
+    const size = getTextareaSizeClasses(this.size());
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `w-full rounded border ${border} bg-background ${size} placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-y`;
+    const errorClass = hasError ? 'textarea-error' : '';
+    return `textarea textarea-bordered w-full resize-y ${size} ${errorClass}`.trim();
   }
 
   protected onInput(event: Event): void {

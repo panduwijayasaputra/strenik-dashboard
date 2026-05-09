@@ -123,14 +123,14 @@ describe('FormCheckboxComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply checkbox-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getCheckbox().classList).toContain('border-danger');
+      expect(getCheckbox().classList).toContain('checkbox-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getCheckbox().classList).not.toContain('border-danger');
+    it('should not apply checkbox-error when invalid but untouched', () => {
+      expect(getCheckbox().classList).not.toContain('checkbox-error');
     });
   });
 });
