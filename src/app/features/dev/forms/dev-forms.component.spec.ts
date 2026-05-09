@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { DevFormsComponent } from './dev-forms.component';
 
 describe('DevFormsComponent', () => {
@@ -10,7 +9,7 @@ describe('DevFormsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DevFormsComponent],
-      providers: [provideAnimations()],
+      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DevFormsComponent);
