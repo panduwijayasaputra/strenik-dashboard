@@ -18,10 +18,6 @@ import {
   FormTagsInputComponent,
   WysiwygComponent,
 } from '../../../shared/components/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { QuillModule } from 'ngx-quill';
-
 @Component({
   selector: 'app-dev-forms',
   standalone: true,
@@ -43,19 +39,16 @@ import { QuillModule } from 'ngx-quill';
     DropzoneComponent,
     FormTagsInputComponent,
     WysiwygComponent,
-    MatNativeDateModule,
-    NgxMatTimepickerModule,
-    QuillModule,
   ],
   template: `
     <div class="p-8 max-w-4xl mx-auto space-y-12">
-      <h1 class="text-2xl font-bold text-foreground">Form Components Demo</h1>
+      <h1 class="text-2xl font-bold text-base-content">Form Components Demo</h1>
 
       <form [formGroup]="form" class="space-y-12">
 
         <!-- Input -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Text Input</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Text Input</h2>
           <div class="flex gap-4 items-start flex-wrap">
             <app-form-input formControlName="inputSm" size="sm" placeholder="Small" />
             <app-form-input formControlName="inputMd" size="md" placeholder="Medium" />
@@ -66,7 +59,7 @@ import { QuillModule } from 'ngx-quill';
 
         <!-- Textarea -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Textarea</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Textarea</h2>
           <app-form-textarea formControlName="textarea" placeholder="Normal textarea" />
           <app-form-textarea formControlName="textareaAuto" placeholder="Auto-resize textarea" [autoResize]="true" />
           <app-form-textarea formControlName="textareaDisabled" placeholder="Disabled" [disabled]="true" />
@@ -74,14 +67,14 @@ import { QuillModule } from 'ngx-quill';
 
         <!-- Radio Group -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Radio Group</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Radio Group</h2>
           <app-form-radio-group formControlName="radio" [options]="radioOptions" orientation="horizontal" />
           <app-form-radio-group formControlName="radioVertical" [options]="radioOptions" orientation="vertical" />
         </section>
 
         <!-- Checkbox -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Checkbox</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Checkbox</h2>
           <app-form-checkbox formControlName="checkbox" label="Normal checkbox" />
           <app-form-checkbox formControlName="checkboxIndeterminate" label="Indeterminate" [indeterminate]="true" />
           <app-form-checkbox formControlName="checkboxDisabled" label="Disabled" [disabled]="true" />
@@ -89,32 +82,32 @@ import { QuillModule } from 'ngx-quill';
 
         <!-- Select -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Select</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Select</h2>
           <app-form-select formControlName="select" [options]="selectOptions" placeholder="Static options" />
           <app-form-select formControlName="selectObs" [options]="selectOptions$" placeholder="Observable options" />
         </section>
 
         <!-- Multi-Select -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Multi-Select</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Multi-Select</h2>
           <app-form-multi-select formControlName="multiSelect" [options]="selectOptions" [maxSelections]="3" placeholder="Max 3 selections" />
         </section>
 
         <!-- Autocomplete -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Autocomplete</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Autocomplete</h2>
           <app-form-autocomplete formControlName="autocomplete" [options]="selectOptions" placeholder="Static autocomplete" />
         </section>
 
         <!-- Date Picker -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Date Picker</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Date Picker</h2>
           <app-form-date-picker formControlName="date" placeholder="Pick a date" />
         </section>
 
         <!-- Time Picker -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Time Picker</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Time Picker</h2>
           <div class="flex gap-4 flex-wrap">
             <app-form-time-picker formControlName="time12" [format]="12" placeholder="12-hour" />
             <app-form-time-picker formControlName="time24" [format]="24" placeholder="24-hour" />
@@ -123,25 +116,25 @@ import { QuillModule } from 'ngx-quill';
 
         <!-- Color Picker -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Color Picker</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Color Picker</h2>
           <app-form-color-picker formControlName="color" />
         </section>
 
         <!-- File Upload -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">File Upload</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">File Upload</h2>
           <app-file-upload (filesSelected)="onFiles($event)" />
         </section>
 
         <!-- Dropzone -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Dropzone</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Dropzone</h2>
           <app-dropzone (filesDropped)="onFiles($event)" />
         </section>
 
         <!-- Tags Input -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Tags Input</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Tags Input</h2>
           <app-form-tags-input formControlName="tags" placeholder="Free-text tags" />
           <app-form-tags-input
             formControlName="tagsWithSuggestions"
@@ -151,7 +144,7 @@ import { QuillModule } from 'ngx-quill';
 
         <!-- WYSIWYG -->
         <section class="space-y-4">
-          <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">WYSIWYG Editor</h2>
+          <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">WYSIWYG Editor</h2>
           <app-wysiwyg formControlName="wysiwyg" placeholder="Start writing..." />
         </section>
 
@@ -159,10 +152,10 @@ import { QuillModule } from 'ngx-quill';
 
       <!-- JSON Output -->
       <section class="space-y-2">
-        <h2 class="text-lg font-semibold text-foreground border-b border-input pb-2">Form Value</h2>
+        <h2 class="text-lg font-semibold text-base-content border-b border-base-300 pb-2">Form Value</h2>
         <pre
           data-testid="form-json"
-          class="rounded border border-input bg-muted p-4 text-xs text-foreground overflow-auto max-h-64">{{ form.value | json }}</pre>
+          class="rounded border border-base-300 bg-base-200 p-4 text-xs text-base-content overflow-auto max-h-64">{{ form.value | json }}</pre>
       </section>
     </div>
   `,
@@ -202,7 +195,7 @@ export class DevFormsComponent {
     selectObs: new FormControl(null),
     multiSelect: new FormControl<unknown[]>([]),
     autocomplete: new FormControl(null),
-    date: new FormControl<Date | null>(null),
+    date: new FormControl<string | null>(null),
     time12: new FormControl(''),
     time24: new FormControl(''),
     color: new FormControl('#3b82f6'),

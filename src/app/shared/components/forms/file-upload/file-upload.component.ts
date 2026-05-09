@@ -29,7 +29,7 @@ import { Upload, LucideAngularModule } from 'lucide-angular';
         type="button"
         [disabled]="disabled()"
         (click)="fileInput.click()"
-        class="inline-flex items-center gap-2 rounded border border-input bg-background px-3 py-2 text-sm text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50">
+        class="btn btn-outline btn-sm gap-2 disabled:cursor-not-allowed">
         <lucide-icon [img]="Upload" size="16" />
         <span>{{ buttonLabel() }}</span>
       </button>

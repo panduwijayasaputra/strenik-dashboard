@@ -100,8 +100,8 @@ export class FormInputComponent implements ControlValueAccessor, OnInit {
   protected inputClasses(): string {
     const size = getSizeClasses(this.size());
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `w-full rounded border ${border} bg-background ${size} placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring`;
+    const errorClass = hasError ? 'input-error' : '';
+    return `input input-bordered w-full ${size} ${errorClass}`.trim();
   }
 
   protected onInput(event: Event): void {

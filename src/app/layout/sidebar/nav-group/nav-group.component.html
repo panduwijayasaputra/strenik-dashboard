@@ -2,11 +2,13 @@
   <!-- Group header button -->
   <button
     type="button"
+    [title]="mini() ? item().label : ''"
     (click)="toggle()"
-    class="flex w-full items-center rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground"
+    class="flex w-full items-center rounded-lg px-3 py-2 text-sm transition-colors hover:bg-base-200 hover:text-base-content"
     [class.text-primary]="hasActiveChild()"
     [class.font-medium]="hasActiveChild()"
-    [class.text-muted-foreground]="!hasActiveChild()"
+    [class.text-base-content]="!hasActiveChild()"
+    [class.opacity-60]="!hasActiveChild()"
   >
     <lucide-icon [name]="item().icon" [size]="18" class="flex-shrink-0" />
     <!-- Label -->
@@ -39,7 +41,7 @@
       [style.max-height]="isOpen() ? '500px' : '0px'"
       [style.opacity]="isOpen() ? '1' : '0'"
     >
-      <div class="ml-4 mt-0.5 border-l border-border pl-2">
+      <div class="ml-4 mt-0.5 border-l border-base-300 pl-2">
         @for (child of item().children; track child.route) {
           <app-nav-item [item]="child" [mini]="false" />
         }

@@ -1,4 +1,4 @@
-<div class="flex h-screen overflow-hidden bg-background text-foreground">
+<div class="flex h-screen overflow-hidden bg-base-200 text-base-content">
 
   <!-- Desktop Sidebar (hidden on mobile) -->
   <div class="hidden lg:flex lg:flex-shrink-0">
@@ -14,11 +14,11 @@
     (click)="layoutService.closeMobileDrawer()"
   >
     <!-- Backdrop -->
-    <div class="absolute inset-0 bg-foreground/50"></div>
+    <div class="absolute inset-0 bg-base-content/50"></div>
 
     <!-- Drawer panel -->
     <div
-      class="relative flex h-full w-60 flex-col bg-surface shadow-xl transition-transform duration-250 ease-out"
+      class="relative flex h-full w-60 flex-col bg-base-100 shadow-xl transition-transform duration-250 ease-out"
       [class.-translate-x-full]="!layoutService.mobileDrawerOpen()"
       [class.translate-x-0]="layoutService.mobileDrawerOpen()"
       (click)="$event.stopPropagation()"

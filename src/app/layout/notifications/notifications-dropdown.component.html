@@ -2,14 +2,14 @@
   <!-- Bell button -->
   <button
     type="button"
-    class="relative flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    class="btn btn-ghost btn-circle btn-sm relative"
     aria-label="Notifications"
     (click)="toggle()"
   >
     <lucide-icon name="bell" [size]="20" />
     @if (notificationsService.unreadCount() > 0) {
       <span
-        class="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[10px] font-bold text-danger-foreground"
+        class="absolute right-0.5 top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[10px] font-bold text-error-content"
       >
         {{ notificationsService.unreadCount() }}
       </span>
@@ -22,11 +22,11 @@
     <div class="fixed inset-0 z-10" (click)="close()"></div>
 
     <div
-      class="absolute right-0 z-20 mt-2 w-80 rounded-xl border border-border bg-surface shadow-lg"
+      class="absolute right-0 z-20 mt-2 w-80 rounded-xl border border-base-300 bg-base-100 shadow-lg"
     >
       <!-- Header -->
-      <div class="flex items-center justify-between border-b border-border px-4 py-3">
-        <h3 class="text-sm font-semibold text-foreground">Notifications</h3>
+      <div class="flex items-center justify-between border-b border-base-300 px-4 py-3">
+        <h3 class="text-sm font-semibold text-base-content">Notifications</h3>
         @if (notificationsService.unreadCount() > 0) {
           <button
             type="button"
@@ -44,7 +44,7 @@
           <li>
             <button
               type="button"
-              class="flex w-full gap-3 px-4 py-3 text-left transition-colors hover:bg-muted"
+              class="flex w-full gap-3 px-4 py-3 text-left transition-colors hover:bg-base-200"
               [class.opacity-50]="n.read"
               (click)="notificationsService.markRead(n.id)"
             >
@@ -54,9 +54,9 @@
               </div>
               <!-- Content -->
               <div class="min-w-0 flex-1">
-                <p class="truncate text-sm font-medium text-foreground">{{ n.title }}</p>
-                <p class="truncate text-xs text-muted-foreground">{{ n.description }}</p>
-                <p class="mt-0.5 text-xs text-muted-foreground">{{ relativeTime(n.timestamp) }}</p>
+                <p class="truncate text-sm font-medium text-base-content">{{ n.title }}</p>
+                <p class="truncate text-xs text-base-content/60">{{ n.description }}</p>
+                <p class="mt-0.5 text-xs text-base-content/60">{{ relativeTime(n.timestamp) }}</p>
               </div>
               <!-- Unread dot -->
               @if (!n.read) {

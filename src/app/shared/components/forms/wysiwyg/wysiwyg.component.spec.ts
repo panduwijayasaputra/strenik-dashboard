@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { ContentChange } from 'ngx-quill';
 import { WysiwygComponent } from './wysiwyg.component';
 
 @Component({
@@ -23,7 +21,6 @@ describe('WysiwygComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideAnimations()],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -34,43 +31,40 @@ describe('WysiwygComponent', () => {
       .componentInstance;
   });
 
+  afterEach(() => {
+    // Destroy editor to avoid leaks between tests
+    (wysiwyg as unknown as { editor: { destroy: () => void } | null }).editor?.destroy();
+  });
+
   it('should create', () => {
     expect(host).toBeTruthy();
   });
 
+  it('should render the wysiwyg container', () => {
+    const container = hostFixture.debugElement.query(By.css('[data-testid="wysiwyg-container"]'));
+    expect(container).toBeTruthy();
+  });
+
+  it('should render toolbar buttons', () => {
+    const buttons = hostFixture.debugElement.queryAll(By.css('[data-testid="wysiwyg-container"] button'));
+    expect(buttons.length).toBeGreaterThan(0);
+  });
+
   describe('ControlValueAccessor', () => {
-    it('should set internal htmlValue via writeValue', () => {
-      wysiwyg.writeValue('<p>hello</p>');
-      expect((wysiwyg as unknown as { htmlValue: () => string }).htmlValue()).toBe('<p>hello</p>');
-    });
-
-    it('should set htmlValue to empty string when writeValue receives null', () => {
-      wysiwyg.writeValue(null);
-      expect((wysiwyg as unknown as { htmlValue: () => string }).htmlValue()).toBe('');
-    });
-
-    it('should call onChange with HTML when editor content changes (user source)', () => {
-      const onChangeSpy = jasmine.createSpy('onChange');
-      wysiwyg.registerOnChange(onChangeSpy);
-      (wysiwyg as unknown as { onContentChanged: (e: ContentChange) => void })
-        .onContentChanged({ html: '<p>new</p>', source: 'user' } as ContentChange);
-      expect(onChangeSpy).toHaveBeenCalledWith('<p>new</p>');
-    });
-
-    it('should not call onChange when content change source is api', () => {
-      const onChangeSpy = jasmine.createSpy('onChange');
-      wysiwyg.registerOnChange(onChangeSpy);
-      (wysiwyg as unknown as { onContentChanged: (e: ContentChange) => void })
-        .onContentChanged({ html: '<p>set by code</p>', source: 'api' } as ContentChange);
-      expect(onChangeSpy).not.toHaveBeenCalled();
-    });
-
     it('should not call onChange when writeValue is called', () => {
       const onChangeSpy = jasmine.createSpy('onChange');
       wysiwyg.registerOnChange(onChangeSpy);
       wysiwyg.writeValue('<p>hello</p>');
       hostFixture.detectChanges();
       expect(onChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should call onChange when onEditorUpdate is triggered', () => {
+      const onChangeSpy = jasmine.createSpy('onChange');
+      wysiwyg.registerOnChange(onChangeSpy);
+      (wysiwyg as unknown as { onEditorUpdate: (html: string) => void })
+        .onEditorUpdate('<p>new content</p>');
+      expect(onChangeSpy).toHaveBeenCalledWith('<p>new content</p>');
     });
 
     it('should disable the editor when setDisabledState(true)', () => {
@@ -84,10 +78,23 @@ describe('WysiwygComponent', () => {
       expect((wysiwyg as unknown as { isDisabled: () => boolean }).isDisabled()).toBeFalse();
     });
 
-    it('should mark form control as touched on editor blur', () => {
+    it('should mark form control as touched when onTouched is called', () => {
       expect(host.ctrl.touched).toBeFalse();
       (wysiwyg as unknown as { onTouched: () => void }).onTouched();
       expect(host.ctrl.touched).toBeTrue();
+    });
+
+    it('should disable the form control when setDisabledState(true)', () => {
+      host.ctrl.disable();
+      hostFixture.detectChanges();
+      expect(host.ctrl.disabled).toBeTrue();
+    });
+
+    it('should re-enable when form control is re-enabled', () => {
+      host.ctrl.disable();
+      host.ctrl.enable();
+      hostFixture.detectChanges();
+      expect(host.ctrl.disabled).toBeFalse();
     });
   });
 
@@ -104,20 +111,16 @@ describe('WysiwygComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply border-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      const container = hostFixture.debugElement.query(
-        By.css('[data-testid="wysiwyg-container"]'),
-      );
-      expect(container.nativeElement.classList).toContain('border-danger');
+      const container = hostFixture.debugElement.query(By.css('[data-testid="wysiwyg-container"]'));
+      expect(container.nativeElement.classList).toContain('border-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      const container = hostFixture.debugElement.query(
-        By.css('[data-testid="wysiwyg-container"]'),
-      );
-      expect(container.nativeElement.classList).not.toContain('border-danger');
+    it('should not apply border-error when invalid but untouched', () => {
+      const container = hostFixture.debugElement.query(By.css('[data-testid="wysiwyg-container"]'));
+      expect(container.nativeElement.classList).not.toContain('border-error');
     });
   });
 });

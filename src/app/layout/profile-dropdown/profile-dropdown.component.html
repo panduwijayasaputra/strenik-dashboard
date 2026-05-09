@@ -3,7 +3,7 @@
     <!-- Avatar trigger button -->
     <button
       type="button"
-      class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+      class="btn btn-ghost btn-circle btn-sm bg-primary text-primary-content hover:opacity-90"
       aria-label="Open profile menu"
       (click)="toggle()"
     >
@@ -15,15 +15,15 @@
       <div class="fixed inset-0 z-10" (click)="close()"></div>
 
       <!-- Dropdown panel -->
-      <div class="absolute right-0 z-20 mt-2 w-max min-w-[180px] rounded-xl border border-border bg-surface shadow-lg">
+      <div class="absolute right-0 z-20 mt-2 w-max min-w-[180px] rounded-xl border border-base-300 bg-base-100 shadow-lg">
 
         <!-- User info header -->
-        <div class="border-b border-border px-4 py-3">
+        <div class="border-b border-base-300 px-4 py-3">
           <div class="flex items-center gap-2">
-            <p class="text-sm font-semibold text-foreground">{{ user.name }}</p>
+            <p class="text-sm font-semibold text-base-content">{{ user.name }}</p>
             <span class="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary capitalize">{{ user.role }}</span>
           </div>
-          <p class="text-xs text-muted-foreground">{{ user.email }}</p>
+          <p class="text-xs text-base-content/60">{{ user.email }}</p>
         </div>
 
         <!-- Menu items -->
@@ -31,36 +31,36 @@
           <a
             [routerLink]="['/profile']"
             (click)="close()"
-            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-base-content transition-colors hover:bg-base-200"
           >
-            <lucide-icon name="user" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            <lucide-icon name="user" [size]="16" class="flex-shrink-0 text-base-content/60" />
             View Profile
           </a>
 
           <a
             [routerLink]="['/settings']"
             (click)="close()"
-            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-base-content transition-colors hover:bg-base-200"
           >
-            <lucide-icon name="settings" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            <lucide-icon name="settings" [size]="16" class="flex-shrink-0 text-base-content/60" />
             Settings
           </a>
 
           <button
             type="button"
             (click)="authService.switchDemoRole(); close()"
-            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-base-content transition-colors hover:bg-base-200"
           >
-            <lucide-icon name="shield-check" [size]="16" class="flex-shrink-0 text-muted-foreground" />
+            <lucide-icon name="shield-check" [size]="16" class="flex-shrink-0 text-base-content/60" />
             Switch Role (Demo)
           </button>
 
-          <div class="my-1 border-t border-border"></div>
+          <div class="my-1 border-t border-base-300"></div>
 
           <button
             type="button"
             (click)="authService.logout(); close()"
-            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-danger transition-colors hover:bg-muted"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-error transition-colors hover:bg-base-200"
           >
             <lucide-icon name="log-out" [size]="16" class="flex-shrink-0" />
             Logout

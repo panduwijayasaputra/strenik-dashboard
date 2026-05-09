@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 import { FormSelectComponent } from './select.component';
 import { Option } from '../types/form-option.type';
@@ -35,7 +34,6 @@ describe('FormSelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideAnimations()],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -46,15 +44,15 @@ describe('FormSelectComponent', () => {
       .componentInstance;
   });
 
-  function getSelect(): HTMLElement {
-    return hostFixture.debugElement.query(By.css('mat-select')).nativeElement;
+  function getSelect(): HTMLSelectElement {
+    return hostFixture.debugElement.query(By.css('select')).nativeElement;
   }
 
   it('should create', () => {
     expect(host).toBeTruthy();
   });
 
-  it('should render a mat-select element', () => {
+  it('should render a native select element', () => {
     expect(getSelect()).toBeTruthy();
   });
 
@@ -65,23 +63,28 @@ describe('FormSelectComponent', () => {
       expect(host.ctrl.value).toBe('banana');
     });
 
-    it('should disable the mat-select when the form control is disabled', () => {
+    it('should disable the select when the form control is disabled', () => {
       host.ctrl.disable();
       hostFixture.detectChanges();
-      expect(host.ctrl.disabled).toBeTrue();
+      expect(getSelect().disabled).toBeTrue();
     });
 
     it('should re-enable when the form control is re-enabled', () => {
       host.ctrl.disable();
       host.ctrl.enable();
       hostFixture.detectChanges();
-      expect(host.ctrl.disabled).toBeFalse();
+      expect(getSelect().disabled).toBeFalse();
+    });
+
+    it('should mark as touched on blur', () => {
+      expect(host.ctrl.touched).toBeFalse();
+      getSelect().dispatchEvent(new Event('blur'));
+      expect(host.ctrl.touched).toBeTrue();
     });
   });
 
   describe('static options', () => {
     it('should resolve 3 options from a static array', () => {
-      // Access internal signal via type assertion for testing
       const resolved = (selectComponent as unknown as { resolvedOptions: () => Option[] }).resolvedOptions();
       expect(resolved.length).toBe(3);
       expect(resolved[0].value).toBe('apple');
@@ -117,10 +120,14 @@ describe('FormSelectComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should have an invalid+touched control when marked touched with no value', () => {
+    it('should apply select-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(host.ctrl.invalid && host.ctrl.touched).toBeTrue();
+      expect(getSelect().classList).toContain('select-error');
+    });
+
+    it('should not apply select-error when invalid but untouched', () => {
+      expect(getSelect().classList).not.toContain('select-error');
     });
   });
 });

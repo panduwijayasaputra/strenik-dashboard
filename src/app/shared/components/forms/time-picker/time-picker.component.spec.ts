@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormTimePickerComponent } from './time-picker.component';
 
 @Component({
@@ -29,7 +28,6 @@ describe('FormTimePickerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideAnimations()],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -41,14 +39,14 @@ describe('FormTimePickerComponent', () => {
   });
 
   function getInput(): HTMLInputElement {
-    return hostFixture.debugElement.query(By.css('input')).nativeElement;
+    return hostFixture.debugElement.query(By.css('input[type="time"]')).nativeElement;
   }
 
   it('should create', () => {
     expect(host).toBeTruthy();
   });
 
-  it('should render a text input', () => {
+  it('should render a native time input', () => {
     expect(getInput()).toBeTruthy();
   });
 
@@ -57,6 +55,14 @@ describe('FormTimePickerComponent', () => {
       host.ctrl.setValue('14:30');
       hostFixture.detectChanges();
       expect(getInput().value).toBe('14:30');
+    });
+
+    it('should update the form control when the user picks a time', () => {
+      const input = getInput();
+      input.value = '09:15';
+      input.dispatchEvent(new Event('input'));
+      hostFixture.detectChanges();
+      expect(host.ctrl.value).toBe('09:15');
     });
 
     it('should disable the input when the form control is disabled', () => {
@@ -95,18 +101,6 @@ describe('FormTimePickerComponent', () => {
     });
   });
 
-  describe('time formatting', () => {
-    it('should format an emitted time string to HH:mm and update the control', () => {
-      (timeComponent as unknown as { onTimeSet: (t: string) => void }).onTimeSet('09:05 AM');
-      expect(host.ctrl.value).toBe('09:05');
-    });
-
-    it('should handle 24h time strings directly', () => {
-      (timeComponent as unknown as { onTimeSet: (t: string) => void }).onTimeSet('14:30');
-      expect(host.ctrl.value).toBe('14:30');
-    });
-  });
-
   describe('error state', () => {
     beforeEach(() => {
       host.ctrl.setValidators(Validators.required);
@@ -120,14 +114,14 @@ describe('FormTimePickerComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply input-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).toContain('border-danger');
+      expect(getInput().classList).toContain('input-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getInput().classList).not.toContain('border-danger');
+    it('should not apply input-error when invalid but untouched', () => {
+      expect(getInput().classList).not.toContain('input-error');
     });
   });
 });

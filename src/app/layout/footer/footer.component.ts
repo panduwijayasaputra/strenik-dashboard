@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <footer class="border-t border-border bg-card px-6 py-4 text-center text-sm text-muted-foreground">
+    <footer class="border-t border-base-300 bg-base-100 px-6 py-4 text-center text-sm text-base-content/60">
       &copy; {{ year }} Strenik. All rights reserved.
     </footer>
   `,

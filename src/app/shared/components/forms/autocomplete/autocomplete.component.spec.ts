@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 import { FormAutocompleteComponent } from './autocomplete.component';
 import { Option } from '../types/form-option.type';
@@ -37,7 +36,6 @@ describe('FormAutocompleteComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideAnimations()],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -164,14 +162,14 @@ describe('FormAutocompleteComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply input-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).toContain('border-danger');
+      expect(getInput().classList).toContain('input-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getInput().classList).not.toContain('border-danger');
+    it('should not apply input-error when invalid but untouched', () => {
+      expect(getInput().classList).not.toContain('input-error');
     });
   });
 });

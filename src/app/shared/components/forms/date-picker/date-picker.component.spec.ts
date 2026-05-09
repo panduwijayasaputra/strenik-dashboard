@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { Calendar, LucideAngularModule } from 'lucide-angular';
 import { FormDatePickerComponent } from './date-picker.component';
 
 @Component({
@@ -18,9 +16,9 @@ import { FormDatePickerComponent } from './date-picker.component';
   `,
 })
 class TestHostComponent {
-  ctrl = new FormControl<Date | null>(null);
-  min: Date | null = null;
-  max: Date | null = null;
+  ctrl = new FormControl<string | null>(null);
+  min: string | null = null;
+  max: string | null = null;
   placeholder = 'Pick a date';
 }
 
@@ -30,8 +28,7 @@ describe('FormDatePickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestHostComponent, LucideAngularModule.pick({ Calendar })],
-      providers: [provideAnimations()],
+      imports: [TestHostComponent],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -40,41 +37,43 @@ describe('FormDatePickerComponent', () => {
   });
 
   function getInput(): HTMLInputElement {
-    return hostFixture.debugElement.query(By.css('input[matDatepickerInput]')).nativeElement;
+    return hostFixture.debugElement.query(By.css('input[type="date"]')).nativeElement;
   }
 
   it('should create', () => {
     expect(host).toBeTruthy();
   });
 
-  it('should render a matDatepickerInput', () => {
+  it('should render a native date input', () => {
     expect(getInput()).toBeTruthy();
   });
 
-  it('should render a calendar toggle button', () => {
-    const toggle = hostFixture.debugElement.query(By.css('mat-datepicker-toggle'));
-    expect(toggle).toBeTruthy();
-  });
-
   describe('ControlValueAccessor', () => {
-    it('should reflect a Date value in the control', () => {
-      const date = new Date(2024, 0, 15);
-      host.ctrl.setValue(date);
+    it('should reflect a string date value in the input', () => {
+      host.ctrl.setValue('2024-01-15');
       hostFixture.detectChanges();
-      expect(host.ctrl.value).toEqual(date);
+      expect(getInput().value).toBe('2024-01-15');
+    });
+
+    it('should update the form control when the user picks a date', () => {
+      const input = getInput();
+      input.value = '2024-06-01';
+      input.dispatchEvent(new Event('input'));
+      hostFixture.detectChanges();
+      expect(host.ctrl.value).toBe('2024-06-01');
     });
 
     it('should disable the input when the form control is disabled', () => {
       host.ctrl.disable();
       hostFixture.detectChanges();
-      expect(host.ctrl.disabled).toBeTrue();
+      expect(getInput().disabled).toBeTrue();
     });
 
     it('should re-enable when re-enabled', () => {
       host.ctrl.disable();
       host.ctrl.enable();
       hostFixture.detectChanges();
-      expect(host.ctrl.disabled).toBeFalse();
+      expect(getInput().disabled).toBeFalse();
     });
 
     it('should mark as touched on blur', () => {
@@ -85,18 +84,16 @@ describe('FormDatePickerComponent', () => {
   });
 
   describe('min and max constraints', () => {
-    it('should pass min date to the datepicker input', () => {
-      const min = new Date(2024, 0, 1);
-      host.min = min;
+    it('should pass min string to the date input', () => {
+      host.min = '2024-01-01';
       hostFixture.detectChanges();
-      expect(getInput().getAttribute('min') ?? '').toBeDefined();
+      expect(getInput().getAttribute('min')).toBe('2024-01-01');
     });
 
-    it('should pass max date to the datepicker input', () => {
-      const max = new Date(2024, 11, 31);
-      host.max = max;
+    it('should pass max string to the date input', () => {
+      host.max = '2024-12-31';
       hostFixture.detectChanges();
-      expect(getInput().getAttribute('max') ?? '').toBeDefined();
+      expect(getInput().getAttribute('max')).toBe('2024-12-31');
     });
   });
 
@@ -113,14 +110,14 @@ describe('FormDatePickerComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should apply border-danger when invalid and touched', () => {
+    it('should apply input-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(getInput().classList).toContain('border-danger');
+      expect(getInput().classList).toContain('input-error');
     });
 
-    it('should not apply border-danger when invalid but untouched', () => {
-      expect(getInput().classList).not.toContain('border-danger');
+    it('should not apply input-error when invalid but untouched', () => {
+      expect(getInput().classList).not.toContain('input-error');
     });
   });
 });

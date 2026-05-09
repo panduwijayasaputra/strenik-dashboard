@@ -32,13 +32,13 @@ import { getSizeClasses } from '../utils/form-size.utils';
           @for (tag of tags(); track tag + $index) {
             <span
               data-testid="tag-chip"
-              class="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-xs">
+              class="badge badge-primary gap-1">
               {{ tag }}
               @if (!isDisabled()) {
                 <button
                   type="button"
                   aria-label="Remove tag"
-                  class="ml-1 text-primary hover:text-danger leading-none"
+                  class="leading-none"
                   (click)="removeTag(tag)">×</button>
               }
             </span>
@@ -60,11 +60,9 @@ import { getSizeClasses } from '../utils/form-size.utils';
           [class]="inputClasses()" />
 
         @if (filteredSuggestions().length > 0 && inputValue().length > 0) {
-          <ul class="absolute z-10 w-full mt-1 rounded border border-input bg-background shadow text-sm max-h-48 overflow-y-auto">
+          <ul class="menu absolute z-10 w-full mt-1 rounded-box border border-base-300 bg-base-100 shadow text-sm max-h-48 overflow-y-auto p-1">
             @for (s of filteredSuggestions(); track s) {
-              <li
-                class="px-3 py-2 cursor-pointer hover:bg-muted"
-                (mousedown)="addTag(s)">{{ s }}</li>
+              <li><a (mousedown)="addTag(s)">{{ s }}</a></li>
             }
           </ul>
         }
@@ -138,8 +136,8 @@ export class FormTagsInputComponent implements ControlValueAccessor, OnInit {
   protected inputClasses(): string {
     const size = getSizeClasses(this.size());
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `w-full rounded border ${border} bg-background ${size} placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring`;
+    const errorClass = hasError ? 'input-error' : '';
+    return `input input-bordered w-full ${size} ${errorClass}`.trim();
   }
 
   protected onInput(event: Event): void {

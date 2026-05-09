@@ -3,10 +3,12 @@
   routerLinkActive
   #rla="routerLinkActive"
   [routerLinkActiveOptions]="{ exact: true }"
+  [title]="mini() ? item().label : ''"
   class="flex w-full items-center rounded-lg px-3 py-2 text-sm transition-colors"
   [class.text-primary]="rla.isActive"
   [class.font-medium]="rla.isActive"
-  [class.text-muted-foreground]="!rla.isActive"
+  [class.text-base-content]="!rla.isActive"
+  [class.opacity-60]="!rla.isActive"
 >
   <lucide-icon [name]="item().icon" [size]="18" class="flex-shrink-0" />
   <span

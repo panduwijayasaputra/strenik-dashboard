@@ -4,7 +4,9 @@ import {
   Component,
   DestroyRef,
   effect,
+  ElementRef,
   EventEmitter,
+  HostListener,
   inject,
   input,
   OnInit,
@@ -14,7 +16,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl, TouchedChangeEvent } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { filter, isObservable, Observable, of, Subscription } from 'rxjs';
 import { Option } from '../types/form-option.type';
 import { FormSize } from '../types/form-size.type';
@@ -24,26 +25,30 @@ import { getSizeClasses } from '../utils/form-size.utils';
   selector: 'app-form-autocomplete',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatAutocompleteModule],
+  imports: [],
   template: `
     <div class="relative">
       <input
-        #trigger="matAutocompleteTrigger"
-        [matAutocomplete]="auto"
+        type="text"
         [value]="displayValue()"
         [placeholder]="placeholder()"
         [disabled]="isDisabled()"
         (input)="onInput($event)"
+        (focus)="onFocus()"
         (blur)="onTouched()"
         [class]="inputClasses()" />
 
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="onOptionSelected($event)">
-        @for (option of filteredOptions(); track option.value) {
-          <mat-option [value]="option">{{ option.label }}</mat-option>
-        }
-      </mat-autocomplete>
+      @if (isOpen() && filteredOptions().length > 0) {
+        <ul
+          class="menu absolute z-50 w-full rounded-box bg-base-100 shadow border border-base-300 mt-1 max-h-60 overflow-auto"
+          data-testid="autocomplete-panel">
+          @for (option of filteredOptions(); track option.value) {
+            <li>
+              <a (mousedown)="selectOption(option)">{{ option.label }}</a>
+            </li>
+          }
+        </ul>
+      }
     </div>
   `,
 })
@@ -56,11 +61,13 @@ export class FormAutocompleteComponent implements ControlValueAccessor, OnInit {
 
   protected readonly displayValue = signal('');
   protected readonly isDisabled = signal(false);
+  protected readonly isOpen = signal(false);
   protected readonly filteredOptions = signal<Option[]>([]);
 
   private readonly ngControl = inject(NgControl, { optional: true, self: true });
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly elementRef = inject(ElementRef);
 
   private onChange: (value: unknown) => void = () => {};
   onTouched: () => void = () => {};
@@ -104,15 +111,31 @@ export class FormAutocompleteComponent implements ControlValueAccessor, OnInit {
       .subscribe(() => this.cdr.markForCheck());
   }
 
+  @HostListener('document:click', ['$event'])
+  protected onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      if (this.isOpen()) {
+        this.isOpen.set(false);
+        this.cdr.markForCheck();
+      }
+    }
+  }
+
   protected inputClasses(): string {
     const size = getSizeClasses(this.size());
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border-danger' : 'border-input';
-    return `w-full rounded border ${border} bg-background ${size} placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring`;
+    const errorClass = hasError ? 'input-error' : '';
+    return `input input-bordered w-full ${size} ${errorClass}`.trim();
+  }
+
+  protected onFocus(): void {
+    this.isOpen.set(true);
   }
 
   protected onInput(event: Event): void {
     const query = (event.target as HTMLInputElement).value;
+    this.displayValue.set(query);
+    this.isOpen.set(true);
     if (this.isObservableSource) {
       this.search.emit(query);
     } else {
@@ -125,14 +148,11 @@ export class FormAutocompleteComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  protected onOptionSelected(event: { option: { value: Option } }): void {
-    const selected = event.option.value;
-    this.selectOption(selected);
-  }
-
   protected selectOption(option: Option): void {
     this.displayValue.set(option.label);
     this.onChange(option.value);
+    this.isOpen.set(false);
+    this.cdr.markForCheck();
   }
 
   writeValue(value: unknown): void {

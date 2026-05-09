@@ -28,7 +28,7 @@ describe('NotificationsDropdownComponent', () => {
   });
 
   it('should show unread badge when there are unread notifications', () => {
-    const badge = fixture.nativeElement.querySelector('.bg-danger');
+    const badge = fixture.nativeElement.querySelector('.bg-error');
     expect(badge).toBeTruthy();
     expect(badge.textContent.trim()).toBe(String(notificationsService.unreadCount()));
   });
@@ -36,7 +36,7 @@ describe('NotificationsDropdownComponent', () => {
   it('should not show badge when all notifications are read', () => {
     notificationsService.markAllRead();
     fixture.detectChanges();
-    const badge = fixture.nativeElement.querySelector('.bg-danger');
+    const badge = fixture.nativeElement.querySelector('.bg-error');
     expect(badge).toBeNull();
   });
 

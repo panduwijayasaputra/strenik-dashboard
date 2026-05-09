@@ -35,7 +35,7 @@ let nextId = 0;
             [disabled]="isDisabled()"
             (change)="onSelect(option.value)"
             (blur)="onTouched()"
-            class="accent-primary" />
+            class="radio radio-primary" />
           <span class="text-sm text-foreground">{{ option.label }}</span>
         </label>
       }
@@ -81,7 +81,7 @@ export class FormRadioGroupComponent implements ControlValueAccessor, OnInit {
   protected containerClasses(): string {
     const dir = this.orientation() === 'horizontal' ? 'flex-row' : 'flex-col';
     const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
-    const border = hasError ? 'border border-danger rounded p-2' : '';
+    const border = hasError ? 'border-2 border-error rounded p-2' : '';
     return `${dir} ${border}`.trim();
   }
 

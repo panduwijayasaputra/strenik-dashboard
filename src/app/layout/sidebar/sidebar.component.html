@@ -1,5 +1,5 @@
 <aside
-  class="flex h-full flex-col overflow-hidden bg-surface border-r border-border transition-all duration-300"
+  class="flex h-full flex-col overflow-hidden bg-base-100 border-r border-base-300 transition-all duration-300"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
   [class.w-60]="mobileMode()"
@@ -8,12 +8,12 @@
 >
   <!-- Logo / Brand (desktop only) -->
   @if (!mobileMode()) {
-    <div class="flex h-16 flex-shrink-0 items-center gap-3 px-4 border-b border-border overflow-hidden">
+    <div class="flex h-16 flex-shrink-0 items-center gap-3 px-4 border-b border-base-300 overflow-hidden">
       <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
-        <span class="text-sm font-bold text-primary-foreground">S</span>
+        <span class="text-sm font-bold text-primary-content">S</span>
       </div>
       <span
-        class="truncate overflow-hidden whitespace-nowrap text-base font-semibold text-foreground transition-all duration-300"
+        class="truncate overflow-hidden whitespace-nowrap text-base font-semibold text-base-content transition-all duration-300"
         [style.max-width]="isMini() ? '0px' : '160px'"
         [style.opacity]="isMini() ? '0' : '1'"
       >Strenik</span>

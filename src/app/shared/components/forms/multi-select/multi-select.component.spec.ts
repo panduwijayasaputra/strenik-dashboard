@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 import { FormMultiSelectComponent } from './multi-select.component';
 import { Option } from '../types/form-option.type';
@@ -37,7 +36,6 @@ describe('FormMultiSelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
-      providers: [provideAnimations()],
     }).compileComponents();
 
     hostFixture = TestBed.createComponent(TestHostComponent);
@@ -48,12 +46,16 @@ describe('FormMultiSelectComponent', () => {
       .componentInstance;
   });
 
+  function getTrigger(): HTMLElement {
+    return hostFixture.debugElement.query(By.css('[data-testid="multi-select-trigger"]')).nativeElement;
+  }
+
   it('should create', () => {
     expect(host).toBeTruthy();
   });
 
-  it('should render a mat-select element', () => {
-    expect(hostFixture.debugElement.query(By.css('mat-select'))).toBeTruthy();
+  it('should render the multi-select trigger element', () => {
+    expect(getTrigger()).toBeTruthy();
   });
 
   describe('ControlValueAccessor', () => {
@@ -63,7 +65,14 @@ describe('FormMultiSelectComponent', () => {
       expect(host.ctrl.value).toEqual(['red', 'blue']);
     });
 
-    it('should disable the select when the form control is disabled', () => {
+    it('should render chips for selected values', () => {
+      host.ctrl.setValue(['red', 'blue']);
+      hostFixture.detectChanges();
+      const chips = hostFixture.debugElement.queryAll(By.css('[data-testid="selected-chip"]'));
+      expect(chips.length).toBe(2);
+    });
+
+    it('should disable the trigger when the form control is disabled', () => {
       host.ctrl.disable();
       hostFixture.detectChanges();
       expect(host.ctrl.disabled).toBeTrue();
@@ -133,10 +142,14 @@ describe('FormMultiSelectComponent', () => {
       host.ctrl.updateValueAndValidity();
     });
 
-    it('should have an invalid+touched control when touched with no value', () => {
+    it('should apply select-error when invalid and touched', () => {
       host.ctrl.markAsTouched();
       hostFixture.detectChanges();
-      expect(host.ctrl.invalid && host.ctrl.touched).toBeTrue();
+      expect(getTrigger().classList).toContain('select-error');
+    });
+
+    it('should not apply select-error when invalid but untouched', () => {
+      expect(getTrigger().classList).not.toContain('select-error');
     });
   });
 });

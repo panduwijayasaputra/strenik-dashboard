@@ -1,6 +1,6 @@
 import { importProvidersFrom } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LucideAngularModule, Monitor, Moon, Sun } from 'lucide-angular';
+import { LucideAngularModule, Moon, Sun } from 'lucide-angular';
 import { ThemeSwitcherComponent } from './theme-switcher.component';
 import { ThemeService } from '../../shared/services/theme.service';
 
@@ -12,7 +12,7 @@ describe('ThemeSwitcherComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ThemeSwitcherComponent],
       providers: [
-        importProvidersFrom(LucideAngularModule.pick({ Sun, Moon, Monitor })),
+        importProvidersFrom(LucideAngularModule.pick({ Sun, Moon })),
       ],
     }).compileComponents();
 
@@ -26,43 +26,36 @@ describe('ThemeSwitcherComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should call themeService.setMode with "dark" when Dark button clicked', () => {
-    spyOn(themeService, 'setMode');
+  it('should render only light and dark theme buttons', () => {
+    const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('button[aria-label]');
+    const labels = Array.from(buttons).map(b => b.getAttribute('aria-label'));
+    expect(labels).toContain('Light theme');
+    expect(labels).toContain('Dark theme');
+    expect(labels.length).toBe(2);
+  });
+
+  it('should call themeService.setTheme with "dark" when Dark button clicked', () => {
+    spyOn(themeService, 'setTheme');
     const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('button[aria-label]');
     const darkBtn = Array.from(buttons).find(b =>
-      b.getAttribute('aria-label') === 'Dark mode'
+      b.getAttribute('aria-label') === 'Dark theme'
     );
     darkBtn?.click();
-    expect(themeService.setMode).toHaveBeenCalledWith('dark');
+    expect(themeService.setTheme).toHaveBeenCalledWith('dark');
   });
 
-  it('should call themeService.setMode with "light" when Light button clicked', () => {
-    spyOn(themeService, 'setMode');
+  it('should call themeService.setTheme with "light" when Light button clicked', () => {
+    spyOn(themeService, 'setTheme');
     const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('button[aria-label]');
     const lightBtn = Array.from(buttons).find(b =>
-      b.getAttribute('aria-label') === 'Light mode'
+      b.getAttribute('aria-label') === 'Light theme'
     );
     lightBtn?.click();
-    expect(themeService.setMode).toHaveBeenCalledWith('light');
+    expect(themeService.setTheme).toHaveBeenCalledWith('light');
   });
 
-  it('should call themeService.setPalette with "emerald" when Emerald swatch clicked', () => {
-    spyOn(themeService, 'setPalette');
-    const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('button[aria-label]');
-    const emeraldBtn = Array.from(buttons).find(b =>
-      b.getAttribute('aria-label') === 'Emerald palette'
-    );
-    emeraldBtn?.click();
-    expect(themeService.setPalette).toHaveBeenCalledWith('emerald');
-  });
-
-  it('should call themeService.setPalette with "violet" when Violet swatch clicked', () => {
-    spyOn(themeService, 'setPalette');
-    const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('button[aria-label]');
-    const violetBtn = Array.from(buttons).find(b =>
-      b.getAttribute('aria-label') === 'Violet palette'
-    );
-    violetBtn?.click();
-    expect(themeService.setPalette).toHaveBeenCalledWith('violet');
+  it('should expose light and dark as the only theme options', () => {
+    const component = fixture.componentInstance;
+    expect(component.themes.map(t => t.value)).toEqual(['light', 'dark']);
   });
 });
