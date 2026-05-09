@@ -4,6 +4,8 @@ import {
   Component,
   DestroyRef,
   effect,
+  ElementRef,
+  HostListener,
   inject,
   input,
   OnInit,
@@ -12,52 +14,59 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl, TouchedChangeEvent } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
 import { filter, isObservable, Observable, of, Subscription } from 'rxjs';
 import { Option } from '../types/form-option.type';
 import { FormSize } from '../types/form-size.type';
+import { getSelectSizeClasses } from '../utils/form-size.utils';
 
 @Component({
   selector: 'app-form-multi-select',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatSelectModule, MatFormFieldModule, MatChipsModule, MatIconModule],
+  imports: [],
   template: `
-    <mat-select
-      multiple
-      [value]="value()"
-      [disabled]="isDisabled()"
-      [placeholder]="placeholder()"
-      (valueChange)="onValueChange($event)"
-      (openedChange)="onOpenedChange($event)">
-      @for (option of resolvedOptions(); track option.value) {
-        <mat-option [value]="option.value" [disabled]="isOptionDisabled(option.value)">
-          {{ option.label }}
-        </mat-option>
-      }
-    </mat-select>
-
-    @if (value().length > 0) {
-      <div class="flex flex-wrap gap-1 mt-1">
-        @for (val of value(); track val) {
-          <span class="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-xs">
-            {{ labelFor(val) }}
-            @if (!isDisabled()) {
-              <button
-                type="button"
-                aria-label="Remove"
-                class="ml-1 text-primary hover:text-danger"
-                (click)="removeChip(val)">
-                ×
-              </button>
+    <div class="relative">
+      <div
+        data-testid="multi-select-trigger"
+        [class]="triggerClasses()"
+        (click)="toggleDropdown()">
+        @if (value().length === 0) {
+          <span class="opacity-50">{{ placeholder() }}</span>
+        } @else {
+          <div class="flex flex-wrap gap-1">
+            @for (val of value(); track val) {
+              <span class="badge badge-primary gap-1" data-testid="selected-chip">
+                {{ labelFor(val) }}
+                @if (!isDisabled()) {
+                  <button
+                    type="button"
+                    aria-label="Remove"
+                    (click)="removeChip(val); $event.stopPropagation()">×</button>
+                }
+              </span>
             }
-          </span>
+          </div>
         }
+        <span class="ml-auto pl-2 shrink-0">▾</span>
       </div>
-    }
+
+      @if (isOpen()) {
+        <ul
+          class="menu absolute z-50 w-full rounded-box bg-base-100 shadow border border-base-300 mt-1 max-h-60 overflow-auto"
+          data-testid="dropdown-panel">
+          @for (option of resolvedOptions(); track option.value) {
+            <li>
+              <a
+                [class.active]="isSelected(option.value)"
+                [class.disabled]="isOptionDisabled(option.value)"
+                (click)="toggleOption(option.value)">
+                {{ option.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
   `,
 })
 export class FormMultiSelectComponent implements ControlValueAccessor, OnInit {
@@ -68,11 +77,13 @@ export class FormMultiSelectComponent implements ControlValueAccessor, OnInit {
 
   protected readonly value = signal<unknown[]>([]);
   protected readonly isDisabled = signal(false);
+  protected readonly isOpen = signal(false);
   protected readonly resolvedOptions = signal<Option[]>([]);
 
   private readonly ngControl = inject(NgControl, { optional: true, self: true });
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly elementRef = inject(ElementRef);
 
   private onChange: (value: unknown[]) => void = () => {};
   private onTouchedFn: () => void = () => {};
@@ -111,6 +122,34 @@ export class FormMultiSelectComponent implements ControlValueAccessor, OnInit {
       .subscribe(() => this.cdr.markForCheck());
   }
 
+  @HostListener('document:click', ['$event'])
+  protected onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      if (this.isOpen()) {
+        this.isOpen.set(false);
+        this.onTouchedFn();
+        this.cdr.markForCheck();
+      }
+    }
+  }
+
+  protected triggerClasses(): string {
+    const size = getSelectSizeClasses(this.size());
+    const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
+    const errorClass = hasError ? 'select-error' : '';
+    const disabledClass = this.isDisabled() ? 'cursor-not-allowed opacity-50' : 'cursor-pointer';
+    return `select select-bordered w-full h-auto min-h-[2.5rem] ${size} ${errorClass} ${disabledClass} flex items-center flex-wrap`.trim();
+  }
+
+  protected toggleDropdown(): void {
+    if (this.isDisabled()) return;
+    this.isOpen.update((v) => !v);
+  }
+
+  protected isSelected(optionValue: unknown): boolean {
+    return this.value().includes(optionValue);
+  }
+
   protected isOptionDisabled(optionValue: unknown): boolean {
     const max = this.maxSelections();
     if (max === null) return false;
@@ -123,13 +162,14 @@ export class FormMultiSelectComponent implements ControlValueAccessor, OnInit {
     return this.resolvedOptions().find((o) => o.value === val)?.label ?? String(val);
   }
 
-  protected onValueChange(value: unknown[]): void {
-    this.value.set(value ?? []);
-    this.onChange(value ?? []);
-  }
-
-  protected onOpenedChange(opened: boolean): void {
-    if (!opened) this.onTouchedFn();
+  protected toggleOption(optionValue: unknown): void {
+    if (this.isOptionDisabled(optionValue)) return;
+    const current = this.value();
+    const updated = current.includes(optionValue)
+      ? current.filter((v) => v !== optionValue)
+      : [...current, optionValue];
+    this.value.set(updated);
+    this.onChange(updated);
   }
 
   protected removeChip(val: unknown): void {

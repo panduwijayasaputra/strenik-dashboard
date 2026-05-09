@@ -12,28 +12,29 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl, TouchedChangeEvent } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { filter, isObservable, Observable, of, Subscription } from 'rxjs';
 import { Option } from '../types/form-option.type';
 import { FormSize } from '../types/form-size.type';
+import { getSelectSizeClasses } from '../utils/form-size.utils';
 
 @Component({
   selector: 'app-form-select',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatSelectModule, MatFormFieldModule],
+  imports: [],
   template: `
-    <mat-select
-      [value]="value()"
+    <select
       [disabled]="isDisabled()"
-      [placeholder]="placeholder()"
-      (valueChange)="onValueChange($event)"
-      (openedChange)="onOpenedChange($event)">
-      @for (option of resolvedOptions(); track option.value) {
-        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      (change)="onValueChange($event)"
+      (blur)="onTouchedFn()"
+      [class]="selectClasses()">
+      @if (placeholder()) {
+        <option value="" disabled [selected]="value() === null || value() === ''">{{ placeholder() }}</option>
       }
-    </mat-select>
+      @for (option of resolvedOptions(); track option.value) {
+        <option [value]="option.value" [selected]="option.value === value()">{{ option.label }}</option>
+      }
+    </select>
   `,
 })
 export class FormSelectComponent implements ControlValueAccessor, OnInit {
@@ -87,15 +88,17 @@ export class FormSelectComponent implements ControlValueAccessor, OnInit {
       .subscribe(() => this.cdr.markForCheck());
   }
 
-  protected onValueChange(value: unknown): void {
-    this.value.set(value);
-    this.onChange(value);
+  protected selectClasses(): string {
+    const size = getSelectSizeClasses(this.size());
+    const hasError = this.ngControl?.control?.invalid && this.ngControl?.control?.touched;
+    const errorClass = hasError ? 'select-error' : '';
+    return `select select-bordered w-full ${size} ${errorClass}`.trim();
   }
 
-  protected onOpenedChange(opened: boolean): void {
-    if (!opened) {
-      this.onTouchedFn();
-    }
+  protected onValueChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.value.set(value);
+    this.onChange(value);
   }
 
   writeValue(value: unknown): void {
