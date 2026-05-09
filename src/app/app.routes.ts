@@ -6,12 +6,6 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
-    path: 'dev/forms',
-    canActivate: [canActivateDev],
-    loadComponent: () =>
-      import('./features/dev/forms/dev-forms.component').then(m => m.DevFormsComponent),
-  },
-  {
     path: 'auth',
     loadComponent: () =>
       import('./layout/empty-layout/empty-layout.component').then(m => m.EmptyLayoutComponent),
@@ -58,6 +52,13 @@ export const routes: Routes = [
         data: { breadcrumb: 'Settings' },
         loadChildren: () =>
           import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES),
+      },
+      {
+        path: 'dev/forms',
+        canActivate: [canActivateDev],
+        data: { breadcrumb: 'Form Components' },
+        loadComponent: () =>
+          import('./features/dev/forms/dev-forms.component').then(m => m.DevFormsComponent),
       },
     ],
   },
