@@ -12,10 +12,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl, TouchedChangeEvent } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs';
-import { ContentChange, QuillModule } from 'ngx-quill';
+import { ContentChange, QuillModule, QuillModules } from 'ngx-quill';
 import { FormSize } from '../types/form-size.type';
 
-const DEFAULT_TOOLBAR = [
+const DEFAULT_TOOLBAR: QuillModules['toolbar'] = [
   ['bold', 'italic', 'underline', 'strike'],
   ['blockquote', 'code-block'],
   [{ list: 'ordered' }, { list: 'bullet' }],
@@ -45,7 +45,7 @@ const DEFAULT_TOOLBAR = [
   `,
 })
 export class WysiwygComponent implements ControlValueAccessor, OnInit {
-  toolbar = input<unknown[][]>(DEFAULT_TOOLBAR);
+  toolbar = input<QuillModules['toolbar']>(DEFAULT_TOOLBAR);
   placeholder = input('');
   size = input<FormSize>('md');
 
