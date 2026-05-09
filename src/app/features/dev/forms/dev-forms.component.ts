@@ -18,10 +18,6 @@ import {
   FormTagsInputComponent,
   WysiwygComponent,
 } from '../../../shared/components/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { QuillModule } from 'ngx-quill';
-
 @Component({
   selector: 'app-dev-forms',
   standalone: true,
@@ -43,9 +39,6 @@ import { QuillModule } from 'ngx-quill';
     DropzoneComponent,
     FormTagsInputComponent,
     WysiwygComponent,
-    MatNativeDateModule,
-    NgxMatTimepickerModule,
-    QuillModule,
   ],
   template: `
     <div class="p-8 max-w-4xl mx-auto space-y-12">

@@ -174,85 +174,74 @@
     - No behavior changes (free-text and suggestion support unchanged).
     - Update spec and run tests.
 
-- [ ] 4.0 Migrate Complex Form Components with Custom Dropdowns
-  - [ ] 4.1 Build reusable dropdown shell pattern (document only, no abstraction)
+- [x] 4.0 Migrate Complex Form Components with Custom Dropdowns
+  - [x] 4.1 Build reusable dropdown shell pattern (document only, no abstraction)
     - Note the pattern to be repeated in select, multi-select, and autocomplete:
       - Wrapper `div` with `relative` class; dropdown panel with `absolute` positioning.
-      - Signal `isOpen = signal(false)` controls `[class.hidden]` on the panel.
+      - Signal `isOpen = signal(false)` controls `@if (isOpen())` on the panel.
       - `@HostListener('document:click', ['$event'])` closes the dropdown when clicking outside the host element.
-      - Keyboard: `ArrowDown` / `ArrowUp` navigate options; `Enter` selects; `Escape` closes.
-  - [ ] 4.2 Migrate `FormSelectComponent`
-    - Remove `mat-select`, `MatSelectModule` imports.
-    - Rebuild template: a DaisyUI `btn` or `input`-styled trigger button showing the selected label, and a dropdown panel using DaisyUI `dropdown-content menu` classes.
-    - Support both static `Option[]` and `Observable<Option[]>` options (async pipe in template).
-    - Retain `placeholder` input (shown when no value selected).
-    - Apply `select-error` border when invalid+touched.
-    - Keep CVA wiring unchanged.
-    - Update `select.component.spec.ts`: test open/close, option selection, outside-click close, and error state.
-    - Run tests.
-  - [ ] 4.3 Migrate `FormMultiSelectComponent`
-    - Same custom dropdown approach as 4.2.
-    - Selected items rendered as DaisyUI `badge` chips inside the trigger area, each with a remove button.
-    - Retain `maxSelections` guard (disable options once limit reached).
-    - Update spec and run tests.
-  - [ ] 4.4 Migrate `FormAutocompleteComponent`
-    - Remove `mat-autocomplete`, `MatAutocompleteModule` imports.
-    - Rebuild: a DaisyUI `input input-bordered` that on input opens a dropdown (`dropdown-content menu`) filtered by typed text.
-    - Retain client-side filter for static `Option[]` options.
-    - Retain `search` EventEmitter for Observable options (emit on input change; consumer populates options).
-    - Apply `input-error` for invalid+touched.
-    - Update spec and run tests.
+  - [x] 4.2 Migrate `FormSelectComponent`
+    - Remove `mat-select`, `MatSelectModule`, `MatFormFieldModule` imports.
+    - Rebuilt template: native `<select>` with DaisyUI `select select-bordered` + size modifier.
+    - Support both static `Option[]` and `Observable<Option[]>` options.
+    - Retain `placeholder` input (shown as disabled first option).
+    - Apply `select-error` when invalid+touched.
+    - Updated spec: removed `provideAnimations`, test native `select` element, added blur+touched test.
+  - [x] 4.3 Migrate `FormMultiSelectComponent`
+    - Remove `MatSelectModule`, `MatFormFieldModule`, `MatChipsModule`, `MatIconModule` imports.
+    - Custom dropdown with `@HostListener` outside-click; `isOpen` signal.
+    - Selected items rendered as DaisyUI `badge badge-primary` chips with remove button.
+    - Retain `maxSelections` guard.
+    - Updated spec: test trigger element, chip rendering, error state with `select-error`.
+  - [x] 4.4 Migrate `FormAutocompleteComponent`
+    - Remove `MatAutocompleteModule` import.
+    - DaisyUI `input input-bordered` with custom dropdown panel using `@HostListener` outside-click.
+    - Retain client-side filter for static `Option[]`; `search` EventEmitter for Observable options.
+    - Apply `input-error` for invalid+touched; updated spec to match.
 
-- [ ] 5.0 Replace WysiwygComponent: ngx-quill → Tiptap
-  - [ ] 5.1 Install and verify Tiptap packages
-    - Confirm `@tiptap/core`, `@tiptap/starter-kit`, `@tiptap/extension-placeholder` are in `package.json` (installed in Task 1.3).
-  - [ ] 5.2 Rewrite `WysiwygComponent` template and class
-    - Open `wysiwyg.component.ts`.
-    - Remove `QuillModule` import.
-    - Add a `@ViewChild('editorContainer') editorEl: ElementRef` to reference the editor mount point.
-    - In `ngAfterViewInit`: instantiate `new Editor({ element: this.editorEl.nativeElement, extensions: [StarterKit, Placeholder.configure({ placeholder: this.placeholder })], content: this._value, onUpdate: ({ editor }) => { this.onChange(editor.getHTML()); } })`.
-    - In `ngOnDestroy`: call `this.editor.destroy()`.
-    - Implement CVA: `writeValue` calls `editor.commands.setContent(value ?? '')`.
-    - Template: toolbar buttons using DaisyUI `btn btn-sm` and `join` (button group) for Bold, Italic, Underline, Bullet list, Ordered list, Blockquote; editor mount `<div #editorContainer class="prose max-w-none">`.
-    - Apply `border-error` ring on the container when control is invalid+touched.
-    - Retain `placeholder`, `disabled` inputs (pass `disabled` to `editor.setEditable(false)`).
-  - [ ] 5.3 Update `wysiwyg.component.spec.ts`
-    - Mock the Tiptap `Editor` class (provide a jest/vitest spy or a stub object with `destroy`, `commands.setContent`, `getHTML`, `setEditable`).
-    - Test: editor is created in `ngAfterViewInit`, destroyed in `ngOnDestroy`, `writeValue` calls `setContent`, `onUpdate` calls `onChange`.
-    - Run `pnpm test` — confirm green.
+- [x] 5.0 Replace WysiwygComponent: ngx-quill → Tiptap
+  - [x] 5.1 Install and verify Tiptap packages
+    - Confirmed `@tiptap/core`, `@tiptap/starter-kit`, `@tiptap/extension-placeholder` in `package.json`.
+  - [x] 5.2 Rewrite `WysiwygComponent` template and class
+    - Removed `QuillModule`, `FormsModule` imports; added `Editor`, `StarterKit`, `Placeholder`.
+    - `@ViewChild('editorContainer')` mounts Tiptap in `ngAfterViewInit`.
+    - `ngOnDestroy` calls `editor.destroy()`.
+    - `writeValue` calls `editor.commands.setContent(value, { emitUpdate: false })`.
+    - DaisyUI `btn btn-sm join` toolbar for Bold/Italic/BulletList/OrderedList/Blockquote.
+    - Error state: `border-error` class on container when invalid+touched.
+  - [x] 5.3 Update `wysiwyg.component.spec.ts`
+    - Used real Tiptap editor in headless Chrome (no mock needed).
+    - Tests `onEditorUpdate` directly for onChange coverage.
+    - Error state checks `border-error`; removed `border-danger` references.
+    - 215/215 tests passing.
 
-- [ ] 6.0 Migrate Layout Shell to DaisyUI
-  - [ ] 6.1 Migrate `SidebarComponent`
-    - Open `sidebar.component.ts` and its template.
-    - Replace Material-specific classes and imports with DaisyUI `menu`, `menu-title`, `li`, `a` structure.
-    - Remove `matTooltip` directive; add native `title` attribute on icon anchors for mini-sidebar tooltip (or use a lightweight CSS tooltip via `tooltip` DaisyUI class if preferred).
-    - Retain collapsible behavior (wide ↔ mini) and mobile drawer logic; just swap class names to DaisyUI equivalents.
-  - [ ] 6.2 Migrate `NavItemComponent` and `NavGroupComponent`
-    - Replace any Angular Material class references with DaisyUI menu item/group classes.
-    - Ensure active state uses DaisyUI `active` class on `<li>` or `<a>`.
-  - [ ] 6.3 Migrate `HeaderComponent` (top navbar)
-    - Replace Material toolbar with DaisyUI `navbar` structure (`navbar-start`, `navbar-center`, `navbar-end`).
-    - Restyle search input with DaisyUI `input input-bordered input-sm`.
-    - Restyle hamburger button with DaisyUI `btn btn-ghost btn-square`.
-    - Remove Material button/icon imports.
-  - [ ] 6.4 Migrate `NotificationsDropdownComponent`
-    - Replace Material menu/overlay with DaisyUI `dropdown dropdown-end` + `menu`.
-    - Bell icon button: DaisyUI `btn btn-ghost btn-circle`.
-    - Notification items: DaisyUI `menu` list items.
-    - Update `notifications-dropdown.component.spec.ts` and run tests.
-  - [ ] 6.5 Migrate `ProfileDropdownComponent`
-    - Replace Material menu with DaisyUI `dropdown dropdown-end` + `menu`.
-    - Avatar trigger: DaisyUI `btn btn-ghost btn-circle avatar`.
-    - Update `profile-dropdown.component.spec.ts` and run tests.
-  - [ ] 6.6 Migrate `BreadcrumbComponent`
-    - Apply DaisyUI `breadcrumbs` class to the `<ul>` wrapper.
-    - No behavior changes (auto-generation from route `data.breadcrumb` unchanged).
-  - [ ] 6.7 Migrate `FooterComponent`
-    - Apply DaisyUI `footer` class.
-    - No behavior changes.
-  - [ ] 6.8 Update `MainLayoutComponent`
-    - Remove any remaining Angular Material module imports from `main-layout.component.ts`.
-    - Update `main-layout.component.spec.ts` and run tests.
+- [x] 6.0 Migrate Layout Shell to DaisyUI
+  - [x] 6.1 Migrate `SidebarComponent`
+    - bg-surface→bg-base-100, border-border→border-base-300, text-primary-foreground→text-primary-content.
+    - No matTooltip existed; added native `title` attribute to nav-item/nav-group for mini tooltip.
+  - [x] 6.2 Migrate `NavItemComponent` and `NavGroupComponent`
+    - Inactive: text-base-content opacity-60; active: text-primary font-medium.
+    - hover:bg-base-200 / hover:text-base-content on group button.
+  - [x] 6.3 Migrate `HeaderComponent` (top navbar)
+    - Hamburger/toggle: btn btn-ghost btn-square btn-sm.
+    - Search: input input-bordered input-sm.
+    - bg-base-100 / border-base-300.
+  - [x] 6.4 Migrate `NotificationsDropdownComponent`
+    - Bell: btn btn-ghost btn-circle btn-sm.
+    - Badge: bg-error / text-error-content.
+    - Panel: bg-base-100, border-base-300; items hover:bg-base-200.
+    - Spec: bg-danger → bg-error.
+  - [x] 6.5 Migrate `ProfileDropdownComponent`
+    - Avatar trigger: btn btn-ghost btn-circle btn-sm bg-primary text-primary-content.
+    - Logout: text-error.
+    - Panel: bg-base-100, border-base-300.
+  - [x] 6.6 Migrate `BreadcrumbComponent`
+    - Added `breadcrumbs` class; text-base-content/60, hover:text-base-content.
+  - [x] 6.7 Migrate `FooterComponent`
+    - border-base-300, bg-base-100, text-base-content/60.
+  - [x] 6.8 Update `MainLayoutComponent`
+    - bg-base-200 root, bg-base-content/50 overlay. No Material imports to remove.
+    - 215/215 tests passing.
 
 - [ ] 7.0 Remove Angular Material, CDK, and Legacy Dependencies
   - [ ] 7.1 Audit remaining Material/CDK imports across the codebase

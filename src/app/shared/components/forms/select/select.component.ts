@@ -51,7 +51,7 @@ export class FormSelectComponent implements ControlValueAccessor, OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   private onChange: (value: unknown) => void = () => {};
-  private onTouchedFn: () => void = () => {};
+  protected onTouchedFn: () => void = () => {};
 
   private optionsSub?: Subscription;
 
