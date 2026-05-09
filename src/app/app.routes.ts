@@ -1,9 +1,16 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guards/auth.guard';
+import { canActivateDev } from './shared/guards/dev.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'dev/forms',
+    canActivate: [canActivateDev],
+    loadComponent: () =>
+      import('./features/dev/forms/dev-forms.component').then(m => m.DevFormsComponent),
+  },
   {
     path: 'auth',
     loadComponent: () =>

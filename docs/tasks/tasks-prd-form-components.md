@@ -207,8 +207,8 @@
     - Test highlight class is applied on dragover and removed on dragleave.
     - Test click-to-browse triggers the file input.
 
-- [ ] 6.0 Tags Input and WYSIWYG Editor Components
-  - [ ] 6.1 Build `TagsInputComponent` (`<app-tags-input>`)
+- [x] 6.0 Tags Input and WYSIWYG Editor Components
+  - [x] 6.1 Build `TagsInputComponent` (`<app-tags-input>`)
     - Create `src/app/shared/components/forms/tags-input/tags-input.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to `string[]`.
     - Add inputs: `suggestions: string[] | Observable<string[]> | null` (default `null`), `allowDuplicates: boolean` (default `false`), `size: FormSize`, `disabled: boolean`.
@@ -218,13 +218,13 @@
     - Render each selected tag as a removable chip; clicking the remove button splices the tag from the value array.
     - Clear the text input after adding a tag.
     - Apply error state when invalid + touched.
-  - [ ] 6.2 Write unit tests for `TagsInputComponent`
+  - [x] 6.2 Write unit tests for `TagsInputComponent`
     - Test free-text tag addition on Enter and comma key.
     - Test duplicate prevention when `allowDuplicates=false`.
     - Test tag removal via chip dismiss.
     - Test `search` output emits on keyup with Observable suggestions.
     - Test static suggestion filtering.
-  - [ ] 6.3 Build `WysiwygComponent` (`<app-wysiwyg>`)
+  - [x] 6.3 Build `WysiwygComponent` (`<app-wysiwyg>`)
     - Create `src/app/shared/components/forms/wysiwyg/wysiwyg.component.ts` as standalone with `OnPush`.
     - Implement `ControlValueAccessor` binding to an HTML string.
     - Add inputs: `toolbar: QuillModules['toolbar']` (Quill toolbar config, default standard formatting toolbar), `placeholder: string`, `size: FormSize`, `disabled: boolean`.
@@ -233,17 +233,17 @@
     - When `writeValue` is called, set the Quill editor content without triggering `onChange`.
     - When `setDisabledState(true)`, call `quillEditor.disable()`.
     - Apply error state border around the editor container when invalid + touched.
-  - [ ] 6.4 Write unit tests for `WysiwygComponent`
+  - [x] 6.4 Write unit tests for `WysiwygComponent`
     - Test HTML string value binding via `writeValue`.
     - Test `onChange` fires when editor content changes.
     - Test disabled state disables the Quill editor.
 
-- [ ] 7.0 Demo Route (/dev/forms)
-  - [ ] 7.1 Create environment guard for dev-only routes
+- [x] 7.0 Demo Route (/dev/forms)
+  - [x] 7.1 Create environment guard for dev-only routes
     - Create a `canActivateDev` functional guard in `src/app/core/guards/dev.guard.ts`.
     - The guard returns `true` if `!environment.production`, otherwise redirects to `/404`.
     - This guard will be reused for any future dev-only routes.
-  - [ ] 7.2 Build `DevFormsComponent`
+  - [x] 7.2 Build `DevFormsComponent`
     - Create `src/app/features/dev/forms/dev-forms.component.ts` as a standalone component.
     - Build a reactive form (`FormGroup`) containing one `FormControl` per form component type.
     - Render every form component in sections, each showing:
@@ -266,7 +266,7 @@
       - `app-tags-input` (free-text and with suggestions)
       - `app-wysiwyg`
     - Display the current form value as JSON below the form for easy debugging.
-  - [ ] 7.3 Register the lazy-loaded /dev/forms route
+  - [x] 7.3 Register the lazy-loaded /dev/forms route
     - In `src/app/app.routes.ts` (or the relevant routing file), add a lazy route:
       ```ts
       {
@@ -276,9 +276,9 @@
       }
       ```
     - Verify the route is accessible in dev mode and blocked in production builds.
-  - [ ] 7.4 Write unit tests for `DevFormsComponent`
+  - [x] 7.4 Write unit tests for `DevFormsComponent`
     - Test that the component renders without errors.
     - Test that the form group initializes with all expected controls.
-  - [ ] 7.5 Update the barrel export
+  - [x] 7.5 Update the barrel export
     - Ensure `src/app/shared/components/forms/index.ts` exports all 15 form components.
     - Verify the parent shared barrel also re-exports them correctly.
