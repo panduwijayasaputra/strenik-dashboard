@@ -18,5 +18,5 @@ export * from './time-picker/time-picker.component';
 export * from './color-picker/color-picker.component';
 export * from './file-upload/file-upload.component';
 export * from './dropzone/dropzone.component';
-// export * from './tags-input/tags-input.component';
+export * from './tags-input/tags-input.component';
 // export * from './wysiwyg/wysiwyg.component';
