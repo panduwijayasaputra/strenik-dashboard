@@ -93,26 +93,28 @@
     - Run `pnpm build`. Confirm it completes with no errors.
     - Optionally add a temporary DaisyUI `btn` class to `app.component.html` and run `pnpm start` to visually confirm DaisyUI is active, then revert.
 
-- [ ] 2.0 Replace Theme System with DaisyUI `data-theme`
-  - [ ] 2.1 Rewrite `ThemeService`
+- [x] 2.0 Replace Theme System with DaisyUI `data-theme`
+  - [x] 2.1 Rewrite `ThemeService`
     - Open `src/app/shared/services/theme.service.ts`.
     - Change the theme-apply logic from toggling CSS classes on `<html>` to calling `document.documentElement.setAttribute('data-theme', themeName)`.
     - Change the localStorage key to `theme` (if different from current).
     - On service init, read `localStorage.getItem('theme')` and apply it; fall back to `'light'` if null.
     - Reduce the supported theme list to `['light', 'dark']`.
-  - [ ] 2.2 Update `ThemeSwitcherComponent`
+  - [x] 2.2 Update `ThemeSwitcherComponent`
     - Open `theme-switcher.component.ts` and its HTML template.
     - Remove any reference to the five named color themes (blue, emerald, violet, amber, slate).
     - Restyle the switcher UI using DaisyUI `btn` and/or `dropdown` classes instead of any Material components.
     - Ensure clicking a theme option calls `ThemeService` with `'light'` or `'dark'`.
-  - [ ] 2.3 Remove old CSS variable declarations from `styles.css`
+  - [x] 2.3 Remove old CSS variable declarations from `styles.css`
     - Open `src/styles.css`.
     - Remove all `--color-primary`, `--color-secondary`, and other custom CSS variable blocks introduced for the old theme system.
     - Remove Angular Material `@import` or `@use` statements.
-  - [ ] 2.4 Remove Angular Material styles from `angular.json`
+    - Note: CSS vars kept in themes.css for now; will be removed in Task 6 when layout shell is migrated.
+  - [x] 2.4 Remove Angular Material styles from `angular.json`
     - Open `angular.json`.
     - Remove any Angular Material prebuilt theme CSS paths from the `styles` array (e.g., `node_modules/@angular/material/prebuilt-themes/...`).
-  - [ ] 2.5 Update theme-switcher tests
+    - Note: No Material stylesheet entries were present — already clean.
+  - [x] 2.5 Update theme-switcher tests
     - Open `theme-switcher.component.spec.ts`.
     - Update assertions to verify `data-theme` is set (not CSS class toggled).
     - Verify only `light` and `dark` options are rendered.

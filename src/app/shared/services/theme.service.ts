@@ -1,52 +1,24 @@
 import { Injectable, signal, effect } from '@angular/core';
 
-export type ThemeMode = 'light' | 'dark' | 'system';
-export type ThemePalette = 'blue' | 'emerald' | 'violet' | 'amber' | 'slate';
+export type ThemeName = 'light' | 'dark';
 
-const MODE_KEY = 'theme-mode';
-const PALETTE_KEY = 'theme-palette';
+const THEME_KEY = 'theme';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  readonly mode = signal<ThemeMode>(
-    (localStorage.getItem(MODE_KEY) as ThemeMode) ?? 'system'
-  );
-
-  readonly palette = signal<ThemePalette>(
-    (localStorage.getItem(PALETTE_KEY) as ThemePalette) ?? 'blue'
+  readonly theme = signal<ThemeName>(
+    (localStorage.getItem(THEME_KEY) as ThemeName) ?? 'light'
   );
 
   constructor() {
     effect(() => {
-      const mode = this.mode();
-      localStorage.setItem(MODE_KEY, mode);
-      this.applyMode(mode);
-    });
-
-    effect(() => {
-      const palette = this.palette();
-      localStorage.setItem(PALETTE_KEY, palette);
-      document.documentElement.setAttribute('data-palette', palette);
+      const theme = this.theme();
+      localStorage.setItem(THEME_KEY, theme);
+      document.documentElement.setAttribute('data-theme', theme);
     });
   }
 
-  setMode(mode: ThemeMode): void {
-    this.mode.set(mode);
-  }
-
-  setPalette(palette: ThemePalette): void {
-    this.palette.set(palette);
-  }
-
-  private applyMode(mode: ThemeMode): void {
-    const html = document.documentElement;
-    if (mode === 'dark') {
-      html.classList.add('dark');
-    } else if (mode === 'light') {
-      html.classList.remove('dark');
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      html.classList.toggle('dark', prefersDark);
-    }
+  setTheme(theme: ThemeName): void {
+    this.theme.set(theme);
   }
 }
