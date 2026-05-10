@@ -30,7 +30,9 @@ import {
   UserPlus,
   Users,
   X,
+  XCircle,
 } from 'lucide-angular';
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { errorInterceptor } from './shared/interceptors/error.interceptor';
@@ -43,6 +45,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([errorInterceptor, authInterceptor])),
     provideAnimations(),
+    provideToastr({ positionClass: 'toast-top-right', timeOut: 3000 }),
     importProvidersFrom(
       LucideAngularModule.pick({
         Activity,
@@ -71,6 +74,7 @@ export const appConfig: ApplicationConfig = {
         UserPlus,
         Users,
         X,
+        XCircle,
       }),
     ),
   ],
