@@ -14,9 +14,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@shared/ui": ["src/app/shared/ui/index.ts"]
+      "@core/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@features/*": ["src/app/features/*"],
+      "@layout/*": ["src/app/layout/*"],
+      "@models/*": ["src/app/models/*"],
+      "@env/*": ["src/environments/*"]
     }
   },
   "angularCompilerOptions": {

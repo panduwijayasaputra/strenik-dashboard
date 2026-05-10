@@ -1,0 +1,60 @@
+<header class="flex h-16 flex-shrink-0 items-center gap-3 border-b border-base-300 bg-base-100 px-4">
+
+  <!-- Hamburger → Close (mobile only) -->
+  <button
+    type="button"
+    class="btn btn-ghost btn-square btn-sm lg:hidden"
+    [attr.aria-label]="layoutService.mobileDrawerOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+    (click)="layoutService.mobileDrawerOpen() ? layoutService.closeMobileDrawer() : layoutService.openMobileDrawer()"
+  >
+    <lucide-icon [name]="layoutService.mobileDrawerOpen() ? 'x' : 'menu'" [size]="20" />
+  </button>
+
+  <!-- Brand (mobile only) -->
+  <div class="flex lg:hidden items-center gap-2">
+    <div class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-primary">
+      <span class="text-xs font-bold text-primary-content">S</span>
+    </div>
+    <span class="text-sm font-semibold text-base-content">Strenik</span>
+  </div>
+
+  <!-- Sidebar collapse toggle (desktop only) -->
+  <button
+    type="button"
+    class="btn btn-ghost btn-square btn-sm hidden lg:flex"
+    aria-label="Toggle sidebar"
+    (click)="layoutService.toggleSidebar()"
+  >
+    <lucide-icon name="panel-left" [size]="20" />
+  </button>
+
+  <!-- Search bar (desktop only) -->
+  <div
+    class="relative hidden lg:flex items-center transition-all duration-200"
+    [class.w-64]="searchFocused()"
+    [class.w-48]="!searchFocused()"
+  >
+    <lucide-icon
+      name="search"
+      [size]="16"
+      class="absolute left-1 top-1/2 -translate-y-1/2 text-base-content/50 pointer-events-none"
+    />
+    <input
+      type="text"
+      placeholder="Search…"
+      class="input input-bordered input-sm w-full pl-8 transition-width duration-200"
+      aria-label="Search"
+      (focus)="searchFocused.set(true)"
+      (blur)="searchFocused.set(false)"
+    />
+  </div>
+
+  <!-- Spacer -->
+  <div class="flex-1"></div>
+
+  <!-- Right controls -->
+  <app-theme-switcher variant="navbar" />
+  <app-notifications-dropdown />
+  <app-profile-dropdown />
+
+</header>

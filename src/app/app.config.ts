@@ -3,14 +3,15 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
-  AlertTriangle,
+  Activity,
   Bell,
-  CheckCircle,
+  Building,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Info,
+  House,
   LayoutDashboard,
+  LayoutList,
   List,
   LogOut,
   LucideAngularModule,
@@ -20,6 +21,7 @@ import {
   Package,
   PanelLeft,
   PlusCircle,
+  RefreshCw,
   Search,
   Settings,
   ShieldCheck,
@@ -33,8 +35,8 @@ import {
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
-import { errorInterceptor } from './core/interceptors/error.interceptor';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { errorInterceptor } from './shared/interceptors/error.interceptor';
+import { authInterceptor } from './shared/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,14 +48,15 @@ export const appConfig: ApplicationConfig = {
     provideToastr({ positionClass: 'toast-top-right', timeOut: 3000 }),
     importProvidersFrom(
       LucideAngularModule.pick({
-        AlertTriangle,
+        Activity,
         Bell,
-        CheckCircle,
+        Building,
         ChevronDown,
         ChevronLeft,
         ChevronRight,
-        Info,
+        House,
         LayoutDashboard,
+        LayoutList,
         List,
         LogOut,
         Menu,
@@ -62,6 +65,7 @@ export const appConfig: ApplicationConfig = {
         Package,
         PanelLeft,
         PlusCircle,
+        RefreshCw,
         Search,
         Settings,
         ShieldCheck,

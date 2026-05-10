@@ -1,0 +1,60 @@
+<!-- ── Sidebar variant: inline controls ────────────────────────── -->
+@if (variant() === 'sidebar') {
+  <div class="flex items-center gap-1 px-1">
+    @for (t of themes; track t.value) {
+      <button
+        type="button"
+        class="flex flex-1 items-center justify-center rounded-lg p-1.5 transition-colors hover:bg-base-200"
+        [class.bg-base-200]="themeService.theme() === t.value"
+        [class.text-base-content]="themeService.theme() === t.value"
+        [class.text-base-content]="themeService.theme() !== t.value"
+        [class.opacity-60]="themeService.theme() !== t.value"
+        [attr.aria-label]="t.label + ' theme'"
+        [title]="t.label"
+        (click)="themeService.setTheme(t.value)"
+      >
+        <lucide-icon [name]="t.icon" [size]="14" />
+      </button>
+    }
+  </div>
+}
+
+<!-- ── Navbar variant: icon button + dropdown panel ────────────── -->
+@if (variant() === 'navbar') {
+  <div class="relative">
+    <!-- Trigger button: shows current theme icon -->
+    <button
+      type="button"
+      class="btn btn-ghost btn-square btn-sm"
+      aria-label="Toggle theme"
+      (click)="toggle()"
+    >
+      <lucide-icon [name]="activeIcon()" [size]="20" />
+    </button>
+
+    @if (isOpen()) {
+      <!-- Backdrop -->
+      <div class="fixed inset-0 z-10" (click)="close()"></div>
+
+      <!-- Dropdown panel -->
+      <div class="absolute right-0 z-20 mt-2 w-36 rounded-xl border border-base-300 bg-base-100 p-2 shadow-lg">
+        @for (t of themes; track t.value) {
+          <button
+            type="button"
+            class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-base-200"
+            [class.bg-base-200]="themeService.theme() === t.value"
+            [class.text-base-content]="themeService.theme() === t.value"
+            [class.font-medium]="themeService.theme() === t.value"
+            [class.text-base-content]="themeService.theme() !== t.value"
+            [class.opacity-60]="themeService.theme() !== t.value"
+            [attr.aria-label]="t.label + ' theme'"
+            (click)="themeService.setTheme(t.value); close()"
+          >
+            <lucide-icon [name]="t.icon" [size]="15" />
+            <span>{{ t.label }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+}
