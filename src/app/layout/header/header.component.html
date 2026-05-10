@@ -37,12 +37,12 @@
     <lucide-icon
       name="search"
       [size]="16"
-      class="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/50 pointer-events-none"
+      class="absolute left-1 top-1/2 -translate-y-1/2 text-base-content/50 pointer-events-none"
     />
     <input
       type="text"
       placeholder="Search…"
-      class="input input-bordered input-sm w-full pl-8"
+      class="input input-bordered input-sm w-full pl-8 transition-width duration-200"
       aria-label="Search"
       (focus)="searchFocused.set(true)"
       (blur)="searchFocused.set(false)"

@@ -8,6 +8,7 @@ export const USERS_ROUTES: Routes = [
   },
   {
     path: 'new',
+    data: { breadcrumb: 'Create User' },
     loadComponent: () =>
       import('./components/user-form/user-form.component').then(m => m.UserFormComponent),
   },

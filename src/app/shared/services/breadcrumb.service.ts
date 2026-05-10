@@ -28,7 +28,7 @@ export class BreadcrumbService {
     for (const child of children) {
       const segments = child.snapshot.url.map(s => s.path);
       const path = segments.length ? `${url}/${segments.join('/')}` : url;
-      const label = child.snapshot.data['breadcrumb'] as string | undefined;
+      const label = child.snapshot.routeConfig?.data?.['breadcrumb'] as string | undefined;
 
       if (label) {
         crumbs.push({ label, url: path });
